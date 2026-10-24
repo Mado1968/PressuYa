@@ -1,7 +1,7 @@
-# La Máquina de Obras
+# TTiA · Transformación Tecnológica con IA
 
-Sistema de presupuestos y seguimiento para **Reformas Soler** (empresa de
-reformas de 8 personas en Barcelona; el usuario es «Manolo · Reformas Soler»).
+Sistema de presupuestos y seguimiento para **TTiA** (empresa de
+reformas de 8 personas en Barcelona; el usuario es «Manolo · TTiA»).
 El jefe dicta la visita y sale un presupuesto con su marca en minutos; cada
 presupuesto enviado avisa cuando el cliente lo lee, se persigue solo, caduca con
 fecha, se firma en la propia página y se mide en un panel con euros reales.
@@ -44,7 +44,7 @@ fecha, se firma en la propia página y se mide en un panel con euros reales.
 ## Estructura
 
 ```
-src/app/page.tsx          la landing de Reformas Soler (pública)
+src/app/page.tsx          la landing de TTiA (pública)
 src/app/solicitar/        pedir presupuesto (público)
 src/app/entrar/           la contraseña del panel
 src/app/panel/            el panel de Manolo, con la barra lateral (privado)

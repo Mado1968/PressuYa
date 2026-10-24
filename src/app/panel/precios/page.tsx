@@ -1,4 +1,4 @@
-// Precios: el banco de precios de Reformas Soler. Buscador, edición en línea de
+// Precios: el banco de precios de TTiA. Buscador, edición en línea de
 // precio y margen, alta y baja de partidas, activar y desactivar e importar CSV.
 //
 // Es la prueba de que el sistema no inventa precios: en un presupuesto solo

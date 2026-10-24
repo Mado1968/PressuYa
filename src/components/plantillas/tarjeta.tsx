@@ -100,7 +100,7 @@ export function TarjetaDePlantilla({ plantilla: p }: { plantilla: PlantillaEnPan
       <div className="flex items-center justify-between gap-2 px-4 py-3">
         <Link
           href={`/panel/plantillas/${p.id}`}
-          className="inline-flex items-center gap-0.5 text-sm text-primary hover:underline"
+          className="inline-flex items-center gap-0.5 text-sm text-black hover:underline"
         >
           Ver las Líneas
           <ChevronRightIcon className="size-3.5" />

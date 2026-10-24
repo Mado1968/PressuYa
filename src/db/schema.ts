@@ -1,4 +1,4 @@
-// Esquema completo de La Máquina de Obras.
+// Esquema completo de TTiA.
 //
 // Dos convenciones que valen para todo el fichero:
 //   · el dinero se guarda en CÉNTIMOS enteros (nunca en coma flotante);
@@ -9,7 +9,7 @@ import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-or
 const ts = (nombre: string) => integer(nombre, { mode: "timestamp_ms" });
 const bool = (nombre: string) => integer(nombre, { mode: "boolean" });
 
-/** Los datos de Reformas Soler y la configuración del producto. Fila única (id = 1). */
+/** Los datos de TTiA y la configuración del producto. Fila única (id = 1). */
 export const negocio = sqliteTable("negocio", {
   id: integer("id").primaryKey(),
   nombre: text("nombre").notNull(),

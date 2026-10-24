@@ -8,7 +8,7 @@ import { accesoConfigurado, haySesion } from "@/lib/sesion";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Acceso al Panel · Reformas Soler",
+  title: "Acceso al Panel · TTiA",
   robots: { index: false, follow: false },
 };
 
@@ -22,15 +22,15 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
       <div className="w-full max-w-sm">
         <div className="mb-6 text-center">
           <Link href="/" className="text-xl font-semibold tracking-tight text-white">
-            Reformas Soler
+            TTiA
           </Link>
-          <p className="mt-1 text-sm text-white/60">La Máquina de Obras</p>
+          <p className="mt-1 text-sm text-white/60">TTiA</p>
         </div>
 
         <div className="rounded-xl border bg-card p-6 shadow-lg">
           <h1 className="text-lg font-semibold tracking-tight">Acceso al Panel</h1>
           <p className="mt-1 mb-5 text-sm text-muted-foreground">
-            El panel de Reformas Soler es privado. Escribe la contraseña del equipo para entrar.
+            El panel de TTiA es privado. Escribe la contraseña del equipo para entrar.
           </p>
           {accesoConfigurado() ? (
             <FormularioEntrar desde={destino} />
@@ -44,7 +44,7 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
 
         <p className="mt-6 text-center text-xs text-white/50">
           <Link href="/" className="hover:text-white/80">
-            Volver a la Web de Reformas Soler
+            Volver a la Web de TTiA
           </Link>
         </p>
       </div>

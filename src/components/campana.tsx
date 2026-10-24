@@ -35,7 +35,7 @@ export function Campana({ avisos, sinLeer }: { avisos: AvisoCampana[]; sinLeer: 
           >
             <BellIcon className="size-[18px]" />
             {sinLeer > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex min-w-4 items-center justify-center rounded-full bg-naranja px-1 text-[10px] leading-4 font-semibold text-marca">
+              <span className="absolute -top-0.5 -right-0.5 flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] leading-4 font-semibold text-primary-foreground">
                 {sinLeer}
               </span>
             )}

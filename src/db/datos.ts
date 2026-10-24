@@ -1,4 +1,4 @@
-// Los datos de ejemplo de La Máquina de Obras: literales, sin aleatoriedad.
+// Los datos de ejemplo de TTiA: literales, sin aleatoriedad.
 // Las fechas son relativas al día en que se ejecuta el seed, para que lo que se
 // ve en pantalla siempre parezca de esta semana.
 //
@@ -8,7 +8,7 @@
 import type { Dispositivo, Estado, Origen, Seccion, Unidad, Urgencia } from "@/lib/tipos";
 
 export const EMPRESA = {
-  nombre: "Reformas Soler",
+  nombre: "TTiA",
   cif: "B66412907",
   direccion: "Carrer de Provença 233, 08008 Barcelona",
   telefono: "93 555 41 20",
@@ -28,7 +28,7 @@ export const EMPRESA = {
     "Este presupuesto es válido hasta la fecha indicada. Pasada esa fecha, los precios pueden variar.",
   ].join("\n"),
   seguimiento1:
-    "Hola {cliente}, soy Manolo de Reformas Soler. Te escribo por el presupuesto de {obra} que te pasé hace unos días. ¿Has podido verlo con calma? Si tienes cualquier duda sobre las partidas o los plazos, dímelo y lo repasamos juntos sin compromiso.",
+    "Hola {cliente}, soy Manolo de TTiA. Te escribo por el presupuesto de {obra} que te pasé hace unos días. ¿Has podido verlo con calma? Si tienes cualquier duda sobre las partidas o los plazos, dímelo y lo repasamos juntos sin compromiso.",
   seguimiento2:
     "Hola {cliente}, vuelvo a escribirte por el presupuesto de {obra} ({total}). ¿Os encajó el precio o preferís que lo ajustemos por fases? Muchas veces separando la obra en dos entregas sale mucho más llevadero. Dime qué te parece y lo vemos.",
   seguimiento3:

@@ -114,7 +114,7 @@ const VisitaIa = z.object({
     .describe("Todos los trabajos mencionados, en el orden en que se cuentan."),
 });
 
-const INSTRUCCIONES_VISITA = `Eres el ayudante de Manolo, jefe de Reformas Soler (Barcelona). Manolo acaba de salir de una visita a un piso y te dicta o te pega sus notas.
+const INSTRUCCIONES_VISITA = `Eres el ayudante de Manolo, jefe de TTiA (Barcelona). Manolo acaba de salir de una visita a un piso y te dicta o te pega sus notas.
 
 Tu único trabajo es ENTENDER lo que ha dicho y ordenarlo. No valoras, no pones precios, no estimas importes y no añades trabajos que Manolo no haya mencionado.
 
@@ -191,7 +191,7 @@ const CasacionIa = z.object({
 
 const CasacionesIa = z.object({ casaciones: z.array(CasacionIa) });
 
-const INSTRUCCIONES_CASAR = `Eres el ayudante de Manolo, jefe de Reformas Soler. Tienes el BANCO DE PRECIOS de la empresa y una lista de conceptos sacados de una visita. Tu trabajo es decir qué partida del banco corresponde a cada concepto.
+const INSTRUCCIONES_CASAR = `Eres el ayudante de Manolo, jefe de TTiA. Tienes el BANCO DE PRECIOS de la empresa y una lista de conceptos sacados de una visita. Tu trabajo es decir qué partida del banco corresponde a cada concepto.
 
 Reglas que no se saltan:
 - El código que devuelvas tiene que estar COPIADO LETRA A LETRA del catálogo que se te da. NUNCA te inventes un código, ni lo compongas, ni lo aproximes. Si ninguna partida encaja de verdad, devuelve codigo null: es una respuesta perfectamente válida y es preferible a forzar una partida que no es.
@@ -289,7 +289,7 @@ const SeguimientoIa = z.object({
 
 const SeguimientosIa = z.object({ seguimientos: z.array(SeguimientoIa) });
 
-const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Manolo, jefe de Reformas Soler (Barcelona), una empresa de reformas de ocho personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
+const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Manolo, jefe de TTiA (Barcelona), una empresa de reformas de ocho personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
 
 Cómo escribe Manolo: cercano y profesional, de tú, castellano de oficio, sin marketing, sin emojis, sin exclamaciones de vendedor. Habla como quien lleva veinte años entrando en pisos.
 

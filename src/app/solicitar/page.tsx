@@ -10,7 +10,7 @@ import { ahora, cargarReloj } from "@/lib/reloj";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pedir Presupuesto · Reformas Soler",
+  title: "Pedir Presupuesto · TTiA",
   description: "Cuéntanos qué obra quieres hacer y te llamamos para ir a verla.",
 };
 

@@ -1,4 +1,4 @@
-// El seed de La Máquina de Obras: datos de ejemplo deterministas, con fechas
+// El seed de TTiA: datos de ejemplo deterministas, con fechas
 // relativas al día en que se ejecuta y las cifras de las diapositivas cuadradas
 // al céntimo. Si alguna cifra no cuadra, el seed aborta.
 import { randomBytes } from "node:crypto";

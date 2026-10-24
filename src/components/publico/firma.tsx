@@ -42,7 +42,7 @@ export function Firma({
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.lineWidth = 2.4;
-    ctx.strokeStyle = "#1B1F24";
+    ctx.strokeStyle = "#000000";
     contexto.current = ctx;
   }, []);
 

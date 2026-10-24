@@ -1,4 +1,4 @@
-# La Máquina de Obras — especificación del producto
+# TTiA — especificación del producto
 
 Lee este documento ENTERO antes de hacer nada. Todo lo que necesitas está aquí:
 no dependes de ningún fichero ni de ningún contexto previo (si hay un
@@ -53,7 +53,7 @@ improvises.
 
 ## El problema que resolvemos
 
-Reformas Soler es una empresa de reformas de 8 personas en Barcelona. El dueño
+TTiA es una empresa de reformas de 8 personas en Barcelona. El dueño
 se llama Manolo. Pierde dinero de dos formas:
 
 1. **Presupuestar es lento.** Cada visita a un piso se convierte en 6-8 horas
@@ -72,8 +72,8 @@ enviado avisa cuando el cliente lo lee, se persigue solo, caduca con fecha, se
 firma en la propia página y se mide en un panel con euros reales (sumas de
 presupuestos, nunca estimaciones).
 
-El nombre del producto en la interfaz es **La Máquina de Obras**. La empresa es
-**Reformas Soler**; el usuario es «Manolo · Reformas Soler».
+El nombre del producto y de la empresa en la interfaz es **TTiA**; el usuario
+es «Manolo · TTiA».
 
 ## Punto de partida
 
@@ -118,8 +118,8 @@ Mira la carpeta antes de planificar. Hay tres situaciones posibles:
   label, select, table, tabs, separator, switch, checkbox, tooltip,
   dropdown-menu, sonner, scroll-area, alert y skeleton. Si necesitas otro, lo
   escribes a mano en `src/components/`. Los avisos en pantalla van con
-  `sonner`. Paleta propia de Reformas Soler en los tokens de `globals.css`
-  (azul oscuro y naranja): que no parezca el shadcn de fábrica.
+  `sonner`. Paleta propia de TTiA en los tokens de `globals.css`
+  (rojo `#D73523`, blanco y negro): que no parezca el shadcn de fábrica.
 - **Tipografía** Geist local (`geist/font/sans`), sin fuentes remotas; iconos
   de `lucide-react`.
 - **Dictado**: Web Speech API del navegador (`webkitSpeechRecognition`,
@@ -159,7 +159,7 @@ Mira la carpeta antes de planificar. Hay tres situaciones posibles:
   identificador de visitante en una cookie para contar visitas.
 - **Rutas**: el producto tiene dos mundos y se nota en la URL.
   **Público** (sin login, indexable salvo el presupuesto): `/` la landing de
-  Reformas Soler, `/solicitar` el formulario para pedir presupuesto y
+  TTiA, `/solicitar` el formulario para pedir presupuesto y
   `/p/[token]` el presupuesto de un cliente. **Privado**: todo el panel cuelga
   de `/panel` (`/panel`, `/panel/solicitudes`, `/panel/presupuestos/[id]`…).
   Los enlaces que salen por Telegram y por email apuntan a `APP_URL` con esa
@@ -233,13 +233,13 @@ está en `.gitignore` desde el primer commit; `.env.example` va sin valores.
 ## La navegación
 
 El panel vive entero bajo `/panel`. Barra lateral con el logo (wordmark
-tipográfico «Reformas Soler», sin imagen; azul oscuro con acento naranja), el
+tipográfico «TTiA», sin imagen; rojo de marca), el
 botón primario **«+ Nueva Solicitud»** siempre visible, y 7 páginas en este
 orden: **Inicio · Solicitudes · Presupuestos · Clientes · Precios · Plantillas
 · Ajustes**. Solicitudes lleva un badge con las pendientes de convertir y
 Presupuestos otro con los que llevan más de 7 días sin respuesta. Arriba a la
 derecha, la campana de avisos con el contador de no leídos. Abajo, «Manolo ·
-Reformas Soler», y ahí mismo «Salir», que borra la cookie de sesión.
+TTiA», y ahí mismo «Salir», que borra la cookie de sesión.
 
 Fuera del panel, sin barra lateral y sin un solo enlace de vuelta: la landing
 en `/`, el formulario en `/solicitar` y la página del presupuesto en
@@ -306,7 +306,7 @@ Fuera del menú:
    banco; añadir línea desde el banco con buscador; caducidad del presupuesto;
    botón «Enviar al cliente», que pasa a Enviado, genera el enlace, programa los
    seguimientos y redacta sus textos.
-9. **Landing de Reformas Soler** (pública, `/`). La cara del negocio, no un
+9. **Landing de TTiA** (pública, `/`). La cara del negocio, no un
    folleto de software: la empresa, no la herramienta. Cabecera con el wordmark
    y un botón «Pedir Presupuesto»; un titular que promete lo que Manolo cumple
    («El presupuesto de tu reforma, en 24 horas»); tres o cuatro bloques con lo
@@ -336,7 +336,7 @@ Fuera del menú:
    (honeypot), límite por IP (una solicitud por minuto, cinco por hora, en una
    tabla) y validación en el servidor.
 11. **Página del cliente** (pública, `/p/[token]`, con un token no adivinable).
-   El presupuesto como página web con la marca de Reformas Soler: cabecera con
+   El presupuesto como página web con la marca de TTiA: cabecera con
    la empresa y el cliente; capítulos y líneas con mediciones y precios;
    opcionales que el cliente marca y recalculan el total en vivo; base, IVA y
    total; condiciones; «válido hasta el [fecha]» (pasada la fecha, la página lo
@@ -429,7 +429,7 @@ principales) y de los textos base de Ajustes.
 Todo lo demás (el cálculo, los estados, los tiempos, el tracking, las métricas)
 es determinista y no pasa por la IA.
 
-## El banco de precios de Reformas Soler
+## El banco de precios de TTiA
 
 En la fase 0 escribes este fichero tal cual en `data/base-precios.csv` y lo
 cargas en la tabla de partidas (el seed lo importa; Precios permite
@@ -522,7 +522,7 @@ en el script, con fechas RELATIVAS al día en que se ejecuta para que siempre
 parezcan de esta semana. Declarado en la interfaz como datos de ejemplo con una
 nota discreta en Ajustes, nada más. Contenido:
 
-- `negocio`: Reformas Soler · CIF B66412907 · Carrer de Provença 233, 08008
+- `negocio`: TTiA · CIF B66412907 · Carrer de Provença 233, 08008
   Barcelona · 93 555 41 20 · hola@reformassoler.es · IVA 21 · caducidad 15
   días · condiciones de un presupuesto real de reformas (forma de pago
   40/40/20, plazo orientativo, no incluye licencias ni tasas, validez) · tres
@@ -640,8 +640,8 @@ un badge ni un formato por su cuenta.
 - **Barra lateral.** Como la de Holded: 240 px, fondo azul marino `#1B2537`,
   texto claro, icono y etiqueta en cada ítem, ítem activo con fondo blanco al
   10 % y esquinas redondeadas, badge naranja en Presupuestos. Arriba, el
-  wordmark «Reformas Soler» y la campana; debajo, «+ Nueva Solicitud» a todo el
-  ancho en azul primario. Abajo, «Manolo · Reformas Soler» con avatar y
+  wordmark «TTiA» y la campana; debajo, «+ Nueva Solicitud» a todo el
+  ancho en rojo de marca. Abajo, «Manolo · TTiA» con avatar y
   chevrón.
 - **Componentes compartidos**, en `src/components/`, creados en la fase 0 y
   reutilizados por todos: `Sidebar`, `PageHeader`, `EstadoBadge`, `Importe`

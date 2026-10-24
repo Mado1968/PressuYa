@@ -1,7 +1,7 @@
 // Lo que el servidor le pasa a la página del cliente.
 //
 // Regla de este fichero: aquí NO viaja nada que el cliente no deba ver. Los
-// márgenes y el coste de Reformas Soler se quedan en el panel.
+// márgenes y el coste de TTiA se quedan en el panel.
 //
 // DUEÑO: carril B2.
 import type { Estado, Unidad } from "@/lib/tipos";

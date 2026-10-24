@@ -14,14 +14,14 @@ export default async function EnlaceNoValido() {
         <span className="mx-auto flex size-11 items-center justify-center rounded-full bg-secondary text-muted-foreground">
           <LinkIcon className="size-5" />
         </span>
-        <p className="mt-4 text-lg font-semibold tracking-tight text-marca">{negocio.nombre}</p>
+        <p className="mt-4 text-lg font-semibold tracking-tight text-black">{negocio.nombre}</p>
         <h1 className="mt-3 text-base font-semibold">Este Enlace Ya No Está Disponible</h1>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Puede que el presupuesto se haya retirado o que el enlace esté incompleto. Copia otra vez
           el enlace que te pasamos o llámanos y te lo mandamos de nuevo.
         </p>
         <p className="mt-4 text-sm font-medium">
-          <a href={`tel:${negocio.telefono.replace(/\s/g, "")}`} className="cifra text-primary">
+          <a href={`tel:${negocio.telefono.replace(/\s/g, "")}`} className="cifra text-black">
             {negocio.telefono}
           </a>
         </p>

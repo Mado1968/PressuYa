@@ -1,12 +1,12 @@
-# La Máquina de Obras
+# TTiA · Transformación Tecnológica con IA
 
-Sistema de presupuestos y seguimiento para **Reformas Soler**, una empresa de
-reformas de Barcelona. El jefe dicta la visita al salir del piso y sale un
+Sistema de presupuestos y seguimiento para **TTiA**, una empresa de reformas
+de Barcelona. El jefe dicta la visita al salir del piso y sale un
 presupuesto con su marca en minutos; cada presupuesto enviado avisa cuando el
 cliente lo lee, se persigue solo, caduca con fecha, se firma en la propia página
 y se mide en un panel con euros reales.
 
-Tiene dos caras: la **web pública** de Reformas Soler (`/`), desde la que
+Tiene dos caras: la **web pública** de TTiA (`/`), desde la que
 cualquiera pide presupuesto (`/solicitar`), y el **panel de Manolo** (`/panel`),
 protegido con una contraseña.
 
@@ -17,7 +17,7 @@ Con dos prompts a un agente de código. Cada paso tiene su tag:
 | Tag | Qué hay |
 |---|---|
 | `chasis` | El punto de partida: Next.js, shadcn, la base de datos y las reglas del agente (`CLAUDE.md`). Ni una pantalla del producto |
-| `v0` | Lo que sale de `PROMPT.md`: la web de Reformas Soler, `/solicitar`, `/entrar` y el panel con los datos de ejemplo |
+| `v0` | Lo que sale de `PROMPT.md`: la web de TTiA, `/solicitar`, `/entrar` y el panel con los datos de ejemplo |
 | `fase-1` … `fase-7` | Lo que sale de `ARRANQUE.md`, fase a fase |
 | `v1` | El producto entero, desplegado en producción |
 
@@ -112,7 +112,7 @@ en sus cabeceras. En local se ve «ubicación desconocida».
 ## Cómo está montado
 
 ```
-src/app/page.tsx     la web de Reformas Soler
+src/app/page.tsx     la web de TTiA
 src/app/solicitar/   pedir presupuesto
 src/app/entrar/      la contraseña del panel
 src/app/panel/       las páginas del panel, con la barra lateral

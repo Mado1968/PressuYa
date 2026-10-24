@@ -1,4 +1,4 @@
-// La web de Reformas Soler. La cara del negocio, no la de la herramienta: lo que
+// La web de TTiA. La cara del negocio, no la de la herramienta: lo que
 // hacen, cómo trabajan y cómo pedirles presupuesto.
 //
 // TODO lo que enseña sale de la base: los datos de la empresa de Ajustes y los
@@ -34,7 +34,7 @@ import { ahora, cargarReloj } from "@/lib/reloj";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Reformas Soler · Reformas en Barcelona",
+  title: "TTiA · Transformación Tecnológica con IA",
   description:
     "Reformas de baños, cocinas y pisos completos en Barcelona. Vamos a ver la obra y al día siguiente tienes el presupuesto desglosado partida por partida.",
 };
@@ -93,7 +93,7 @@ export default async function Web() {
         <section className="bg-marca text-white">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:py-24">
             <div>
-              <p className="text-sm font-medium text-white/60">Reformas en Barcelona</p>
+              <p className="text-sm font-medium text-white/60">Transformación Tecnológica con IA</p>
               <h1 className="mt-3 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
                 El Presupuesto de Tu Reforma, en 24 Horas
               </h1>
@@ -104,7 +104,7 @@ export default async function Web() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/solicitar"
-                  className="inline-flex h-11 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-marca transition-colors hover:bg-white/90"
+                  className="inline-flex h-11 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition-colors hover:bg-white/90"
                 >
                   Pedir Presupuesto
                   <ArrowRightIcon className="size-4" />
@@ -145,7 +145,7 @@ export default async function Web() {
             ].map((dato) => (
               <div key={dato.etiqueta} className="flex flex-col justify-between px-3 text-center first:pl-0 last:pr-0">
                 <dt className="text-xs text-muted-foreground sm:text-sm">{dato.etiqueta}</dt>
-                <dd className="cifra mt-1 text-2xl font-semibold text-marca sm:text-3xl">{dato.valor}</dd>
+                <dd className="cifra mt-1 text-2xl font-semibold text-black sm:text-3xl">{dato.valor}</dd>
               </div>
             ))}
           </dl>
@@ -166,7 +166,7 @@ export default async function Web() {
               return (
                 <li key={capitulo.nombre} className="rounded-xl border bg-card p-5">
                   <div className="flex items-center gap-3">
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-secondary text-marca">
+                    <span className="flex size-9 items-center justify-center rounded-lg bg-secondary text-black">
                       <Icono className="size-[18px]" />
                     </span>
                     <div>
@@ -201,7 +201,7 @@ export default async function Web() {
                     <span className="cifra flex size-9 items-center justify-center rounded-full bg-marca text-sm font-semibold text-white">
                       {i + 1}
                     </span>
-                    <paso.icono className="size-5 text-marca/70" />
+                    <paso.icono className="size-5 text-black/70" />
                   </div>
                   <h3 className="mt-4 font-semibold">{paso.titulo}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{paso.texto}</p>
@@ -222,7 +222,7 @@ export default async function Web() {
             </div>
             <Link
               href="/solicitar"
-              className="inline-flex h-11 shrink-0 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-marca transition-colors hover:bg-white/90"
+              className="inline-flex h-11 shrink-0 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition-colors hover:bg-white/90"
             >
               Pedir Presupuesto
               <ArrowRightIcon className="size-4" />

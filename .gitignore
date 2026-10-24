@@ -40,8 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# La Máquina de Obras
+# TTiA
 !.env.example
+.env.local
 /data/*.db
 /data/*.db-*
 /referencias/

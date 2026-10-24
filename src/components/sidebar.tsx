@@ -1,6 +1,5 @@
 "use client";
-// La barra lateral del panel: 240 px, azul marino de Reformas Soler, el botón
-// primario siempre visible y el badge naranja con los presupuestos parados.
+// La barra lateral de marca del panel: 240 px, con el acceso principal siempre visible.
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "cn";
@@ -48,10 +47,10 @@ export function Sidebar({
       <div className="flex items-center justify-between gap-2 px-4 pt-4 pb-3">
         <Link href="/panel" className="min-w-0">
           <span className="block text-[15px] leading-tight font-semibold tracking-tight text-white">
-            Reformas Soler
+            TTiA
           </span>
           <span className="block text-[11px] leading-tight text-sidebar-foreground/60">
-            La Máquina de Obras
+            TTiA
           </span>
         </Link>
         <Campana avisos={avisos} sinLeer={sinLeer} />
@@ -60,7 +59,7 @@ export function Sidebar({
       <div className="px-3 pb-3">
         <Link
           href="/panel/nueva-visita"
-          className="flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--primary),black_12%)]"
+          className="flex h-9 w-full items-center justify-center gap-1.5 rounded-lg bg-white text-sm font-medium text-black transition-colors hover:bg-white/90"
         >
           <PlusIcon className="size-4" />
           Nueva Solicitud
@@ -93,7 +92,7 @@ export function Sidebar({
                 <span
                   className={cn(
                     "cifra min-w-5 rounded-full px-1.5 py-0.5 text-center text-[11px] leading-4 font-semibold",
-                    href === "/panel/presupuestos" ? "bg-naranja text-marca" : "bg-white/15 text-white",
+                    href === "/panel/presupuestos" ? "bg-white text-black" : "bg-white/15 text-white",
                   )}
                   title={
                     href === "/panel/presupuestos"
@@ -116,7 +115,7 @@ export function Sidebar({
         <span className="min-w-0 flex-1">
           <span className="block truncate text-sm leading-tight font-medium text-white">Manolo</span>
           <span className="block truncate text-[11px] leading-tight text-sidebar-foreground/60">
-            Reformas Soler
+            TTiA
           </span>
         </span>
         <form action={cerrarSesion}>

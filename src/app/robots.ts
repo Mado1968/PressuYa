@@ -1,4 +1,4 @@
-// robots.txt: la web de Reformas Soler se puede indexar; el panel, los
+// robots.txt: la web de TTiA se puede indexar; el panel, los
 // presupuestos de cada cliente, la contraseña y la API, no.
 import type { MetadataRoute } from "next";
 import { urlDeLaApp } from "@/lib/telegram";

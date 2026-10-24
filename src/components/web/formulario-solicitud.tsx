@@ -149,7 +149,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
         <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
           <input name="consentimiento" type="checkbox" className="mt-0.5 size-4 shrink-0 accent-[var(--primary)]" />
           <span>
-            Acepto que Reformas Soler use estos datos solo para contactarme sobre mi obra.
+            Acepto que TTiA use estos datos solo para contactarme sobre mi obra.
           </span>
         </label>
         {errores.consentimiento && <Error texto={errores.consentimiento} />}

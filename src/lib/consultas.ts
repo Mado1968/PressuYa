@@ -36,6 +36,16 @@ export type Solicitud = typeof solicitud.$inferSelect;
 export async function elNegocio(): Promise<Negocio> {
   const fila = await db.select().from(negocio).limit(1).get();
   if (!fila) throw new Error("La base no está sembrada: ejecuta npm run reset");
+  if (fila.nombre === "Reformas Soler") {
+    await db
+      .update(negocio)
+      .set({ nombre: "TTiA" })
+      .where(and(eq(negocio.id, fila.id), eq(negocio.nombre, "Reformas Soler")))
+      .run();
+    const actualizada = await db.select().from(negocio).where(eq(negocio.id, fila.id)).get();
+    if (!actualizada) throw new Error("No se pudo actualizar el nombre de la empresa a TTiA");
+    return actualizada;
+  }
   return fila;
 }
 

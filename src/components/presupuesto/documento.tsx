@@ -36,7 +36,7 @@ export function Documento({
       {/* Cabecera: la empresa a la izquierda, el documento a la derecha */}
       <header className="flex flex-wrap items-start justify-between gap-6 border-b pb-6">
         <div className="min-w-0">
-          <p className="text-lg font-semibold tracking-tight text-marca">{negocio.nombre}</p>
+          <p className="text-lg font-semibold tracking-tight text-black">{negocio.nombre}</p>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
             {negocio.direccion}
             <br />

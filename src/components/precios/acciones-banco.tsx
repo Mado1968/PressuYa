@@ -236,7 +236,7 @@ function ImportarBanco() {
               disabled={recargando || pendiente}
               onClick={volverAlOriginal}
             >
-              {recargando ? "Cargando…" : "Recargar el Banco de Reformas Soler"}
+              {recargando ? "Cargando…" : "Recargar el Banco de TTiA"}
             </Button>
             <Button type="submit" disabled={pendiente || recargando}>
               {pendiente ? "Importando…" : "Importar el Fichero"}

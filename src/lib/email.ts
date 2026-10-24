@@ -10,7 +10,7 @@ export function hayEmail(): boolean {
 
 /** El remitente. Sin dominio propio verificado, el de pruebas de Resend. */
 function remitente(): string {
-  return process.env.RESEND_FROM || "Reformas Soler <onboarding@resend.dev>";
+  return process.env.RESEND_FROM || "TTiA <onboarding@resend.dev>";
 }
 
 /**

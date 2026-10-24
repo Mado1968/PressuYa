@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 
 /*
-  La Máquina de Obras · Reformas Soler
+  TTiA · Transformación Tecnológica con IA
   ------------------------------------
   Aquí vive TODO el color del producto. Nadie redefine un color, un badge ni un
   radio por su cuenta: si hace falta uno nuevo, se añade aquí.
@@ -83,57 +83,57 @@
 
 :root {
   /* Superficies y texto */
-  --background: oklch(0.9759 0.0029 264.54); /* #F6F7F9 */
-  --foreground: oklch(0.2373 0.0113 254.06); /* #1B1F24 */
+  --background: #ffffff;
+  --foreground: #000000;
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
   --popover: oklch(1 0 0);
   --popover-foreground: var(--foreground);
 
-  /* Azul de Reformas Soler: toda acción primaria */
-  --primary: oklch(0.5604 0.1975 262.24); /* #2E6BE6 */
-  --primary-foreground: oklch(1 0 0);
+  /* Rojo de marca para las acciones principales */
+  --primary: #d73523;
+  --primary-foreground: #ffffff;
 
-  --secondary: oklch(0.967 0.0029 264.54); /* #F3F4F6 */
+  --secondary: #ffffff;
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.967 0.0029 264.54);
-  --muted-foreground: oklch(0.551 0.0234 264.36); /* #6B7280 */
-  --accent: oklch(0.967 0.0029 264.54);
+  --muted: #ffffff;
+  --muted-foreground: #000000;
+  --accent: #ffffff;
   --accent-foreground: var(--foreground);
-  --destructive: oklch(0.5771 0.2152 27.33); /* #DC2626 */
+  --destructive: #d73523;
 
-  --border: oklch(0.9276 0.0058 264.53); /* #E5E7EB */
-  --input: oklch(0.8717 0.0093 258.34); /* #D1D5DB */
-  --ring: oklch(0.5604 0.1975 262.24);
+  --border: #e5e5e5;
+  --input: #d1d1d1;
+  --ring: #d73523;
 
   --radius: 0.5rem; /* 8 px; las tarjetas usan rounded-xl → 11,2 px */
 
   /* Marca */
-  --marca: oklch(0.264 0.0368 261.78); /* #1B2537, el azul marino de la barra */
-  --marca-suave: oklch(0.32 0.035 261.78);
-  --naranja: oklch(0.7349 0.1613 58.77); /* #F28C28 */
-  --naranja-suave: oklch(0.9682 0.0254 78.92);
-  --positivo: oklch(0.6271 0.1699 149.21); /* #16A34A */
+  --marca: #d73523;
+  --marca-suave: #d73523;
+  --naranja: #d73523;
+  --naranja-suave: #ffffff;
+  --positivo: #000000;
 
-  /* Estados */
-  --borrador: oklch(0.551 0.0234 264.36);
-  --borrador-fondo: oklch(0.967 0.0029 264.54);
-  --enviado: oklch(0.5461 0.2152 262.88);
-  --enviado-fondo: oklch(0.9567 0.019 263.01);
-  --visto: oklch(0.5413 0.2466 293.01);
-  --visto-fondo: oklch(0.9484 0.0276 301.76);
-  --conversacion: oklch(0.6658 0.1574 58.32);
-  --conversacion-fondo: oklch(0.9682 0.0254 78.92);
-  --ganado: oklch(0.6271 0.1699 149.21);
-  --ganado-fondo: oklch(0.9611 0.0215 163.06);
-  --perdido: oklch(0.5771 0.2152 27.33);
-  --perdido-fondo: oklch(0.9566 0.0185 17.48);
-  --expirado: oklch(0.3729 0.0306 259.73);
-  --expirado-fondo: oklch(0.9276 0.0058 264.53);
+  /* Estados: etiquetas monocromáticas sobre blanco */
+  --borrador: #000000;
+  --borrador-fondo: #ffffff;
+  --enviado: #000000;
+  --enviado-fondo: #ffffff;
+  --visto: #000000;
+  --visto-fondo: #ffffff;
+  --conversacion: #000000;
+  --conversacion-fondo: #ffffff;
+  --ganado: #000000;
+  --ganado-fondo: #ffffff;
+  --perdido: #000000;
+  --perdido-fondo: #ffffff;
+  --expirado: #000000;
+  --expirado-fondo: #ffffff;
 
   /* Línea fuera del banco */
-  --amarilla: oklch(0.7686 0.1647 70.08); /* #F59E0B */
-  --amarilla-fondo: oklch(0.9619 0.058 95.62); /* #FEF3C7 */
+  --amarilla: #000000;
+  --amarilla-fondo: #ffffff;
 
   /* Gráficos (se usan poco: el panel enseña cifras, no gráficas) */
   --chart-1: var(--primary);
@@ -144,13 +144,13 @@
 
   /* La barra lateral */
   --sidebar: var(--marca);
-  --sidebar-foreground: oklch(0.93 0.008 261.78);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
   --sidebar-accent: oklch(1 0 0 / 10%);
-  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--primary);
+  --sidebar-ring: #ffffff;
 }
 
 @layer base {

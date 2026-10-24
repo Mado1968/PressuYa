@@ -33,11 +33,11 @@ export async function generateMetadata({
   const { token } = await params;
   const presupuesto = await presupuestoPorToken(token);
   if (!presupuesto || presupuesto.estado === "borrador") {
-    return { title: "Presupuesto no disponible · Reformas Soler" };
+    return { title: "Presupuesto no disponible · TTiA" };
   }
   return {
-    title: `Presupuesto ${presupuesto.numero} · ${formatoTitulo(presupuesto.titulo)} · Reformas Soler`,
-    description: `Presupuesto de Reformas Soler para ${presupuesto.direccionObra}.`,
+    title: `Presupuesto ${presupuesto.numero} · ${formatoTitulo(presupuesto.titulo)} · TTiA`,
+    description: `Presupuesto de TTiA para ${presupuesto.direccionObra}.`,
     robots: { index: false, follow: false },
   };
 }

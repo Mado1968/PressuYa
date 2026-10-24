@@ -40,7 +40,7 @@ export default async function Ajustes() {
           <span>
             Esta base está cargada con datos de ejemplo: los clientes, los presupuestos y las
             lecturas son inventados para poder enseñar el producto. El banco de precios sí es el de
-            Reformas Soler. Manolo empezó a usar la máquina el {formatoFecha(negocio.fechaAlta)}; lo
+            TTiA. Manolo empezó a usar la máquina el {formatoFecha(negocio.fechaAlta)}; lo
             anterior a esa fecha es historial importado.
           </span>
         </p>

@@ -28,7 +28,7 @@ export default async function NuevaPlantilla({ searchParams }: PageProps<"/panel
           titulo="Elige Primero el Presupuesto"
           texto="Abre el presupuesto que quieras convertir en plantilla y dale a «Guardar como plantilla»: se copian sus líneas, sus unidades y sus mediciones."
           accion={
-            <Link href="/panel/presupuestos" className="text-sm text-primary hover:underline">
+            <Link href="/panel/presupuestos" className="text-sm text-black hover:underline">
               Ir a Presupuestos
             </Link>
           }

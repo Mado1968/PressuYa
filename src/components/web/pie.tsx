@@ -7,7 +7,7 @@ export function PieWeb({ negocio, anyo }: { negocio: Negocio; anyo: number }) {
     <footer className="border-t bg-card">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 text-sm sm:grid-cols-[1fr_auto] sm:px-6">
         <div>
-          <p className="font-semibold text-marca">{negocio.nombre}</p>
+          <p className="font-semibold text-black">{negocio.nombre}</p>
           <p className="mt-2 leading-relaxed text-muted-foreground">
             {negocio.direccion}
             <br />

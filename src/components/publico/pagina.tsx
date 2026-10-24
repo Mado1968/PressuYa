@@ -46,7 +46,7 @@ export function PaginaPublica({ datos }: { datos: DatosPublicos }) {
     [datos.lineas, elegidas],
   );
 
-  // margenPct a 0 a propósito: el margen de Reformas Soler no sale del panel.
+  // margenPct a 0 a propósito: el margen de TTiA no sale del panel.
   // Base, IVA y total no dependen de él, y el `coste` que devuelve no se usa.
   const importes = useMemo(() => {
     const paraCalcular: LineaCalculo[] = lineas.map((l) => ({
@@ -123,8 +123,8 @@ export function PaginaPublica({ datos }: { datos: DatosPublicos }) {
           <header data-seccion="cabecera" className="px-5 py-6 sm:px-8 sm:py-7">
             <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4">
               <div className="min-w-0">
-                <p className="text-xl leading-tight font-semibold tracking-tight text-marca">
-                  Reformas Soler
+                <p className="text-xl leading-tight font-semibold tracking-tight text-black">
+                  TTiA
                 </p>
                 <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
                   {datos.empresa.direccion}
@@ -274,7 +274,7 @@ export function PaginaPublica({ datos }: { datos: DatosPublicos }) {
                 Para retomar esta obra, llama a Manolo al{" "}
                 <a
                   href={`tel:${datos.empresa.telefono.replace(/\s/g, "")}`}
-                  className="font-medium text-primary"
+                  className="font-medium text-black"
                 >
                   {datos.empresa.telefono}
                 </a>{" "}

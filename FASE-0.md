@@ -92,8 +92,8 @@ coprimos; el seed resuelve sus mediciones (por ejemplo, 34,13 m² de picado y
 
 ### El estilo
 
-- `src/app/globals.css` con la paleta de Reformas Soler en `oklch`: fondo
-  `#F6F7F9`, primario `#2E6BE6`, naranja `#F28C28`, marino `#1B2537`, los siete
+- `src/app/globals.css` con la paleta de TTiA: fondo blanco, primario
+  `#D73523`, texto negro y los siete
   pares de color de estado, el verde de positivos y el amarillo de las líneas
   fuera del banco. Radio 8 px, cuerpo a 14 px, cifras tabulares (`.cifra`).
 - Componentes compartidos en `src/components/`: `Sidebar`, `PageHeader`,

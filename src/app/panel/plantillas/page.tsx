@@ -1,4 +1,4 @@
-// Plantillas: los presupuestos tipo de Reformas Soler. Las obras de siempre,
+// Plantillas: los presupuestos tipo de TTiA. Las obras de siempre,
 // con sus líneas ya puestas, para arrancar en dos clics y ajustar mediciones.
 import { LayoutTemplateIcon } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";

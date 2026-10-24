@@ -1,4 +1,4 @@
-// Prueba de humo de La Máquina de Obras: la API de OpenAI, Telegram, APP_URL y
+// Prueba de humo de TTiA: la API de OpenAI, Telegram, APP_URL y
 // la base de producción en Turso.
 // Se ejecuta con `npm run humo`. No imprime ninguna clave.
 import OpenAI from "openai";
@@ -68,7 +68,7 @@ async function telegram() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       chat_id: chat,
-      text: "🔧 Prueba de humo de La Máquina de Obras: el móvil del jefe recibe los avisos.",
+      text: "🔧 Prueba de humo de TTiA: el móvil del jefe recibe los avisos.",
     }),
   });
   if (res.ok) ok("Telegram: mensaje enviado al móvil del jefe");

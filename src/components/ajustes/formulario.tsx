@@ -69,7 +69,7 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
                 className="h-9 w-14 p-1"
               />
               <span className="text-xs text-muted-foreground">
-                El azul marino de Reformas Soler, el que se ve en la barra y en el documento.
+                El color de marca que se muestra en la barra y en el documento.
               </span>
             </div>
           </div>
