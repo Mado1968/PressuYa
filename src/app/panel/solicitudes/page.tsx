@@ -1,5 +1,5 @@
 // Solicitudes: la bandeja de entrada. Se llena por dos sitios: la visita que
-// Manolo dicta o pega (con lo que la máquina ha entendido) y el formulario de
+// Francesc dicta o pega (con lo que la máquina ha entendido) y el formulario de
 // la web, que llega sin visita y sin mediciones.
 import Link from "next/link";
 import { FilePlusIcon, InboxIcon } from "lucide-react";
@@ -44,7 +44,7 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
       textoOriginal: s.textoOriginal,
       conceptos: leerConceptos(s.conceptos),
       estado: s.estado,
-      origen: s.origen === "cliente" ? "cliente" : "manolo",
+      origen: s.origen === "cliente" ? "cliente" : "francesc",
       presupuestoId: s.presupuestoId,
       cuando: formatoRelativo(s.creadoEn, hoy),
     }));

@@ -16,7 +16,7 @@ export const EMPRESA = {
   colorMarca: "#1B2537",
   ivaPct: 21,
   caducidadDias: 15,
-  /** Días que hace que Manolo usa el sistema. Parte en dos las métricas. */
+  /** Días que hace que Francesc usa el sistema. Parte en dos las métricas. */
   diasDesdeAlta: 45,
   condiciones: [
     "Forma de pago: 40 % a la firma del presupuesto, 40 % a mitad de obra y 20 % a la entrega.",
@@ -28,7 +28,7 @@ export const EMPRESA = {
     "Este presupuesto es válido hasta la fecha indicada. Pasada esa fecha, los precios pueden variar.",
   ].join("\n"),
   seguimiento1:
-    "Hola {cliente}, soy Manolo de TTiA. Te escribo por el presupuesto de {obra} que te pasé hace unos días. ¿Has podido verlo con calma? Si tienes cualquier duda sobre las partidas o los plazos, dímelo y lo repasamos juntos sin compromiso.",
+    "Hola {cliente}, soy Francesc de TTiA. Te escribo por el presupuesto de {obra} que te pasé hace unos días. ¿Has podido verlo con calma? Si tienes cualquier duda sobre las partidas o los plazos, dímelo y lo repasamos juntos sin compromiso.",
   seguimiento2:
     "Hola {cliente}, vuelvo a escribirte por el presupuesto de {obra} ({total}). ¿Os encajó el precio o preferís que lo ajustemos por fases? Muchas veces separando la obra en dos entregas sale mucho más llevadero. Dime qué te parece y lo vemos.",
   seguimiento3:
@@ -387,7 +387,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     respuesta: {
       dias: 3,
       texto:
-        "Buenos días Manolo. Nos gusta el presupuesto pero se nos va un poco de lo que teníamos pensado. ¿Habría forma de dejar la cocina para el año que viene y hacer ahora solo el baño y los suelos? Llámame cuando puedas.",
+        "Buenos días Francesc. Nos gusta el presupuesto pero se nos va un poco de lo que teníamos pensado. ¿Habría forma de dejar la cocina para el año que viene y hacer ahora solo el baño y los suelos? Llámame cuando puedas.",
     },
     aperturas: [
       { dias: 4, hora: 20, minuto: 51, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.9.144", secciones: SECCIONES_LARGAS },
@@ -1159,7 +1159,7 @@ export type SolicitudSeed = {
   conceptos: { descripcion: string; medicion: number | null; unidad: Unidad | null; notas: string | null }[];
   /** Horas antes de ahora en que entró la solicitud. */
   horas: number;
-  /** «manolo» (dictada tras la visita) o «cliente» (llegó por la web). Por defecto, «manolo». */
+  /** «francesc» (dictada tras la visita) o «cliente» (llegó por la web). Por defecto, «francesc». */
   origen?: Origen;
 };
 

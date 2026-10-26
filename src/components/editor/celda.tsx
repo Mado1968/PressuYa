@@ -16,7 +16,7 @@ export function CeldaEditable({
 }: {
   /** El valor ya formateado para escribirse en el campo. */
   valor: string;
-  /** Devuelve el texto tal cual lo ha escrito Manolo. */
+  /** Devuelve el texto tal cual lo ha escrito Francesc. */
   onGuardar: (texto: string) => void;
   sufijo?: string;
   alineacion?: "izquierda" | "derecha";

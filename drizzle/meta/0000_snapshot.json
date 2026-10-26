@@ -1170,7 +1170,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'manolo'"
+          "default": "'francesc'"
         },
         "estado": {
           "name": "estado",

@@ -1,5 +1,5 @@
 // El timeline de Actividad habla en frases humanas, no en códigos. Aquí se
-// convierte cada evento en la frase que lee Manolo.
+// convierte cada evento en la frase que lee Francesc.
 //
 // DUEÑO: carril C (la fase 5 añade las frases del tracking fino).
 import type { Estado, Seccion, TipoEvento } from "./tipos";

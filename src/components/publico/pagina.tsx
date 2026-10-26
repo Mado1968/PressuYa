@@ -271,7 +271,7 @@ export function PaginaPublica({ datos }: { datos: DatosPublicos }) {
               <Sello sello={datos.firma} total={importes.total} />
             ) : datos.caducado ? (
               <p className="text-sm text-muted-foreground">
-                Para retomar esta obra, llama a Manolo al{" "}
+                Para retomar esta obra, llama a Francesc al{" "}
                 <a
                   href={`tel:${datos.empresa.telefono.replace(/\s/g, "")}`}
                   className="font-medium text-black"
@@ -292,7 +292,7 @@ export function PaginaPublica({ datos }: { datos: DatosPublicos }) {
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Acepta el presupuesto firmando aquí mismo. Si te queda alguna duda, escríbenos y
-                  Manolo te llama.
+                  Francesc te llama.
                 </p>
                 <div className="no-imprimir mt-4 hidden flex-wrap gap-2 sm:flex">
                   <BotonPrimario onClick={() => setAbreFirma(true)}>
@@ -508,7 +508,7 @@ function AvisoFirmado({ sello }: { sello: NonNullable<DatosPublicos["firma"]> })
       <div className="text-sm">
         <p className="font-medium text-ganado">Presupuesto Aceptado</p>
         <p className="mt-0.5 text-muted-foreground">
-          Lo firmaste el {sello.fecha} a las {sello.hora}. Manolo se pondrá en contacto contigo para
+          Lo firmaste el {sello.fecha} a las {sello.hora}. Francesc se pondrá en contacto contigo para
           cerrar las fechas de la obra.
         </p>
       </div>
@@ -523,7 +523,7 @@ function AvisoRespondido() {
       <div className="text-sm">
         <p className="font-medium text-conversacion">Hemos Recibido Tu Mensaje</p>
         <p className="mt-0.5 text-muted-foreground">
-          Manolo te llama en cuanto pueda. Mientras tanto, el presupuesto sigue aquí por si quieres
+          Francesc te llama en cuanto pueda. Mientras tanto, el presupuesto sigue aquí por si quieres
           repasarlo.
         </p>
       </div>

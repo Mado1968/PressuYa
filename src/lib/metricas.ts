@@ -53,7 +53,7 @@ export async function ganadoUltimos30(): Promise<{ total: number; cuantos: numbe
 
 export type Tasa = { ganados: number; cerrados: number; pct: number };
 
-/** Tasa de firma: ganados entre cerrados, antes y después de que Manolo usara el sistema. */
+/** Tasa de firma: ganados entre cerrados, antes y después de que Francesc usara el sistema. */
 export async function tasaDeFirma(): Promise<{ antes: Tasa; despues: Tasa }> {
   const alta = (await elNegocio()).fechaAlta;
   const cuenta = async (antesDelAlta: boolean): Promise<Tasa> => {

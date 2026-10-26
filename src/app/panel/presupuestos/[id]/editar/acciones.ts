@@ -4,7 +4,7 @@
 //
 // Dos reglas que este fichero hace cumplir:
 //   · el precio y el margen de una línea salen del banco o de la mano de
-//     Manolo, nunca de ningún otro sitio;
+//     Francesc, nunca de ningún otro sitio;
 //   · base, IVA, total, coste y margen los escribe SOLO recalcular().
 //
 // Como toda acción del panel, cada una empieza comprobando la sesión (fuera
@@ -32,7 +32,7 @@ import type {
 
 async function aEditable(fila: typeof linea.$inferSelect): Promise<LineaEditable> {
   // El objetivo de margen es el del banco; si la línea no viene del banco, el
-  // que le haya puesto Manolo.
+  // que le haya puesto Francesc.
   const objetivo =
     fila.partidaId === null
       ? fila.margenPct
@@ -237,7 +237,7 @@ export async function anadirDelBanco(
 
 /**
  * Añade una línea escrita a mano. Nace AMARILLA y sin precio: el sistema no
- * inventa precios, así que no vale hasta que Manolo le ponga uno.
+ * inventa precios, así que no vale hasta que Francesc le ponga uno.
  */
 export async function anadirLineaAMano(
   presupuestoId: number,
@@ -270,7 +270,7 @@ export async function anadirLineaAMano(
 
 /* ------------------------------------------------------ las tres salidas */
 
-/** (a) Manolo le pone el precio a mano: la línea deja de ser amarilla. */
+/** (a) Francesc le pone el precio a mano: la línea deja de ser amarilla. */
 export async function ponerPrecioAMano(
   presupuestoId: number,
   lineaId: number,

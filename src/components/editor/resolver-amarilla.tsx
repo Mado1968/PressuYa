@@ -1,7 +1,7 @@
 "use client";
 // Qué hacer con una línea que no está en el banco. El sistema no inventa
 // precios, así que solo hay tres salidas honradas:
-//   a · Manolo le pone el precio a mano, solo para este presupuesto;
+//   a · Francesc le pone el precio a mano, solo para este presupuesto;
 //   b · la descarta;
 //   c · la da de alta en el banco, y a partir de ahí el precio existe para todos.
 import { useMemo, useState } from "react";

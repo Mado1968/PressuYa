@@ -2,7 +2,7 @@
 // hacen, cómo trabajan y cómo pedirles presupuesto.
 //
 // TODO lo que enseña sale de la base: los datos de la empresa de Ajustes y los
-// capítulos del banco de precios. Si Manolo cambia algo, la web cambia con él.
+// capítulos del banco de precios. Si Francesc cambia algo, la web cambia con él.
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -36,7 +36,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "TTiA · Transformación Tecnológica con IA",
   description:
-    "Reformas de baños, cocinas y pisos completos en Barcelona. Vamos a ver la obra y al día siguiente tienes el presupuesto desglosado partida por partida.",
+    "Solucions de IA aplicada al negoci, Pime o Autònom. Generem el teu pressupuest en minuts.",
 };
 
 /** El icono de cada capítulo del banco. Lo que no esté aquí, lleva el genérico. */
@@ -56,27 +56,27 @@ const ICONOS: Record<string, LucideIcon> = {
 const PASOS = [
   {
     icono: RulerIcon,
-    titulo: "Vamos a Ver la Obra",
-    texto: "Pasamos por tu casa, vemos lo que quieres hacer y tomamos las medidas. Sin compromiso.",
+    titulo: "Sol·licita cita",
+    texto: "Et venim a veure, ens expliques què vols fer . Sense compromís.",
   },
   {
     icono: FileCheckIcon,
-    titulo: "Presupuesto en 24 Horas",
+    titulo: "Pressupost en 24 Hores",
     texto:
-      "Te llega un enlace con el presupuesto desglosado: cada partida con su medición y su precio, y los opcionales para que elijas tú.",
+      "T'arribarà un enllaç amb el pressupuest desglossat: cada partida i el seu preu, i els opcionals per a que tu triïs.",
   },
   {
     icono: HardHatIcon,
-    titulo: "Empezamos la Obra",
-    texto: "Lo aceptas firmando desde el móvil y fijamos juntos la fecha de inicio.",
+    titulo: "Fem la feina",
+    texto: "Acceptes firmant el pressupost des de el móbil i ens posem en marxa.",
   },
 ];
 
 const PROMESAS = [
-  "Desglosado por capítulos y partidas",
-  "Con la medición y el precio de cada partida",
-  "Con fecha de validez, para que no haya sorpresas",
-  "Lo firmas desde el móvil, sin papeles",
+  "Desglossat per capítols i partides",
+  "Amb el preu de cada partida",
+  "Amb data de validació, per a que no hi hagi sorpreses",
+  "Firma desde el móbil, sense papers",
 ];
 
 export default async function Web() {
@@ -95,18 +95,18 @@ export default async function Web() {
             <div>
               <p className="text-sm font-medium text-white/60">Transformación Tecnológica con IA</p>
               <h1 className="mt-3 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-                El Presupuesto de Tu Reforma, en 24 Horas
+                Demana pressupost
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-                Vamos a ver la obra, la medimos y al día siguiente tienes el presupuesto desglosado
-                partida por partida, con el precio de cada una. Sin esperar semanas.
+                Indica què necessites o què vols sol·lucionar.Et fem el pressupost desglossat
+                partida per partida. Sense esperar setmanes.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/solicitar"
                   className="inline-flex h-11 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition-colors hover:bg-white/90"
                 >
-                  Pedir Presupuesto
+                  Demana Pressupost
                   <ArrowRightIcon className="size-4" />
                 </Link>
                 <a
@@ -115,14 +115,14 @@ export default async function Web() {
                 >
                   <PhoneIcon className="size-4" />
                   <span>
-                    Llamar al <span className="cifra">{telefono}</span>
+                    Truca <span className="cifra">{telefono}</span>
                   </span>
                 </a>
               </div>
             </div>
 
             <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-              <p className="text-sm font-semibold">Así Te Llega el Presupuesto</p>
+              <p className="text-sm font-semibold">Així t'arribarà el pressupost</p>
               <ul className="mt-4 space-y-3">
                 {PROMESAS.map((promesa) => (
                   <li key={promesa} className="flex items-start gap-2.5 text-sm text-white/80">
@@ -154,10 +154,9 @@ export default async function Web() {
         {/* ------------------------------------------------------- lo que hacen */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Lo Que Hacemos</h2>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Què fem</h2>
             <p className="mt-2 text-muted-foreground">
-              Baños, cocinas y pisos completos, de la demolición a la limpieza final. Cada capítulo
-              tiene sus partidas con precio: nada se presupuesta a ojo.
+              Aplicacions a mida ( resolem el teu problema ), Xats d'assitència,  Automatitzem tasques repetitives,  Assessorem en implementació.
             </p>
           </div>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -193,7 +192,7 @@ export default async function Web() {
         {/* ---------------------------------------------------- cómo trabajamos */}
         <section className="border-y bg-card">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Cómo Trabajamos</h2>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Com Treballem</h2>
             <ol className="mt-8 grid gap-6 sm:grid-cols-3">
               {PASOS.map((paso, i) => (
                 <li key={paso.titulo}>
@@ -215,16 +214,16 @@ export default async function Web() {
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-marca px-6 py-10 text-white sm:flex-row sm:items-center sm:px-10">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">¿Hablamos de Tu Obra?</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Ens expliques la teva necessitat?</h2>
               <p className="mt-2 max-w-lg text-white/75">
-                Cuéntanos qué quieres hacer y Manolo te llama para concertar la visita.
+                Explica que vols resoldre i en Francesc et trucarà per a concertar entrevista.
               </p>
             </div>
             <Link
               href="/solicitar"
               className="inline-flex h-11 shrink-0 items-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-black transition-colors hover:bg-white/90"
             >
-              Pedir Presupuesto
+              Demana Pressupost
               <ArrowRightIcon className="size-4" />
             </Link>
           </div>

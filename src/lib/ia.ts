@@ -114,9 +114,9 @@ const VisitaIa = z.object({
     .describe("Todos los trabajos mencionados, en el orden en que se cuentan."),
 });
 
-const INSTRUCCIONES_VISITA = `Eres el ayudante de Manolo, jefe de TTiA (Barcelona). Manolo acaba de salir de una visita a un piso y te dicta o te pega sus notas.
+const INSTRUCCIONES_VISITA = `Eres el ayudante de Francesc, jefe de TTiA (Barcelona). Francesc acaba de salir de una visita a un piso y te dicta o te pega sus notas.
 
-Tu único trabajo es ENTENDER lo que ha dicho y ordenarlo. No valoras, no pones precios, no estimas importes y no añades trabajos que Manolo no haya mencionado.
+Tu único trabajo es ENTENDER lo que ha dicho y ordenarlo. No valoras, no pones precios, no estimas importes y no añades trabajos que Francesc no haya mencionado.
 
 Reglas:
 - Saca un concepto por cada trabajo mencionado, en el orden en que se cuentan.
@@ -124,7 +124,7 @@ Reglas:
 - Unidades posibles: ${UNIDADES_EXPLICADAS}.
 - Si se dice una cantidad sin unidad clara pero se deduce del trabajo (alicatar → m2, mueble de cocina → ml, puertas → ud), pon la unidad deducida.
 - El dictado viene de voz: puede traer muletillas, frases cortadas y números escritos con letra. Interpreta con sentido común de obra, pero no te inventes nada que no esté.
-- Si Manolo no dice el nombre del cliente, el teléfono o el email, son null. No los deduzcas de la dirección.
+- Si Francesc no dice el nombre del cliente, el teléfono o el email, son null. No los deduzcas de la dirección.
 - Todo en castellano.`;
 
 /** Fase 1 · Del texto dictado o pegado saca cliente, dirección, urgencia y conceptos. */
@@ -191,14 +191,14 @@ const CasacionIa = z.object({
 
 const CasacionesIa = z.object({ casaciones: z.array(CasacionIa) });
 
-const INSTRUCCIONES_CASAR = `Eres el ayudante de Manolo, jefe de TTiA. Tienes el BANCO DE PRECIOS de la empresa y una lista de conceptos sacados de una visita. Tu trabajo es decir qué partida del banco corresponde a cada concepto.
+const INSTRUCCIONES_CASAR = `Eres el ayudante de Francesc, jefe de TTiA. Tienes el BANCO DE PRECIOS de la empresa y una lista de conceptos sacados de una visita. Tu trabajo es decir qué partida del banco corresponde a cada concepto.
 
 Reglas que no se saltan:
 - El código que devuelvas tiene que estar COPIADO LETRA A LETRA del catálogo que se te da. NUNCA te inventes un código, ni lo compongas, ni lo aproximes. Si ninguna partida encaja de verdad, devuelve codigo null: es una respuesta perfectamente válida y es preferible a forzar una partida que no es.
 - Si una descripción encaja con varias partidas, elige la MÁS ESPECÍFICA.
 - Si dudas entre dos gamas (media y alta), elige la GAMA MEDIA.
 - La medición va SIEMPRE en la unidad de la partida elegida. Si el concepto viene en otra unidad, conviértela con criterio de obra. Si el concepto no trae medición, propón la que tenga sentido para lo descrito (y si no hay forma de saberlo, 1).
-- La confianza es honesta: 0,9 o más cuando la partida es literalmente lo descrito; alrededor de 0,7 cuando es lo mismo dicho de otra forma; por debajo de 0,6 cuando dudas de verdad. Por debajo de 0,6 la línea saldrá marcada en amarillo para que Manolo la revise, y eso está bien.
+- La confianza es honesta: 0,9 o más cuando la partida es literalmente lo descrito; alrededor de 0,7 cuando es lo mismo dicho de otra forma; por debajo de 0,6 cuando dudas de verdad. Por debajo de 0,6 la línea saldrá marcada en amarillo para que Francesc la revise, y eso está bien.
 - Devuelve exactamente una casación por concepto, con su índice.
 - El motivo, una frase, en castellano de oficio.
 
@@ -284,14 +284,14 @@ export async function casarConceptos(conceptos: ConceptoCrudo[]): Promise<Casaci
 const SeguimientoIa = z.object({
   tipo: z.enum(["seguimiento_1", "seguimiento_2", "cierre"]),
   asunto: z.string().describe("Asunto corto, como el de un email o un WhatsApp."),
-  texto: z.string().describe("El mensaje entero, de 60 a 90 palabras, firmado por Manolo."),
+  texto: z.string().describe("El mensaje entero, de 60 a 90 palabras, firmado por Francesc."),
 });
 
 const SeguimientosIa = z.object({ seguimientos: z.array(SeguimientoIa) });
 
-const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Manolo, jefe de TTiA (Barcelona), una empresa de reformas de ocho personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
+const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Francesc, jefe de TTiA (Barcelona), una empresa de reformas de ocho personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
 
-Cómo escribe Manolo: cercano y profesional, de tú, castellano de oficio, sin marketing, sin emojis, sin exclamaciones de vendedor. Habla como quien lleva veinte años entrando en pisos.
+Cómo escribe Francesc: cercano y profesional, de tú, castellano de oficio, sin marketing, sin emojis, sin exclamaciones de vendedor. Habla como quien lleva veinte años entrando en pisos.
 
 Los tres mensajes, cada uno con SU ángulo y sin repetirse:
 1. seguimiento_1 (3 días) · recordatorio amable: ¿ha podido verlo con calma?, ofrecerse a repasar las partidas o los plazos sin compromiso.
@@ -300,7 +300,7 @@ Los tres mensajes, cada uno con SU ángulo y sin repetirse:
 
 Reglas:
 - Entre 60 y 90 palabras cada uno. Cortos de verdad.
-- Empieza por el nombre de pila del cliente y firma como Manolo.
+- Empieza por el nombre de pila del cliente y firma como Francesc.
 - Puedes mencionar la obra y el importe si viene a cuento, pero no repitas el presupuesto entero.
 - Los textos base que te doy son el tono de la casa: respétalo, pero escribe mensajes nuevos y personalizados con esta obra concreta. No dejes ningún hueco tipo {cliente} sin rellenar.
 - Devuelve los tres, con su tipo.`;

@@ -83,7 +83,7 @@ export async function marcarGanado(presupuestoId: number): Promise<ResultadoAcci
       return { ok: false, mensaje: "Todavía es un borrador: envíaselo al cliente primero." };
     }
 
-    await cambiarEstado(presupuestoId, "ganado", "Manolo lo ha cerrado a mano");
+    await cambiarEstado(presupuestoId, "ganado", "Francesc lo ha cerrado a mano");
     refrescarElPanel();
     return { ok: true, mensaje: "Obra ganada. Los seguimientos pendientes se han cancelado." };
   } catch (e) {

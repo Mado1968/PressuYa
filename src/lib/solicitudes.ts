@@ -18,7 +18,7 @@ import { ahora, cargarReloj } from "./reloj";
 import { tituloDeObra, type SolicitudWebDatos } from "./solicitud-web";
 import { URGENCIAS, type ConceptoCrudo, type Origen, type Unidad, type Urgencia } from "./tipos";
 
-/** Por debajo de esta confianza, la línea sale amarilla para que Manolo la mire. */
+/** Por debajo de esta confianza, la línea sale amarilla para que Francesc la mire. */
 const CONFIANZA_MINIMA = 0.6;
 
 const CAPITULO_SIN_BANCO = "Sin clasificar";
@@ -120,7 +120,7 @@ function lineaAmarilla(
   };
 }
 
-/** Las líneas de una visita de Manolo: con precio del banco lo que encaja. */
+/** Las líneas de una visita de Francesc: con precio del banco lo que encaja. */
 async function lineasDeUnaVisita(conceptos: ConceptoCrudo[]): Promise<EntradaLinea[]> {
   const entradas: EntradaLinea[] = [];
   try {
@@ -188,7 +188,7 @@ async function lineasDeUnaVisita(conceptos: ConceptoCrudo[]): Promise<EntradaLin
 /**
  * Las líneas de una solicitud que llegó de la web. Nadie ha visto la obra, así
  * que ninguna lleva precio: la IA entiende qué pide el cliente y sugiere la
- * partida, pero la línea se queda en amarillo hasta que Manolo la mida.
+ * partida, pero la línea se queda en amarillo hasta que Francesc la mida.
  */
 async function lineasSinVisita(textoOriginal: string, conceptos: ConceptoCrudo[]): Promise<EntradaLinea[]> {
   let deLaWeb = conceptos;

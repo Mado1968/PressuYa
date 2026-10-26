@@ -7,7 +7,7 @@ cliente lo lee, se persigue solo, caduca con fecha, se firma en la propia págin
 y se mide en un panel con euros reales.
 
 Tiene dos caras: la **web pública** de TTiA (`/`), desde la que
-cualquiera pide presupuesto (`/solicitar`), y el **panel de Manolo** (`/panel`),
+cualquiera pide presupuesto (`/solicitar`), y el **panel de Francesc** (`/panel`),
 protegido con una contraseña.
 
 ## Cómo se construyó
@@ -133,7 +133,7 @@ data/                base-precios.csv y demo.db (esta última fuera de git)
 - **La IA solo entiende texto**: importes, estados, tiempos, caducidad, tracking
   y métricas son deterministas y no pasan por el modelo.
 - **Nunca se inventa un precio**: solo existen los del banco (`data/base-precios.csv`)
-  y los que escriba Manolo a mano. Lo demás sale en amarillo y sin precio.
+  y los que escriba Francesc a mano. Lo demás sale en amarillo y sin precio.
 
 ## Los datos de ejemplo
 

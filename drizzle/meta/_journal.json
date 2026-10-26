@@ -8,6 +8,13 @@
       "when": 1792752532896,
       "tag": "0000_green_venom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792923126483,
+      "tag": "0001_update_solicitud_origin_francesc",
+      "breakpoints": true
     }
   ]
 }

@@ -29,7 +29,7 @@ export default async function Inicio() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6">
       <PageHeader
-        titulo={`${saludo(hoy)}, Manolo`}
+        titulo={`${saludo(hoy)}, Francesc`}
         subtitulo={
           <>
             {formatoFecha(hoy)} · {negocio.nombre}

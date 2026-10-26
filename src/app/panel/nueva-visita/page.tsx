@@ -1,4 +1,4 @@
-// «+ Nueva Solicitud»: el minuto en el que Manolo sale del piso y cuenta lo que
+// «+ Nueva Solicitud»: el minuto en el que Francesc sale del piso y cuenta lo que
 // ha visto, dictando o escribiendo. De aquí sale la solicitud, y de la
 // solicitud el presupuesto.
 import { PageHeader } from "@/components/page-header";

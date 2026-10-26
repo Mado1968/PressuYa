@@ -1,5 +1,5 @@
 "use client";
-// El descuento global, con freno. Ningún descuento se aplica sin que Manolo
+// El descuento global, con freno. Ningún descuento se aplica sin que Francesc
 // haya visto, en euros, el margen que está regalando.
 import { useEffect, useState } from "react";
 import { TriangleAlertIcon } from "lucide-react";

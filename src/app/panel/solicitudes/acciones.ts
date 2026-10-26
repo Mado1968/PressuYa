@@ -62,7 +62,7 @@ export async function leerLaVisita(texto: string): Promise<ResultadoLectura> {
 
 export type VisitaParaGuardar = VisitaLeida & { textoOriginal: string };
 
-/** Paso 2 · La visita revisada por Manolo cae en la bandeja. */
+/** Paso 2 · La visita revisada por Francesc cae en la bandeja. */
 export async function guardarVisita(visita: VisitaParaGuardar): Promise<ResultadoVisita> {
   await exigirSesion();
   const clienteNombre = visita.clienteNombre.trim();
@@ -85,7 +85,7 @@ export async function guardarVisita(visita: VisitaParaGuardar): Promise<Resultad
     urgencia: visita.urgencia,
     textoOriginal: visita.textoOriginal,
     conceptos,
-    origen: "manolo",
+    origen: "francesc",
   });
 
   revalidatePath("/", "layout");

@@ -32,10 +32,10 @@ export type Urgencia = (typeof URGENCIAS)[number];
 export type EstadoSolicitud = "pendiente" | "convertida" | "descartada";
 
 /**
- * De dónde viene una solicitud. La de Manolo trae mediciones porque él ha visto
+ * De dónde viene una solicitud. La de Francesc trae mediciones porque él ha visto
  * la obra; la del cliente llega de la web sin ellas: sin visita no hay precio.
  */
-export const ORIGENES = ["manolo", "cliente"] as const;
+export const ORIGENES = ["francesc", "cliente"] as const;
 export type Origen = (typeof ORIGENES)[number];
 
 export const TIPOS_TAREA = ["seguimiento_1", "seguimiento_2", "cierre"] as const;

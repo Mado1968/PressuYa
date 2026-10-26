@@ -1,5 +1,5 @@
 "use client";
-// «+ Nueva Solicitud»: Manolo sale del piso, le da al micro y cuenta lo que ha
+// «+ Nueva Solicitud»: Francesc sale del piso, le da al micro y cuenta lo que ha
 // visto. El texto aparece en pantalla mientras habla, lo puede corregir, y la
 // máquina lo lee y le enseña lo que ha entendido antes de guardar nada.
 //

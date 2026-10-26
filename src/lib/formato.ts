@@ -183,7 +183,7 @@ export function formatoUbicacion(ciudad?: string | null, pais?: string | null): 
  *
  * Se aplica al PINTAR nombres y títulos que vienen de la base —el título de la
  * obra, el nombre de una plantilla, el capítulo—, nunca al guardarlos: el dato
- * es el que escribió Manolo.
+ * es el que escribió Francesc.
  */
 const PALABRAS_MENORES = new Set([
   "a", "ante", "con", "contra", "de", "desde", "del", "en", "entre", "hacia",

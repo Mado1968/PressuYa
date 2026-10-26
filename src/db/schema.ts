@@ -24,7 +24,7 @@ export const negocio = sqliteTable("negocio", {
   seguimiento2: text("seguimiento_2").notNull(),
   seguimiento3: text("seguimiento_3").notNull(),
   caducidadDias: integer("caducidad_dias").notNull(),
-  /** El día en que Manolo empezó a usar el sistema: parte en dos las métricas. */
+  /** El día en que Francesc empezó a usar el sistema: parte en dos las métricas. */
   fechaAlta: ts("fecha_alta").notNull(),
   /** Desplazamiento del reloj de la demo, en milisegundos. Lo mueve la barra del reloj. */
   relojOffsetMs: integer("reloj_offset_ms").notNull().default(0),
@@ -32,7 +32,7 @@ export const negocio = sqliteTable("negocio", {
   datosEjemplo: bool("datos_ejemplo").notNull().default(true),
 });
 
-/** El banco de precios. Única fuente de precios del sistema junto a lo que escribe Manolo. */
+/** El banco de precios. Única fuente de precios del sistema junto a lo que escribe Francesc. */
 export const partida = sqliteTable(
   "partida",
   {
@@ -60,7 +60,7 @@ export const cliente = sqliteTable("cliente", {
 
 /**
  * Una solicitud que todavía no es presupuesto. Nace de dos sitios: la visita que
- * dicta o pega Manolo (origen «manolo», con conceptos y mediciones) o el
+ * dicta o pega Francesc (origen «francesc», con conceptos y mediciones) o el
  * formulario público de /solicitar (origen «cliente», sin visita ni mediciones).
  */
 export const solicitud = sqliteTable(
@@ -76,8 +76,8 @@ export const solicitud = sqliteTable(
     textoOriginal: text("texto_original").notNull(),
     /** ConceptoCrudo[] serializado: lo que la IA entendió de la visita. */
     conceptos: text("conceptos").notNull(),
-    /** «manolo» o «cliente». La del cliente sale sin precios: nadie ha visto la obra. */
-    origen: text("origen").notNull().default("manolo"),
+    /** «francesc» o «cliente». La del cliente sale sin precios: nadie ha visto la obra. */
+    origen: text("origen").notNull().default("francesc"),
     estado: text("estado").notNull().default("pendiente"),
     presupuestoId: integer("presupuesto_id"),
     creadoEn: ts("creado_en").notNull(),
@@ -156,7 +156,7 @@ export const linea = sqliteTable(
     presupuestoId: integer("presupuesto_id")
       .notNull()
       .references(() => presupuesto.id),
-    /** Nulo = la línea no viene del banco: es amarilla hasta que Manolo le ponga precio. */
+    /** Nulo = la línea no viene del banco: es amarilla hasta que Francesc le ponga precio. */
     partidaId: integer("partida_id").references(() => partida.id),
     capitulo: text("capitulo").notNull(),
     descripcion: text("descripcion").notNull(),

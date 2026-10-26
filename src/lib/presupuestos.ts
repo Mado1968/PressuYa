@@ -2,7 +2,7 @@
 //
 // Dos reglas que este fichero hace cumplir por construcción:
 //   · el precio y el margen de una línea SIEMPRE salen del banco o de la mano
-//     de Manolo: aquí no se inventa ni uno;
+//     de Francesc: aquí no se inventa ni uno;
 //   · base, IVA, total, coste y margen del presupuesto solo los escribe
 //     recalcular(). Nadie los toca a mano.
 //
@@ -222,7 +222,7 @@ export type EntradaLinea = {
   precioManual?: boolean;
   margenPct?: number;
   partidaId?: number | null;
-  /** Fuera del banco: sale en amarillo y sin precio hasta que Manolo lo ponga. */
+  /** Fuera del banco: sale en amarillo y sin precio hasta que Francesc lo ponga. */
   amarilla?: boolean;
   opcional?: boolean;
   elegida?: boolean;
@@ -275,7 +275,7 @@ export async function anadirLinea(presupuestoId: number, entrada: EntradaLinea):
 /**
  * La línea que corresponde a una partida del banco: el precio y el margen son
  * los del banco, siempre. Es la única forma legítima de que una línea tenga
- * precio sin que Manolo lo escriba.
+ * precio sin que Francesc lo escriba.
  */
 export function lineaDesdePartida(
   p: Partida,

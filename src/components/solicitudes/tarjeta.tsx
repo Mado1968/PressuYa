@@ -21,7 +21,7 @@ export type SolicitudEnBandeja = {
   textoOriginal: string;
   conceptos: ConceptoCrudo[];
   estado: string;
-  origen: "manolo" | "cliente";
+  origen: "francesc" | "cliente";
   presupuestoId: number | null;
   cuando: string;
 };

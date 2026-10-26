@@ -7,7 +7,7 @@ Lo que hay construido antes de empezar las fases 1 a 7, y cómo comprobarlo.
 ### La base y la librería
 
 - **Esquema completo** en `src/db/schema.ts`: `negocio`, `partida`, `cliente`,
-  `solicitud` (con su `origen`: «manolo» o «cliente»), `presupuesto`, `linea`,
+  `solicitud` (con su `origen`: «francesc» o «cliente»), `presupuesto`, `linea`,
   `evento_lectura`, `tarea_programada`, `evento`, `plantilla`, `aviso`, `pulso`
   (el contador que mirará el polling) y `peticion_web` (los límites por IP del
   formulario público y de la contraseña). Aplicado con `drizzle-kit push`; no
@@ -64,7 +64,7 @@ Ninguno miente: si se llama, avisa de la fase en la que llega.
 
 ### El banco de precios y el seed
 
-- `data/base-precios.csv`: las 72 partidas de Manolo, tal cual. Se importan en un
+- `data/base-precios.csv`: las 72 partidas de Francesc, tal cual. Se importan en un
   único lote y en el orden del CSV, que es el orden de la obra.
 - `npm run reset` vacía la base **borrando sus tablas, no el fichero** (así
   funciona igual contra Turso y el servidor de desarrollo sigue viendo la misma
@@ -82,7 +82,7 @@ El seed es determinista, con fechas relativas al día en que se ejecuta:
 | Tasa de firma | 1 de 6 antes del alta (17 %) · 4 de 17 después (24 %) |
 | De la visita al envío | **14 días** antes · **1 día** después |
 | HOY | 2 aperturas de hoy, 1 seguimiento que sale hoy, 2 que caducan en ≤3 días, 1 caducado reabierto hace 2 días |
-| Solicitudes | 3 pendientes: 2 dictadas por Manolo (con conceptos) y **1 llegada de la web** (Marta Ruiz, sin conceptos ni mediciones) |
+| Solicitudes | 3 pendientes: 2 dictadas por Francesc (con conceptos) y **1 llegada de la web** (Marta Ruiz, sin conceptos ni mediciones) |
 | Y además | 18 clientes, 451 líneas (1 amarilla), 152 lecturas, 105 tareas, 214 eventos, 13 avisos, 3 plantillas |
 
 Los importes se clavan al céntimo así: cada presupuesto que sale en una cifra de

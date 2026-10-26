@@ -171,7 +171,7 @@ CREATE TABLE `solicitud` (
 	`urgencia` text NOT NULL,
 	`texto_original` text NOT NULL,
 	`conceptos` text NOT NULL,
-	`origen` text DEFAULT 'manolo' NOT NULL,
+	`origen` text DEFAULT 'francesc' NOT NULL,
 	`estado` text DEFAULT 'pendiente' NOT NULL,
 	`presupuesto_id` integer,
 	`creado_en` integer NOT NULL

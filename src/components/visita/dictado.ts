@@ -2,7 +2,7 @@
 // del DOM, así que aquí se declara lo justo que usamos y nada más.
 //
 // Se reanuda solo: si el reconocimiento se corta por un silencio, vuelve a
-// arrancar mientras el botón siga activo. Lo para de verdad únicamente Manolo.
+// arrancar mientras el botón siga activo. Lo para de verdad únicamente Francesc.
 
 type ResultadoReconocimiento = {
   isFinal: boolean;

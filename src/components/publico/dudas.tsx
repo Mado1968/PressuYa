@@ -1,5 +1,5 @@
 "use client";
-// «Tengo dudas»: el cliente escribe y Manolo se entera al momento.
+// «Tengo dudas»: el cliente escribe y Francesc se entera al momento.
 //
 // DUEÑO: carril B2.
 import { useEffect, useState } from "react";
@@ -64,7 +64,7 @@ export function Dudas({
           <div>
             <h2 className="text-lg font-semibold tracking-tight">¿Qué Te Ha Quedado por Resolver?</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Escríbelo y Manolo te llama. También puedes llamarle al{" "}
+              Escríbelo y Francesc te llama. También puedes llamarle al{" "}
               <a href={`tel:${telefono.replace(/\s/g, "")}`} className="font-medium text-black">
                 {telefono}
               </a>

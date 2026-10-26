@@ -449,7 +449,7 @@ export type DatosDeLaWeb = {
 };
 
 /**
- * Lo que enseña la landing, sacado entero de la base: si Manolo cambia sus
+ * Lo que enseña la landing, sacado entero de la base: si Francesc cambia sus
  * datos en Ajustes o su banco de precios, la web cambia con ellos. Los
  * capítulos van en el orden del banco, que es el orden en que se hace la obra.
  */

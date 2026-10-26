@@ -54,11 +54,11 @@ improvises.
 ## El problema que resolvemos
 
 TTiA es una empresa de reformas de 8 personas en Barcelona. El dueño
-se llama Manolo. Pierde dinero de dos formas:
+se llama Francesc. Pierde dinero de dos formas:
 
 1. **Presupuestar es lento.** Cada visita a un piso se convierte en 6-8 horas
    de despacho desglosando partidas, y el presupuesto se entrega 15-20 días
-   después. Quien responde primero se lleva la obra: Manolo pierde obras de
+   después. Quien responde primero se lleva la obra: Francesc pierde obras de
    8.000-20.000 € por lento, no por caro.
 2. **Nadie persigue lo enviado.** Los presupuestos salen como PDF por email o
    WhatsApp y mueren en silencio: no sabe si el cliente lo ha leído, nadie hace
@@ -66,14 +66,14 @@ se llama Manolo. Pierde dinero de dos formas:
 
 ## El producto
 
-Un sistema donde Manolo dicta la visita al salir del piso y obtiene un
+Un sistema donde Francesc dicta la visita al salir del piso y obtiene un
 presupuesto profesional con su marca en minutos, y donde cada presupuesto
 enviado avisa cuando el cliente lo lee, se persigue solo, caduca con fecha, se
 firma en la propia página y se mide en un panel con euros reales (sumas de
 presupuestos, nunca estimaciones).
 
 El nombre del producto y de la empresa en la interfaz es **TTiA**; el usuario
-es «Manolo · TTiA».
+es «Francesc · TTiA».
 
 ## Punto de partida
 
@@ -238,7 +238,7 @@ botón primario **«+ Nueva Solicitud»** siempre visible, y 7 páginas en este
 orden: **Inicio · Solicitudes · Presupuestos · Clientes · Precios · Plantillas
 · Ajustes**. Solicitudes lleva un badge con las pendientes de convertir y
 Presupuestos otro con los que llevan más de 7 días sin respuesta. Arriba a la
-derecha, la campana de avisos con el contador de no leídos. Abajo, «Manolo ·
+derecha, la campana de avisos con el contador de no leídos. Abajo, «Francesc ·
 TTiA», y ahí mismo «Salir», que borra la cookie de sesión.
 
 Fuera del panel, sin barra lateral y sin un solo enlace de vuelta: la landing
@@ -302,13 +302,13 @@ Fuera del menú:
    global con **freno**: si el descuento deja el margen global por debajo del
    objetivo, aviso rojo con la cifra y confirmación explícita; líneas marcables
    como **opcionales**; las líneas **amarillas** (lo que no está en el banco)
-   con el precio vacío hasta que Manolo lo ponga, las descarte o las añada al
+   con el precio vacío hasta que Francesc lo ponga, las descarte o las añada al
    banco; añadir línea desde el banco con buscador; caducidad del presupuesto;
    botón «Enviar al cliente», que pasa a Enviado, genera el enlace, programa los
    seguimientos y redacta sus textos.
 9. **Landing de TTiA** (pública, `/`). La cara del negocio, no un
    folleto de software: la empresa, no la herramienta. Cabecera con el wordmark
-   y un botón «Pedir Presupuesto»; un titular que promete lo que Manolo cumple
+   y un botón «Pedir Presupuesto»; un titular que promete lo que Francesc cumple
    («El presupuesto de tu reforma, en 24 horas»); tres o cuatro bloques con lo
    que hacen (baños, cocinas, pisos completos, pintura) sacados de los
    **capítulos reales del banco de precios**, cada uno con sus partidas de
@@ -327,10 +327,10 @@ Fuera del menú:
    usar esos datos solo para contactarle. Nada de precios, nada de plazos automáticos,
    ninguna promesa que el producto no pueda cumplir. Al enviar, cae en la
    bandeja de Solicitudes marcada **«del cliente · sin visita»** y se avisa a
-   Manolo por campana y Telegram («🔔 Nueva solicitud desde la web · Marta Ruiz
+   Francesc por campana y Telegram («🔔 Nueva solicitud desde la web · Marta Ruiz
    · Reforma de baño · Carrer de Verdi 71»). Las reglas de validación viven en
    un solo fichero (`src/lib/solicitud-web.ts`) que usan a la vez el navegador y
-   el servidor. La pantalla de gracias dice la verdad: que Manolo
+   el servidor. La pantalla de gracias dice la verdad: que Francesc
    llamará para concertar la visita, porque **sin ver la obra no hay
    presupuesto**. Defensas obligatorias, sin librerías: campo trampa oculto
    (honeypot), límite por IP (una solicitud por minuto, cinco por hora, en una
@@ -361,10 +361,10 @@ Fuera del menú:
   con IVA. Todo el cálculo es determinista y vive en una sola función
   compartida por el editor, la página pública y el seed.
 - **Precios**: el sistema no inventa precios jamás. Solo existen los del banco
-  o los que Manolo escriba a mano. Una línea sin partida del banco es amarilla
+  o los que Francesc escriba a mano. Una línea sin partida del banco es amarilla
   y no tiene precio hasta que él lo ponga.
 - **Sin visita no hay presupuesto.** Una solicitud puede nacer de dos sitios y
-  no valen lo mismo: la que **dicta Manolo** al salir del piso trae mediciones
+  no valen lo mismo: la que **dicta Francesc** al salir del piso trae mediciones
   y se convierte en presupuesto con precios del banco; la que llega **de la
   web** trae lo que el cliente supo contar y ninguna medición. La segunda entra
   con `origen = "cliente"`, se distingue en la bandeja con su badge, y al
@@ -420,7 +420,7 @@ Fuera del menú:
   valida contra el banco y, si el código no existe, la línea es amarilla.
 
 **Trabajo 2 · Redactar los tres seguimientos** (fase 6, en el momento de
-enviar): tono cercano y profesional, en castellano, firmados por Manolo, cortos
+enviar): tono cercano y profesional, en castellano, firmados por Francesc, cortos
 (60-90 palabras), cada uno con un ángulo distinto (recordatorio amable · «¿os
 encajó el precio o lo ajustamos por fases?» · aviso de caducidad con los días
 que quedan), a partir del presupuesto (cliente, obra, total, líneas
@@ -436,7 +436,7 @@ cargas en la tabla de partidas (el seed lo importa; Precios permite
 reimportarlo). Precios en euros sin IVA, mano de obra y material incluidos
 salvo que se diga lo contrario; unidades `ud`, `m²`, `ml`, `m³`, `h` y `pa`
 (partida alzada); `margen_objetivo` en %. No añadas partidas por tu cuenta: el
-banco es el de Manolo.
+banco es el de Francesc.
 
 ```csv
 codigo,capitulo,partida,unidad,precio,margen_objetivo
@@ -526,7 +526,7 @@ nota discreta en Ajustes, nada más. Contenido:
   Barcelona · 93 555 41 20 · hola@reformassoler.es · IVA 21 · caducidad 15
   días · condiciones de un presupuesto real de reformas (forma de pago
   40/40/20, plazo orientativo, no incluye licencias ni tasas, validez) · tres
-  textos base de seguimiento · `fecha_alta` hace 45 días (el día en que Manolo
+  textos base de seguimiento · `fecha_alta` hace 45 días (el día en que Francesc
   empezó a usar el sistema; lo anterior es historial importado) ·
   desplazamiento del reloj 0.
 - 18 clientes con nombres y apellidos españoles y catalanes variados, teléfonos
@@ -560,7 +560,7 @@ nota discreta en Ajustes, nada más. Contenido:
 - Eventos de lectura coherentes con los estados: los Vistos y En conversación
   tienen aperturas con visita n.º, ciudad, dispositivo y tiempo por sección;
   los En conversación tienen su respuesta; los Ganados tienen firma con sello.
-- 3 solicitudes pendientes de convertir: dos dictadas por Manolo (una pintura
+- 3 solicitudes pendientes de convertir: dos dictadas por Francesc (una pintura
   de piso de 90 m² y una cocina) con sus conceptos, y **una llegada de la web**
   (`origen = "cliente"`), sin conceptos y con el texto tal y como lo escribió
   el cliente, para que se vea la diferencia en la bandeja desde el primer día.
@@ -641,7 +641,7 @@ un badge ni un formato por su cuenta.
   texto claro, icono y etiqueta en cada ítem, ítem activo con fondo blanco al
   10 % y esquinas redondeadas, badge naranja en Presupuestos. Arriba, el
   wordmark «TTiA» y la campana; debajo, «+ Nueva Solicitud» a todo el
-  ancho en rojo de marca. Abajo, «Manolo · TTiA» con avatar y
+  ancho en rojo de marca. Abajo, «Francesc · TTiA» con avatar y
   chevrón.
 - **Componentes compartidos**, en `src/components/`, creados en la fase 0 y
   reutilizados por todos: `Sidebar`, `PageHeader`, `EstadoBadge`, `Importe`
@@ -667,7 +667,7 @@ un badge ni un formato por su cuenta.
 ×3, caducidad_dias, fecha_alta, reloj_offset_ms) · `partida` (codigo, capitulo,
 nombre, unidad, precio, margen_objetivo, activa) · `cliente` (nombre, telefono,
 email, notas) · `solicitud` (cliente_nombre, telefono, email, direccion, titulo,
-urgencia, texto_original, conceptos JSON, `origen` manolo/cliente, estado
+urgencia, texto_original, conceptos JSON, `origen` francesc/cliente, estado
 pendiente/convertida/descartada, presupuesto_id, creado_en) · `peticion_web`
 (ip, motivo solicitar/entrar, ts: el límite por IP del formulario público y de
 la contraseña, medido con la hora real y no con el reloj de la demo) · `presupuesto` (numero, token, cliente_id, direccion_obra,
@@ -732,7 +732,7 @@ se prueba en pantalla.
   `v0`.
 
 **Fase 1 · Las dos entradas** — la bandeja de Solicitudes se llena por dos
-sitios. **La de Manolo**: «+ Nueva Solicitud» con dictado por Web Speech (el
+sitios. **La de Francesc**: «+ Nueva Solicitud» con dictado por Web Speech (el
 texto apareciendo en vivo) o notas pegadas, cliente y dirección editables; al
 guardar, la IA extrae los conceptos y la solicitud cae en la bandeja. **La de
 la calle**: el formulario de `/solicitar` empieza a guardar de verdad, con su
@@ -791,7 +791,7 @@ y prohíbe `/panel` y `/p/`; y `npm run humo` ejecutado **contra el dominio**.
 Sin cron: en el plan gratuito de Vercel solo corre una vez al día, y el
 `tick()` ya lo dispara el panel mientras está abierto. Se prueba desde un móvil
 con datos: la landing carga, relleno `/solicitar`, el aviso llega al Telegram
-de Manolo, y `/panel` me pide la contraseña y con ella entro y veo la solicitud
+de Francesc, y `/panel` me pide la contraseña y con ella entro y veo la solicitud
 en la bandeja. Commit final: «Fase 7 · A producción».
 
 ### El reparto en paralelo

@@ -1,7 +1,7 @@
 # TTiA · Transformación Tecnológica con IA
 
 Sistema de presupuestos y seguimiento para **TTiA** (empresa de
-reformas de 8 personas en Barcelona; el usuario es «Manolo · TTiA»).
+reformas de 8 personas en Barcelona; el usuario es «Francesc · TTiA»).
 El jefe dicta la visita y sale un presupuesto con su marca en minutos; cada
 presupuesto enviado avisa cuando el cliente lo lee, se persigue solo, caduca con
 fecha, se firma en la propia página y se mide en un panel con euros reales.
@@ -47,7 +47,7 @@ fecha, se firma en la propia página y se mide en un panel con euros reales.
 src/app/page.tsx          la landing de TTiA (pública)
 src/app/solicitar/        pedir presupuesto (público)
 src/app/entrar/           la contraseña del panel
-src/app/panel/            el panel de Manolo, con la barra lateral (privado)
+src/app/panel/            el panel de Francesc, con la barra lateral (privado)
 src/app/p/[token]/        página pública del presupuesto (sin nada del panel)
 src/proxy.ts              protege /panel/* (en Next 16 el middleware es «proxy»)
 src/app/api/              route handlers: tracking, polling, tick, ia
@@ -61,7 +61,7 @@ data/                     base-precios.csv · demo.db (ignorado por git)
 ## Reglas de negocio innegociables
 
 1. **Nunca se inventa un precio.** Solo existen los del banco (tabla `partida`)
-   o los que Manolo escriba a mano. Una línea sin partida del banco es
+   o los que Francesc escriba a mano. Una línea sin partida del banco es
    amarilla y no tiene precio hasta que él lo ponga.
 2. **Sin visita no hay presupuesto.** Una solicitud que llega de la web
    (`origen = "cliente"`) no trae mediciones: al convertirla, todas sus líneas
@@ -92,10 +92,10 @@ Nadie escribe estos campos a mano. Siempre por aquí:
   `marcarRespuesta()`.
 - `src/lib/presupuestos.ts` — `recalcular()` es el único que escribe `base`,
   `iva_importe`, `total`, `coste` y `margen_pct`; `lineaDesdePartida()` es la
-  única forma de que una línea tenga precio sin que lo escriba Manolo.
+  única forma de que una línea tenga precio sin que lo escriba Francesc.
 - `src/lib/envio.ts` — `enviarPresupuesto()`: caducidad, los tres toques y el
   aviso. Los textos los redacta la IA con respaldo en los de Ajustes.
-- `src/lib/solicitudes.ts` — guardar una solicitud (de Manolo o de la web) y
+- `src/lib/solicitudes.ts` — guardar una solicitud (de Francesc o de la web) y
   convertirla en presupuesto.
 
 ## Convenciones técnicas

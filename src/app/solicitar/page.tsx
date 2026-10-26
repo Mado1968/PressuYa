@@ -1,5 +1,5 @@
 // Pedir presupuesto: la puerta de la calle. El cliente cuenta qué quiere hacer y
-// Manolo le llama para ir a verlo, porque sin ver la obra no hay presupuesto.
+// Francesc le llama para ir a verlo, porque sin ver la obra no hay presupuesto.
 import type { Metadata } from "next";
 import { CabeceraWeb } from "@/components/web/cabecera";
 import { FormularioSolicitud } from "@/components/web/formulario-solicitud";
@@ -32,7 +32,7 @@ export default async function Solicitar() {
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Pide Tu Presupuesto</h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            Cuéntanos qué quieres hacer y Manolo te llama. Sin ver la obra no damos precios, porque
+            Cuéntanos qué quieres hacer y Francesc te llama. Sin ver la obra no damos precios, porque
             cada casa es distinta: por eso lo primero es la visita.
           </p>
           <ol className="mt-8 space-y-4">

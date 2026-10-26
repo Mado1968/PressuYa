@@ -1,6 +1,6 @@
 "use server";
 // Las mutaciones del banco de precios. El banco es la única fuente de precios
-// del sistema junto a lo que escribe Manolo a mano: aquí no se inventa nada.
+// del sistema junto a lo que escribe Francesc a mano: aquí no se inventa nada.
 //
 // El dinero entra en euros desde la interfaz y se guarda SIEMPRE en céntimos
 // enteros. Como toda acción del panel, cada una empieza comprobando la sesión.
@@ -148,7 +148,7 @@ export async function cambiarActiva(id: number, activa: boolean): Promise<Result
 
 /**
  * Borra una partida. Si está usada en algún presupuesto NO se borra: se rompería
- * el historial. En ese caso se desactiva, que es lo que Manolo quiere de verdad.
+ * el historial. En ese caso se desactiva, que es lo que Francesc quiere de verdad.
  */
 export async function borrarPartida(id: number): Promise<Resultado> {
   await exigirSesion();
@@ -187,7 +187,7 @@ export async function reimportarBancoOriginal(): Promise<ResultadoImportacion> {
   }
 }
 
-/** Importa un CSV que sube Manolo. Mismas columnas que el banco original. */
+/** Importa un CSV que sube Francesc. Mismas columnas que el banco original. */
 export async function importarCsv(
   _previo: ResultadoImportacion | null,
   datos: FormData,

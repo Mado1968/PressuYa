@@ -1,4 +1,4 @@
-// El presupuesto como documento: la misma pieza que ve Manolo en la ficha y que
+// El presupuesto como documento: la misma pieza que ve Francesc en la ficha y que
 // ve el cliente en su página pública. Capítulos con subtotal, base, IVA y total.
 import { cn } from "cn";
 import { Importe } from "@/components/importe";

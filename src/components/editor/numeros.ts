@@ -1,4 +1,4 @@
-// Leer los números como los escribe Manolo: en castellano, con la coma
+// Leer los números como los escribe Francesc: en castellano, con la coma
 // decimal y el punto de los miles. Este fichero es seguro en el navegador.
 
 /**

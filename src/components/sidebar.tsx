@@ -113,7 +113,7 @@ export function Sidebar({
           MS
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm leading-tight font-medium text-white">Manolo</span>
+          <span className="block truncate text-sm leading-tight font-medium text-white">Francesc</span>
           <span className="block truncate text-[11px] leading-tight text-sidebar-foreground/60">
             TTiA
           </span>

@@ -74,7 +74,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
             {enviada.nombre ? `Gracias, ${enviada.nombre}` : "Gracias"}
           </h2>
           <p className="mt-2 leading-relaxed text-muted-foreground">
-            Hemos recibido tu solicitud. Manolo te llamará para concertar la visita: sin ver la obra
+            Hemos recibido tu solicitud. Francesc te llamará para concertar la visita: sin ver la obra
             no damos precios, porque cada casa es distinta. Después de la visita, tendrás el
             presupuesto al día siguiente.
           </p>

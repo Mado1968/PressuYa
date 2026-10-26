@@ -656,7 +656,7 @@ export async function sembrar() {
         urgencia: s.urgencia,
         textoOriginal: s.textoOriginal,
         conceptos: JSON.stringify(s.conceptos),
-        origen: s.origen ?? "manolo",
+        origen: s.origen ?? "francesc",
         estado: "pendiente",
         presupuestoId: null,
         creadoEn: new Date(REF.getTime() - s.horas * UNA_HORA),

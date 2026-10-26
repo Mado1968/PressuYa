@@ -4,7 +4,7 @@
 // El timeline junta dos fuentes: los eventos (creado, enviado, cada apertura
 // con su tiempo por sección, cada seguimiento con su texto, cada respuesta,
 // cada cambio de estado con su porqué) y los avisos que han salido al móvil del
-// jefe. Manolo lee aquí la historia completa de una obra.
+// jefe. Francesc lee aquí la historia completa de una obra.
 //
 // DUEÑO: carril C.
 import { Timeline, type EntradaTimeline } from "@/components/timeline";

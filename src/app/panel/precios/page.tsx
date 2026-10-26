@@ -2,7 +2,7 @@
 // precio y margen, alta y baja de partidas, activar y desactivar e importar CSV.
 //
 // Es la prueba de que el sistema no inventa precios: en un presupuesto solo
-// pueden entrar los precios de esta tabla o los que Manolo escriba a mano.
+// pueden entrar los precios de esta tabla o los que Francesc escriba a mano.
 import { PageHeader } from "@/components/page-header";
 import { AccionesDelBanco } from "@/components/precios/acciones-banco";
 import { BancoDePrecios, type PartidaEnPantalla } from "@/components/precios/banco";
