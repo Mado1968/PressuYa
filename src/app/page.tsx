@@ -34,9 +34,9 @@ import { ahora, cargarReloj } from "@/lib/reloj";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "TTiA · Transformación Tecnológica con IA",
+  title: "TTiA · Transformació Tecnològica amb IA",
   description:
-    "Solucions de IA aplicada al negoci, Pime o Autònom. Generem el teu pressupuest en minuts.",
+    "Sol·lucions de IA aplicada al negoci, Pime o Autònom. Generem el teu pressupuest en minuts.",
 };
 
 /** El icono de cada capítulo del banco. Lo que no esté aquí, lleva el genérico. */
@@ -93,7 +93,7 @@ export default async function Web() {
         <section className="bg-marca text-white">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:py-24">
             <div>
-              <p className="text-sm font-medium text-white/60">Transformación Tecnológica con IA</p>
+              <p className="text-sm font-medium text-white/60">Transformació Tecnològica amb IA</p>
               <h1 className="mt-3 text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
                 Demana pressupost
               </h1>

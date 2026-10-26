@@ -1,17 +1,21 @@
 // La cabecera de la web pública de TTiA: la empresa, no la herramienta.
 import Link from "next/link";
+import Image from "next/image";
 import { PhoneIcon } from "lucide-react";
 
 export function CabeceraWeb({ telefono, conBoton = true }: { telefono: string; conBoton?: boolean }) {
   return (
     <header className="sticky top-0 z-20 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="min-w-0">
-          <span className="block text-lg leading-tight font-semibold tracking-tight text-black">
-            TTiA
-          </span>
+        <Link href="https://newttia.vercel.app/" className="min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="block text-lg leading-tight font-semibold tracking-tight text-black">
+              TTiA
+            </span>
+            <Image src="/ttia-logo.png" alt="Logotipo de TTiA" width={28} height={28} />
+          </div>
           <span className="block text-[11px] leading-tight text-muted-foreground">
-            Transformación Tecnológica con IA
+            Transformació Tecnològica amb IA
           </span>
         </Link>
         <div className="flex items-center gap-2">
@@ -27,7 +31,7 @@ export function CabeceraWeb({ telefono, conBoton = true }: { telefono: string; c
               href="/solicitar"
               className="inline-flex h-9 items-center rounded-lg bg-primary px-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--primary),black_12%)]"
             >
-              Pedir Presupuesto
+              Demanar Presupost
             </Link>
           )}
         </div>

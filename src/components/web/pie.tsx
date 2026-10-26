@@ -1,5 +1,6 @@
 // El pie de la web pública: los datos de la empresa, tal y como están en Ajustes.
 import Link from "next/link";
+import Image from "next/image";
 import type { Negocio } from "@/lib/consultas";
 
 export function PieWeb({ negocio, anyo }: { negocio: Negocio; anyo: number }) {
@@ -7,6 +8,13 @@ export function PieWeb({ negocio, anyo }: { negocio: Negocio; anyo: number }) {
     <footer className="border-t bg-card">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 text-sm sm:grid-cols-[1fr_auto] sm:px-6">
         <div>
+          <Image
+            src="/ttia-logo.png"
+            alt="Logotipo de TTiA"
+            width={48}
+            height={43}
+            className="mb-3"
+          />
           <p className="font-semibold text-black">{negocio.nombre}</p>
           <p className="mt-2 leading-relaxed text-muted-foreground">
             {negocio.direccion}
