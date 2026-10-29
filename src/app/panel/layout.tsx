@@ -32,13 +32,13 @@ export default async function LayoutDelPanel({ children }: LayoutProps<"/panel">
   }));
 
   return (
-    <div className="flex min-h-svh">
+    <div className="flex min-h-svh flex-col lg:flex-row">
       <Sidebar parados={parados} solicitudes={solicitudes} avisos={avisos} sinLeer={sinLeer} />
       <div className="flex min-w-0 flex-1 flex-col">
         {process.env.DEMO_MODE === "1" && (
           <BarraReloj desfase={negocio.relojOffsetMs} fecha={formatoFechaHora(hoy)} />
         )}
-        <main className="flex-1 px-6 py-6">{children}</main>
+        <main className="min-w-0 flex-1 px-4 py-4 sm:px-6 sm:py-6">{children}</main>
       </div>
       <Pulso />
       <Toaster position="bottom-right" />

@@ -118,8 +118,8 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
     <>
       <div className="overflow-hidden rounded-xl border bg-card">
         {/* Filtros, como en el listado de Holded */}
-        <div className="flex flex-wrap items-center gap-2 border-b px-3 py-2.5">
-          <div className="relative min-w-52 flex-1">
+        <div className="flex flex-col items-stretch gap-2 border-b px-3 py-2.5 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="relative min-w-0 flex-1">
             <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={busqueda}
@@ -135,7 +135,7 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
             onValueChange={(v) => setCapitulo(String(v ?? "todos"))}
             items={itemsCapitulo}
           >
-            <SelectTrigger className="w-56" aria-label="Filtrar por capítulo">
+            <SelectTrigger className="w-full sm:w-56" aria-label="Filtrar por capítulo">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -152,7 +152,7 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
             onValueChange={(v) => setFiltro((v ?? "todas") as Filtro)}
             items={{ todas: "Activas e Inactivas", activas: "Solo Activas", inactivas: "Solo Inactivas" }}
           >
-            <SelectTrigger className="w-44" aria-label="Filtrar por estado">
+            <SelectTrigger className="w-full sm:w-44" aria-label="Filtrar por estado">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -163,7 +163,7 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
           </Select>
 
           {hayFiltros && (
-            <Button variant="ghost" size="sm" onClick={limpiar}>
+            <Button variant="ghost" size="sm" onClick={limpiar} className="self-start sm:self-auto">
               <XIcon />
               Quitar Filtros
             </Button>
@@ -182,6 +182,25 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
             </Button>
           </div>
         ) : (
+          <>
+          <div className="flex flex-col gap-3 p-3 lg:hidden">
+            {grupos.map(([nombreCapitulo, delCapitulo]) => (
+              <section key={nombreCapitulo} className="flex flex-col gap-2">
+                <h2 className="px-1 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                  {nombreCapitulo}
+                  <span className="cifra ml-2">{delCapitulo.length}</span>
+                </h2>
+                {delCapitulo.map((partida) => (
+                  <PartidaMovil
+                    key={partida.id}
+                    partida={partida}
+                    alBorrar={() => setABorrar(partida)}
+                  />
+                ))}
+              </section>
+            ))}
+          </div>
+          <div className="hidden lg:block">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
@@ -214,9 +233,11 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
               ))}
             </TableBody>
           </Table>
+          </div>
+          </>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+        <div className="flex flex-col items-start justify-between gap-2 border-t bg-muted/40 px-3 py-2 text-xs text-muted-foreground sm:flex-row sm:items-center">
           <span>
             <span className="cifra">{visibles.length}</span>
             {visibles.length !== partidas.length && (
@@ -253,17 +274,6 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
 }
 
 function Fila({ partida: p, alBorrar }: { partida: PartidaEnPantalla; alBorrar: () => void }) {
-  const [pendiente, empezar] = useTransition();
-  const coste = costeLinea(p.precio, p.margenObjetivo);
-
-  function alternar() {
-    empezar(async () => {
-      const r = await cambiarActiva(p.id, !p.activa);
-      if (r.ok) toast.success(r.mensaje);
-      else toast.error(r.mensaje);
-    });
-  }
-
   return (
     <TableRow className={cn("h-10", !p.activa && "opacity-55")}>
       <TableCell className="pl-3">
@@ -303,28 +313,122 @@ function Fila({ partida: p, alBorrar }: { partida: PartidaEnPantalla; alBorrar: 
           guardar={(valor) => guardarMargen(p.id, valor)}
         />
       </TableCell>
-      <TableCell className="cifra text-right text-muted-foreground">{formatoEuros(coste)}</TableCell>
+      <TableCell className="cifra text-right text-muted-foreground">
+        {formatoEuros(costeLinea(p.precio, p.margenObjetivo))}
+      </TableCell>
       <TableCell className="pr-3">
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={<Button variant="ghost" size="icon-sm" disabled={pendiente} />}
-            aria-label={`Acciones de ${p.codigo}`}
-          >
-            <EllipsisVerticalIcon />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-52">
-            <DropdownMenuItem onClick={alternar}>
-              {p.activa ? "Desactivar en el Banco" : "Volver a Activar"}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onClick={alBorrar}>
-              <Trash2Icon />
-              Borrar del Banco
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <MenuAccionesPartida partida={p} alBorrar={alBorrar} />
       </TableCell>
     </TableRow>
+  );
+}
+
+function PartidaMovil({
+  partida: p,
+  alBorrar,
+}: {
+  partida: PartidaEnPantalla;
+  alBorrar: () => void;
+}) {
+  const coste = costeLinea(p.precio, p.margenObjetivo);
+
+  return (
+    <article className={cn("min-w-0 rounded-xl border bg-card p-3", !p.activa && "opacity-60")}>
+      <header className="flex min-w-0 items-start justify-between gap-2">
+        <div className="min-w-0">
+          <p className="cifra text-xs font-medium text-muted-foreground">{p.codigo}</p>
+          <h3 className="mt-1 break-words font-medium">{formatoTitulo(p.nombre)}</h3>
+          {!p.activa && (
+            <span className="mt-1 inline-block rounded-sm bg-secondary px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+              Inactiva
+            </span>
+          )}
+        </div>
+        <MenuAccionesPartida partida={p} alBorrar={alBorrar} />
+      </header>
+      <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 border-t pt-3">
+        <DatoPartida etiqueta="Unidad">
+          {formatoUnidad(p.unidad)}
+        </DatoPartida>
+        <DatoPartida etiqueta="Coste">
+          {formatoEuros(coste)}
+        </DatoPartida>
+        <DatoPartida etiqueta="Precio" editable>
+          <CeldaEditable
+            etiqueta={`Precio de ${p.codigo}`}
+            texto={formatoEuros(p.precio)}
+            valorInicial={formatoNumeroEuros(p.precio)}
+            guardar={(valor) => guardarPrecio(p.id, valor)}
+          />
+        </DatoPartida>
+        <DatoPartida etiqueta="Margen" editable>
+          <CeldaEditable
+            etiqueta={`Margen objetivo de ${p.codigo}`}
+            texto={formatoPorcentaje(p.margenObjetivo, p.margenObjetivo % 1 === 0 ? 0 : 1)}
+            valorInicial={String(p.margenObjetivo).replace(".", ",")}
+            guardar={(valor) => guardarMargen(p.id, valor)}
+          />
+        </DatoPartida>
+      </div>
+    </article>
+  );
+}
+
+function DatoPartida({
+  etiqueta,
+  editable = false,
+  children,
+}: {
+  etiqueta: string;
+  editable?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={cn("min-w-0", editable && "text-right")}>
+      <p className="text-[11px] text-muted-foreground">{etiqueta}</p>
+      <div className={cn("cifra mt-0.5 text-sm", editable ? "font-medium" : "break-words")}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function MenuAccionesPartida({
+  partida: p,
+  alBorrar,
+}: {
+  partida: PartidaEnPantalla;
+  alBorrar: () => void;
+}) {
+  const [pendiente, empezar] = useTransition();
+
+  function alternar() {
+    empezar(async () => {
+      const r = await cambiarActiva(p.id, !p.activa);
+      if (r.ok) toast.success(r.mensaje);
+      else toast.error(r.mensaje);
+    });
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={<Button variant="ghost" size="icon-sm" disabled={pendiente} />}
+        aria-label={`Acciones de ${p.codigo}`}
+      >
+        <EllipsisVerticalIcon />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-52">
+        <DropdownMenuItem onClick={alternar}>
+          {p.activa ? "Desactivar en el Banco" : "Volver a Activar"}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive" onClick={alBorrar}>
+          <Trash2Icon />
+          Borrar del Banco
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

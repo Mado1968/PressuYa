@@ -8,7 +8,7 @@ import { KanbanIcon, ListIcon, SearchIcon } from "lucide-react";
 import { EstadoBadge, etiquetaDeEstado } from "@/components/estado-badge";
 import { Importe } from "@/components/importe";
 import { Input } from "@/components/ui/input";
-import { ESTADOS, type Estado } from "@/lib/tipos";
+import { ESTADOS, ESTADOS_VIVOS, type Estado } from "@/lib/tipos";
 import { formatoEurosCorto, formatoFechaNumerica, formatoTitulo } from "@/lib/formato";
 
 export type TarjetaPresupuesto = {
@@ -31,12 +31,15 @@ export type TarjetaPresupuesto = {
 export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
   const [vista, setVista] = useState<"kanban" | "lista">("kanban");
   const [busqueda, setBusqueda] = useState("");
-  const [filtro, setFiltro] = useState<Estado | "todos">("todos");
+  const [filtro, setFiltro] = useState<Estado | "activos" | "todos">("todos");
 
   const filtrados = useMemo(() => {
     const texto = busqueda.trim().toLowerCase();
     return presupuestos.filter((p) => {
-      if (filtro !== "todos" && p.estado !== filtro) return false;
+      if (filtro === "activos" && !(ESTADOS_VIVOS as readonly string[]).includes(p.estado)) {
+        return false;
+      }
+      if (filtro !== "todos" && filtro !== "activos" && p.estado !== filtro) return false;
       if (!texto) return true;
       return (
         p.clienteNombre.toLowerCase().includes(texto) ||
@@ -50,7 +53,7 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-2">
-        <div className="relative min-w-56 flex-1 sm:max-w-xs">
+        <div className="relative min-w-0 flex-1 sm:max-w-xs">
           <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={busqueda}
@@ -64,6 +67,9 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
           <BotonFiltro activo={filtro === "todos"} onClick={() => setFiltro("todos")}>
             Todos
           </BotonFiltro>
+          <BotonFiltro activo={filtro === "activos"} onClick={() => setFiltro("activos")}>
+            Activos
+          </BotonFiltro>
           {ESTADOS.map((estado) => (
             <BotonFiltro key={estado} activo={filtro === estado} onClick={() => setFiltro(estado)}>
               {etiquetaDeEstado(estado)}
@@ -71,7 +77,7 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
           ))}
         </div>
 
-        <div className="ml-auto flex items-center gap-1 rounded-lg border bg-card p-0.5">
+        <div className="ml-auto hidden items-center gap-1 rounded-lg border bg-card p-0.5 lg:flex">
           <BotonVista activo={vista === "kanban"} onClick={() => setVista("kanban")} icono={KanbanIcon}>
             Kanban
           </BotonVista>
@@ -81,8 +87,42 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
         </div>
       </div>
 
-      {vista === "kanban" ? <Kanban presupuestos={filtrados} /> : <Lista presupuestos={filtrados} />}
+      <div className="flex flex-col gap-2 lg:hidden">
+        {filtrados.length === 0 ? (
+          <div className="rounded-xl border bg-card px-4 py-10 text-center text-sm text-muted-foreground">
+            Ningún presupuesto encaja con lo que has buscado. Prueba con otra búsqueda o cambia el filtro.
+          </div>
+        ) : (
+          filtrados.map((presupuesto) => <TarjetaMovil key={presupuesto.id} presupuesto={presupuesto} />)
+        )}
+      </div>
+      <div className="hidden lg:block">
+        {vista === "kanban" ? <Kanban presupuestos={filtrados} /> : <Lista presupuestos={filtrados} />}
+      </div>
     </div>
+  );
+}
+
+function TarjetaMovil({ presupuesto: p }: { presupuesto: TarjetaPresupuesto }) {
+  return (
+    <Link
+      href={`/panel/presupuestos/${p.id}`}
+      className="flex min-w-0 flex-col gap-2 rounded-xl border bg-card p-3 transition-colors hover:border-primary/40 hover:bg-secondary/50"
+    >
+      <div className="flex min-w-0 items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate font-semibold">{p.clienteNombre}</p>
+          <p className="mt-0.5 truncate text-sm text-muted-foreground">{formatoTitulo(p.titulo)}</p>
+        </div>
+        <Importe centimos={p.total} corto className="shrink-0 text-sm font-semibold" />
+      </div>
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+        <span className="cifra">{p.numero}</span>
+        <span aria-hidden>·</span>
+        <EstadoBadge estado={p.estado} tamano="pequeno" />
+        <span className="ml-auto min-w-0 truncate">{p.pie}</span>
+      </div>
+    </Link>
   );
 }
 

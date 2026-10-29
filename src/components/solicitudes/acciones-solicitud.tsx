@@ -3,6 +3,7 @@
 // interfaz dice lo que está haciendo mientras tanto: nunca un spinner mudo.
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { cn } from "cn";
 import { ArrowRightIcon, LoaderIcon, PhoneIcon, RotateCcwIcon, XIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ export function AccionesDeSolicitud({
   presupuestoId,
   telefono = null,
   deLaWeb = false,
+  className,
 }: {
   solicitudId: number;
   estado: string;
@@ -25,6 +27,7 @@ export function AccionesDeSolicitud({
   /** Solo en las solicitudes de la web: lo primero es llamar al cliente. */
   telefono?: string | null;
   deLaWeb?: boolean;
+  className?: string;
 }) {
   const router = useRouter();
   const [convirtiendo, convertir] = useTransition();
@@ -35,6 +38,7 @@ export function AccionesDeSolicitud({
       <Button
         variant="outline"
         size="sm"
+        className="min-h-10 sm:min-h-7"
         disabled={!presupuestoId}
         onClick={() => presupuestoId && router.push(`/panel/presupuestos/${presupuestoId}`)}
       >
@@ -49,6 +53,7 @@ export function AccionesDeSolicitud({
       <Button
         variant="outline"
         size="sm"
+        className="min-h-10 sm:min-h-7"
         disabled={moviendo}
         onClick={() =>
           mover(async () => {
@@ -64,11 +69,12 @@ export function AccionesDeSolicitud({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {telefono && (
         <Button
           variant="outline"
           size="sm"
+          className="min-h-10 sm:min-h-7"
           nativeButton={false}
           render={<a href={`tel:${telefono.replace(/\s/g, "")}`} />}
         >
@@ -79,6 +85,7 @@ export function AccionesDeSolicitud({
       <Button
         variant="outline"
         size="sm"
+        className="min-h-10 sm:min-h-7"
         disabled={convirtiendo || moviendo}
         onClick={() =>
           mover(async () => {
@@ -93,6 +100,7 @@ export function AccionesDeSolicitud({
 
       <Button
         size="sm"
+        className="min-h-10 w-full sm:min-h-7 sm:w-auto"
         disabled={convirtiendo || moviendo}
         onClick={() =>
           convertir(async () => {
