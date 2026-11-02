@@ -1,0 +1,94 @@
+﻿id;codigo;capitulo;nombre;unidad;precio;margen_objetivo;activa
+1;SOFT_A1;Software;Single_Web_Page;1;150;10;1
+;SOFT_A2;Software;Landing_Web_Page;1;100;10;1
+;SOFT_A3;Software;Modify_Web_Page;1;200;10;1
+;SOFT_A4;Software;Migrate_Web_Page;1;350;10;1
+;SOFT_A5;Software;Audit_Web_Page;1;85;10;1
+;SOFT_A6;Software;Tienda_Web_Page;1;1500;10;1
+;SOFT_A7;Software;Adapt_Web_Page;1;400;10;1
+;SOFT_A8;Software;NewFeatures_Web_Page;1;350;10;1
+;SOFT_A9;Software;;1;0;10;1
+;SOFT_A10;Software;;1;0;10;1
+;SOFT_A11;Software;;1;0;10;1
+;SOFT_A12;Software;;1;0;10;1
+;SOFT_A13;Software;;1;0;10;1
+;SOFT_A14;Software;;1;0;10;1
+;SOFT_A15;Software;;1;0;10;1
+;SOFT_A16;Software;;1;0;10;1
+;SOFT_A17;Software;;1;0;10;1
+;SOFT_A18;Software;;1;0;10;1
+;SOFT_A19;Software;;1;0;10;1
+;SOFT_A20;Software;;1;0;10;1
+;SOFT_A21;Software;;1;0;10;1
+;SOFT_A22;Software;;1;0;10;1
+;SOFT_A23;Software;;1;0;10;1
+;SOFT_A24;Software;;1;0;10;1
+;SOFT_A25;Software;;1;0;10;1
+;SOFT_A26;Software;;1;0;10;1
+;SOFT_A27;Software;;1;0;10;1
+;SOFT_A28;Software;;1;0;10;1
+;SOFT_A29;Software;;1;0;10;1
+;AUTO_A1;Automation;Auditar tasques per automatitzar;1;250;10;1
+;AUTO_A2;Automation;Planificar automatitzacions;1;250;10;1
+;AUTO_A3;Automation;Test i proves;1;250;10;1
+;AUTO_A4;Automation;Cerca de LLM Opcions;1;125;10;1
+;AUTO_A5;Automation;Implementar3;1;400;10;1
+;AUTO_A6;Automation;Implementar5;1;600;10;1
+;AUTO_A7;Automation;Implementar7;1;800;10;1
+;AUTO_A8;Automation;Implementar9;1;1400;10;1
+;CHAT_A1;ChatData;;1;0;10;1
+;CHAT_A2;ChatData;;1;0;10;1
+;CHAT_A3;ChatData;;1;0;10;1
+;CHAT_A4;ChatData;;1;0;10;1
+;CHAT_A5;ChatData;;1;0;10;1
+;CHAT_A6;ChatData;;1;0;10;1
+;CHAT_A7;ChatData;;1;0;10;1
+;CHAT_A8;ChatData;;1;0;10;1
+;CHAT_A9;ChatData;;1;0;10;1
+;FORM_A1;Formacio;;1;0;10;1
+;FORM_A2;Formacio;;1;0;10;1
+;FORM_A3;Formacio;;1;0;10;1
+;FORM_A4;Formacio;;1;0;10;1
+;FORM_A5;Formacio;;1;0;10;1
+;FORM_A6;Formacio;;1;0;10;1
+;FORM_A7;Formacio;;1;0;10;1
+;FORM_A8;Formacio;;1;0;10;1
+;ASS_A1;Assesorament;;1;0;10;1
+;ASS_A2;Assesorament;;1;0;10;1
+;ASS_A3;Assesorament;;1;0;10;1
+;ASS_A4;Assesorament;;1;0;10;1
+;ASS_A5;Assesorament;;1;0;10;1
+;ASS_A6;Assesorament;;1;0;10;1
+;ASS_A7;Assesorament;;1;0;10;1
+;IMPL_I1;Implementar;Gestió Hosting;1;60;10;1
+;IMPL_I2;Implementar;Manteniment Hosting;1;25;10;1
+;IMPL_I3;Implementar;Millora mensual;1;30;10;1
+;IMPL_I4;Implementar;Canvis sobre executat;1;48;10;1
+;IMPL_I5;Implementar;;1;0;10;1
+;IMPL_I6;Implementar;;1;0;10;1
+;IMPL_I7;Implementar;;1;0;10;1
+;IMPL_I8;Implementar;;1;0;10;1
+;IMPL_I9;Implementar;;1;0;10;1
+;TERC_T1;Tercers;Posada en contacte;1;50;10;1
+;TERC_T2;Tercers;Contractar i gestionar;1;120;10;1
+;TERC_T3;Tercers;Busqueda sol·lució;1;60;10;1
+;TERC_T4;Tercers;;1;0;10;1
+;TERC_T5;Tercers;;1;0;10;1
+;TERC_T6;Tercers;;1;0;10;1
+;TERC_T7;Tercers;;1;0;10;1
+;TERC_T8;Tercers;;1;0;10;1
+;TERC_T9;Tercers;;1;0;10;1
+;KNOW_K1;Knowledge;Assessorament;1;120;10;1
+;KNOW_K2;Knowledge;Planificar;1;140;10;1
+;KNOW_K3;Knowledge;Gestió;1;240;10;1
+;KNOW_K4;Knowledge;;1;0;10;1
+;KNOW_K5;Knowledge;;1;0;10;1
+;KNOW_K6;Knowledge;;1;0;10;1
+;KNOW_K7;Knowledge;;1;0;10;1
+;KNOW_K8;Knowledge;;1;0;10;1
+;KNOW_K9;Knowledge;;1;0;10;1
+;KNOW_K10;Knowledge;;1;0;10;1
+;KNOW_K11;Knowledge;;1;0;10;1
+;KNOW_K12;Knowledge;;1;0;10;1
+;KNOW_K13;Knowledge;;1;0;10;1
+;KNOW_K14;Knowledge;;1;0;10;1
