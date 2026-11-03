@@ -26,7 +26,7 @@ export const ESTADOS_CERRADOS = ["ganado", "perdido", "expirado"] as const satis
 export const UNIDADES = ["ud", "m2", "ml", "m3", "h", "pa"] as const;
 export type Unidad = (typeof UNIDADES)[number];
 
-export const URGENCIAS = ["baja", "media", "alta"] as const;
+export const URGENCIAS = ["baixa", "mitjana", "alta"] as const;
 export type Urgencia = (typeof URGENCIAS)[number];
 
 export type EstadoSolicitud = "pendiente" | "convertida" | "descartada";

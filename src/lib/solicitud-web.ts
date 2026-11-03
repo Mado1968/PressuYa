@@ -6,17 +6,17 @@ import type { Urgencia } from "./tipos";
 
 /** El tipo de obra decide el título de la solicitud en la bandeja. */
 export const TIPOS_DE_OBRA = [
-  { clave: "bano", etiqueta: "Baño", titulo: "Assistent 24/7" },
-  { clave: "cocina", etiqueta: "Cocina", titulo: "Harness per a Agent de IA" },
-  { clave: "piso", etiqueta: "Piso Completo", titulo: "Aplicació a mida" },
-  { clave: "pintura", etiqueta: "Pintura", titulo: "Assessorament-Implementació" },
-  { clave: "otra", etiqueta: "Otra Obra", titulo: "Serveis i eines de tercers" },
+  { clave: "assist", etiqueta: "Assistent", titulo: "Assistent 24/7" },
+  { clave: "harness", etiqueta: "Harness", titulo: "Harness per a Agent de IA" },
+  { clave: "App", etiqueta: "Aplicació", titulo: "Aplicació a mida" },
+  { clave: "asse", etiqueta: "Assessorament", titulo: "Assessorament-Implementació" },
+  { clave: "tercers", etiqueta: "Tercers", titulo: "Serveis i eines de tercers" },
 ] as const;
 
 /** El plazo que marca el cliente es la urgencia de la solicitud. */
 export const PLAZOS: { clave: Urgencia; etiqueta: string }[] = [
-  { clave: "baja", etiqueta: "Tinc pressaa" },
-  { clave: "media", etiqueta: "En uns mesos" },
+  { clave: "baixa", etiqueta: "No tinc pressa" },
+  { clave: "mitjana", etiqueta: "En uns mesos" },
   { clave: "alta", etiqueta: "El més aviat" },
 ];
 
