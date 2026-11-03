@@ -99,17 +99,17 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Campo id="nombre" etiqueta="Nombre y Apellidos" error={errores.nombre} className="sm:col-span-2">
+        <Campo id="nombre" etiqueta="Nom i cognoms" error={errores.nombre} className="sm:col-span-2">
           <Input id="nombre" name="nombre" autoComplete="name" required aria-invalid={!!errores.nombre} />
         </Campo>
-        <Campo id="telefono" etiqueta="Teléfono" error={errores.telefono}>
+        <Campo id="telefono" etiqueta="Telèfon" error={errores.telefono}>
           <Input id="telefono" name="telefono" type="tel" inputMode="tel" autoComplete="tel" required aria-invalid={!!errores.telefono} />
         </Campo>
         <Campo id="email" etiqueta="Email" opcional error={errores.email}>
           <Input id="email" name="email" type="email" autoComplete="email" aria-invalid={!!errores.email} />
         </Campo>
-        <Campo id="direccion" etiqueta="Dirección de la Obra" error={errores.direccion} className="sm:col-span-2">
-          <Input id="direccion" name="direccion" autoComplete="street-address" placeholder="Calle, número, piso y población" required aria-invalid={!!errores.direccion} />
+        <Campo id="direccion" etiqueta="Adreça " error={errores.direccion} className="sm:col-span-2">
+          <Input id="direccion" name="direccion" autoComplete="street-address" placeholder="Carrer, número, pis i poble" required aria-invalid={!!errores.direccion} />
         </Campo>
       </div>
 
@@ -133,14 +133,14 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
         {errores.plazo && <Error texto={errores.plazo} />}
       </fieldset>
 
-      <Campo id="mensaje" etiqueta="Cuéntanos Qué Quieres Hacer" error={errores.mensaje}>
+      <Campo id="mensaje" etiqueta="Explican's que necessites" error={errores.mensaje}>
         <Textarea
           id="mensaje"
           name="mensaje"
           rows={5}
           required
           aria-invalid={!!errores.mensaje}
-          placeholder="Por ejemplo: queremos cambiar la bañera por un plato de ducha y poner azulejos nuevos en el baño."
+          placeholder="Per exemple: vull una aplicació per fer pressupostos"
           className="leading-relaxed"
         />
       </Campo>
