@@ -42,7 +42,7 @@ export async function guardarSolicitud(nueva: NuevaSolicitud): Promise<number> {
   await cargarReloj();
   const urgencia: Urgencia = (URGENCIAS as readonly string[]).includes(nueva.urgencia)
     ? nueva.urgencia
-    : "media";
+    : "mitjana";
   const fila = await db
     .insert(solicitud)
     .values({

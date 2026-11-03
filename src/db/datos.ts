@@ -1170,7 +1170,7 @@ export const SOLICITUDES: SolicitudSeed[] = [
     email: null,
     direccion: "Carrer de Aribau 155, 08036 Barcelona",
     titulo: "Pintura integral de piso de 90 m²",
-    urgencia: "media",
+    urgencia: "mitjana",
     horas: 5,
     textoOriginal:
       "Piso de Aribau 155, tercero segunda, unos noventa metros. La señora quiere pintar todo el piso, paredes y techos, hay gotelé en el pasillo y en los dos dormitorios, eso habría que alisarlo. Son unos cuarenta metros de gotelé más o menos. Cuatro puertas para esmaltar y tres radiadores. Quiere que se lo hagamos en agosto que se van de vacaciones, hay que proteger los muebles porque no vacían el piso. Limpieza final incluida.",
@@ -1215,7 +1215,7 @@ export const SOLICITUDES: SolicitudSeed[] = [
     email: "marta.ruiz@example.com",
     direccion: "Carrer de Verdi 71, 08012 Barcelona",
     titulo: "Reforma de baño",
-    urgencia: "media",
+    urgencia: "mitjana",
     horas: 1,
     origen: "cliente",
     textoOriginal:
