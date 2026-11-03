@@ -151,7 +151,7 @@ export async function extraerVisita(texto: string): Promise<VisitaExtraida> {
     titulo: salida.titulo.trim() || "Visita sin título",
     urgencia: (URGENCIAS as readonly string[]).includes(salida.urgencia)
       ? (salida.urgencia as Urgencia)
-      : "media",
+      : "mitjana",
     conceptos: salida.conceptos
       .filter((c) => c.descripcion?.trim())
       .map<ConceptoCrudo>((c) => ({
