@@ -10,14 +10,14 @@ const ESTILO: Record<Urgencia, { etiqueta: string; punto: string; fondo: string;
     fondo: "bg-conversacion-fondo",
     texto: "text-conversacion",
   },
-  media: {
+  mitjana: {
     etiqueta: "Normal",
     punto: "bg-borrador",
     fondo: "bg-borrador-fondo",
     texto: "text-borrador",
   },
-  baja: {
-    etiqueta: "Sin Prisa",
+  baixa: {
+    etiqueta: "baixa",
     punto: "bg-borrador",
     fondo: "bg-borrador-fondo",
     texto: "text-borrador",
@@ -25,7 +25,7 @@ const ESTILO: Record<Urgencia, { etiqueta: string; punto: string; fondo: string;
 };
 
 export function UrgenciaBadge({ urgencia, className }: { urgencia: Urgencia; className?: string }) {
-  const estilo = ESTILO[urgencia] ?? ESTILO.media;
+  const estilo = ESTILO[urgencia] ?? ESTILO.mitjana;
   return (
     <span
       className={cn(

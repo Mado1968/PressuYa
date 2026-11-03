@@ -29,9 +29,9 @@ import type { ConceptoCrudo, Urgencia } from "@/lib/tipos";
 import { leerLaVisita, guardarVisita, type VisitaLeida } from "@/app/panel/solicitudes/acciones";
 
 const URGENCIAS: { clave: Urgencia; etiqueta: string }[] = [
-  { clave: "baja", etiqueta: "Sin Prisa" },
-  { clave: "media", etiqueta: "Normal" },
-  { clave: "alta", etiqueta: "Urgente" },
+  { clave: "baixa", etiqueta: "No tinc pressa" },
+  { clave: "mitjana", etiqueta: "En uns mesos" },
+  { clave: "alta", etiqueta: "El més aviat possible" },
 ];
 
 export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
@@ -136,10 +136,9 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
       <section className="rounded-xl border bg-card">
         <header className="flex flex-wrap items-start justify-between gap-3 border-b px-5 py-3.5">
           <div>
-            <h2 className="font-semibold">Cuéntame la Visita</h2>
+            <h2 className="font-semibold">Explica la Visita</h2>
             <p className="mt-0.5 text-xs text-muted-foreground">
-              Habla como hablarías con un aparejador: la obra, lo que hay que tirar, lo que hay que
-              poner y las medidas que hayas tomado.
+             Parla amb normalitat, la màquina va escrivint el que escolta. O enganxa les teves notes escrites: funciona igual.
             </p>
           </div>
           {sePuedeDictar && (
@@ -171,12 +170,12 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-perdido opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-perdido" />
               </span>
-              Te estoy escuchando… habla con normalidad, las pausas no cortan nada.
+              T'estic escoltant…
             </p>
           )}
 
           <Label htmlFor="visita" className="sr-only">
-            Notas de la Visita
+            Notes de la Visita
           </Label>
           <Textarea
             id="visita"
@@ -205,7 +204,7 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
               {leyendo ? (
                 <>
                   <LoaderIcon data-icon="inline-start" className="animate-spin" />
-                  Leyendo la Visita…
+                  Llegint la Visita…
                 </>
               ) : (
                 <>
@@ -224,11 +223,11 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
           <header className="border-b px-5 py-3.5">
             <h2 className="flex items-center gap-2 font-semibold">
               <CheckIcon className="size-4 text-positivo" />
-              Esto Es lo que He Entendido
+              Això és el que he entès de la visita
             </h2>
             <p className="mt-0.5 text-xs text-muted-foreground">
-              Repásalo y corrige lo que haga falta. Todavía no hay precios: los pone el banco al
-              convertir la solicitud en presupuesto.
+             Repassa-ho i corregeix el que calgui. Encara no hi ha preus: els posa el banc al
+              convertir la sol·licitud en pressupost.
             </p>
           </header>
 
@@ -271,7 +270,7 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
             />
 
             <div className="flex flex-col gap-1.5 sm:col-span-2">
-              <Label>Urgencia</Label>
+              <Label>Urgència</Label>
               <div className="inline-flex w-fit rounded-lg border p-0.5">
                 {URGENCIAS.map((u) => (
                   <button

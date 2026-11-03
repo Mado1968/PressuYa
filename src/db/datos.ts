@@ -10,9 +10,9 @@ import type { Dispositivo, Estado, Origen, Seccion, Unidad, Urgencia } from "@/l
 export const EMPRESA = {
   nombre: "TTiA",
   cif: "B66412907",
-  direccion: "Carrer de Provença 233, 08008 Barcelona",
-  telefono: "93 555 41 20",
-  email: "hola@reformassoler.es",
+  direccion: "Carrer de Mart,2 08205 Sabadell",
+  telefono: "691191095",
+  email: "ttiamcp@gmail.com",
   colorMarca: "#1B2537",
   ivaPct: 21,
   caducidadDias: 15,
