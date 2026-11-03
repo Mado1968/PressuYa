@@ -6,42 +6,42 @@ import type { Urgencia } from "./tipos";
 
 /** El tipo de obra decide el título de la solicitud en la bandeja. */
 export const TIPOS_DE_OBRA = [
-  { clave: "bano", etiqueta: "Baño", titulo: "Reforma de baño" },
-  { clave: "cocina", etiqueta: "Cocina", titulo: "Reforma de cocina" },
-  { clave: "piso", etiqueta: "Piso Completo", titulo: "Reforma integral de piso" },
-  { clave: "pintura", etiqueta: "Pintura", titulo: "Pintura" },
-  { clave: "otra", etiqueta: "Otra Obra", titulo: "Otra obra" },
+  { clave: "bano", etiqueta: "Baño", titulo: "Assistent 24/7" },
+  { clave: "cocina", etiqueta: "Cocina", titulo: "Harness per a Agent de IA" },
+  { clave: "piso", etiqueta: "Piso Completo", titulo: "Aplicació a mida" },
+  { clave: "pintura", etiqueta: "Pintura", titulo: "Assessorament-Implementació" },
+  { clave: "otra", etiqueta: "Otra Obra", titulo: "Serveis i eines de tercers" },
 ] as const;
 
 /** El plazo que marca el cliente es la urgencia de la solicitud. */
 export const PLAZOS: { clave: Urgencia; etiqueta: string }[] = [
-  { clave: "baja", etiqueta: "Sin Prisa" },
-  { clave: "media", etiqueta: "En Unos Meses" },
-  { clave: "alta", etiqueta: "Cuanto Antes" },
+  { clave: "baja", etiqueta: "Tinc pressaa" },
+  { clave: "media", etiqueta: "En uns mesos" },
+  { clave: "alta", etiqueta: "El més aviat" },
 ];
 
 const CLAVES_OBRA = TIPOS_DE_OBRA.map((t) => t.clave) as [string, ...string[]];
 
 export const SolicitudWeb = z.object({
-  nombre: z.string().trim().min(3, "Escribe tu nombre y apellidos.").max(80, "El nombre es demasiado largo."),
+  nombre: z.string().trim().min(3, "Escriu el teu nom i cognoms.").max(80, "El nom és massa llarg."),
   telefono: z
     .string()
     .trim()
-    .regex(/^[+\d][\d\s.-]{7,17}$/, "Escribe un teléfono de contacto válido."),
+    .regex(/^[+\d][\d\s.-]{7,17}$/, "Escriu un telèfon vàlid."),
   email: z
     .string()
     .trim()
     .max(120)
-    .refine((v) => v === "" || z.email().safeParse(v).success, "Ese email no parece válido."),
-  direccion: z.string().trim().min(8, "Escribe la dirección de la obra.").max(160),
-  obra: z.enum(CLAVES_OBRA, { error: "Elige qué obra es." }),
-  plazo: z.enum(["baja", "media", "alta"], { error: "Dinos para cuándo la quieres." }),
+    .refine((v) => v === "" || z.email().safeParse(v).success, "El mail no és vàlid."),
+  direccion: z.string().trim().min(8, "Escriu la direcció de teva adreça.").max(160),
+  obra: z.enum(CLAVES_OBRA, { error: "Escull el tipus de servei." }),
+  plazo: z.enum(["baixa", "mitjana", "alta"], { error: "Per quan ho vols?" }),
   mensaje: z
     .string()
     .trim()
-    .min(20, "Cuéntanos un poco más: con dos o tres frases nos basta.")
-    .max(2000, "El mensaje es demasiado largo: resúmelo un poco."),
-  consentimiento: z.literal(true, { error: "Necesitamos tu permiso para poder llamarte." }),
+    .min(20, "Explican's una mica més: amb dues o tres frases serà suficient.")
+    .max(2000, "El missatge és massa llar: Fes un resum."),
+  consentimiento: z.literal(true, { error: "Necessitem el teu permís per poder trucar-te." }),
 });
 
 export type SolicitudWebDatos = z.infer<typeof SolicitudWeb>;

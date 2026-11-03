@@ -74,13 +74,13 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
             {enviada.nombre ? `Gracias, ${enviada.nombre}` : "Gracias"}
           </h2>
           <p className="mt-2 leading-relaxed text-muted-foreground">
-            Hemos recibido tu solicitud. Francesc te llamará para concertar la visita: sin ver la obra
-            no damos precios, porque cada casa es distinta. Después de la visita, tendrás el
-            presupuesto al día siguiente.
+            Hem rebut la teva sol·licitud. El Francesc et trucarà per concertar la visita: sense veure l'obra
+            no donem preus, perquè cada casa és diferent. Després de la visita, tindràs el
+            pressupost al dia següent.
           </p>
         </div>
         <p className="text-sm text-muted-foreground">
-          ¿Te corre prisa? Llámanos al{" "}
+          Prefereixes el telefón ? Truca al{" "}
           <a href={`tel:${telefono.replace(/\s/g, "")}`} className="cifra font-medium text-foreground hover:underline">
             {telefono}
           </a>
@@ -114,7 +114,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
       </div>
 
       <fieldset>
-        <legend className="text-sm font-medium">¿Qué Obra Es?</legend>
+        <legend className="text-sm font-medium">¿Quin servei sol·licites?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {TIPOS_DE_OBRA.map((t) => (
             <Opcion key={t.clave} nombre="obra" valor={t.clave} etiqueta={t.etiqueta} />
@@ -124,7 +124,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
       </fieldset>
 
       <fieldset>
-        <legend className="text-sm font-medium">¿Para Cuándo?</legend>
+        <legend className="text-sm font-medium">¿Per quan?</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {PLAZOS.map((p) => (
             <Opcion key={p.clave} nombre="plazo" valor={p.clave} etiqueta={p.etiqueta} />
@@ -149,7 +149,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
         <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
           <input name="consentimiento" type="checkbox" className="mt-0.5 size-4 shrink-0 accent-[var(--primary)]" />
           <span>
-            Acepto que TTiA use estos datos solo para contactarme sobre mi obra.
+            Accepto que TTiA utilitzi aquestes dades només per contactar-me sobre la meva obra.
           </span>
         </label>
         {errores.consentimiento && <Error texto={errores.consentimiento} />}
