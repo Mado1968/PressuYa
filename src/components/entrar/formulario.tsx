@@ -14,7 +14,7 @@ export function FormularioEntrar({ desde }: { desde: string }) {
     <form action={accion} className="flex flex-col gap-4">
       <input type="hidden" name="desde" value={desde} />
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="contrasena">Contraseña</Label>
+        <Label htmlFor="contrasena">Password</Label>
         <Input
           id="contrasena"
           name="contrasena"

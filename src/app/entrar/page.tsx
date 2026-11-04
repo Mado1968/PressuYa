@@ -28,9 +28,9 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
         </div>
 
         <div className="rounded-xl border bg-card p-6 shadow-lg">
-          <h1 className="text-lg font-semibold tracking-tight">Acceso al Panel</h1>
+          <h1 className="text-lg font-semibold tracking-tight">Accés al Panell</h1>
           <p className="mt-1 mb-5 text-sm text-muted-foreground">
-            El panel de TTiA es privado. Escribe la contraseña del equipo para entrar.
+            El panell de TTiA està protegit amb una contrasenya. Introdueix-la per accedir-hi.
           </p>
           {accesoConfigurado() ? (
             <FormularioEntrar desde={destino} />
@@ -44,7 +44,7 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
 
         <p className="mt-6 text-center text-xs text-white/50">
           <Link href="/" className="hover:text-white/80">
-            Volver a la Web de TTiA
+            Tornar a la web de TTiA
           </Link>
         </p>
       </div>
