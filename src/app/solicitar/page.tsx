@@ -10,14 +10,14 @@ import { ahora, cargarReloj } from "@/lib/reloj";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Pedir Presupuesto · TTiA",
-  description: "Cuéntanos qué obra quieres hacer y te llamamos para ir a verla.",
+  title: "Demanar pressupost · TTiA",
+  description: "Explican'ns què vols fer i Francesc et truca.",
 };
 
 const PASOS = [
-  "Te llamamos para concertar una visita.",
-  "Vamos a ver la obra y la medimos.",
-  "Al día siguiente tienes el presupuesto, partida por partida.",
+  "Et truquem i ens expliques què necessites",
+  "Agendem una visita",
+  "",
 ];
 
 export default async function Solicitar() {
@@ -30,10 +30,9 @@ export default async function Solicitar() {
 
       <main className="mx-auto grid w-full max-w-6xl flex-1 gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:py-16">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Pide Tu Presupuesto</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Demanar pressupost</h1>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            Cuéntanos qué quieres hacer y Francesc te llama. Sin ver la obra no damos precios, porque
-            cada casa es distinta: por eso lo primero es la visita.
+            Explican's què necessites.
           </p>
           <ol className="mt-8 space-y-4">
             {PASOS.map((paso, i) => (
@@ -46,7 +45,7 @@ export default async function Solicitar() {
             ))}
           </ol>
           <p className="mt-8 text-sm text-muted-foreground">
-            ¿Prefieres llamar? Estamos en el{" "}
+            Prefereixes trucar? Estem al{" "}
             <a
               href={`tel:${negocio.telefono.replace(/\s/g, "")}`}
               className="cifra font-medium text-foreground hover:underline"

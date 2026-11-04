@@ -58,7 +58,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
           setMensaje(r.mensaje ?? null);
         }
       } catch {
-        setMensaje(`No hemos podido enviar la solicitud. Inténtalo de nuevo o llámanos al ${telefono}.`);
+        setMensaje(`No em pogut enviar la sol·licitud. Inténta-ho de nou o truca al ${telefono}.`);
       }
     });
   }
