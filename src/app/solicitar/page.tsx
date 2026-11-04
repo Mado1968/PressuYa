@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const PASOS = [
   "Et truquem i ens expliques què necessites",
   "Agendem una visita",
-  "",
+  
 ];
 
 export default async function Solicitar() {
@@ -54,6 +54,12 @@ export default async function Solicitar() {
             </a>
             .
           </p>
+          <a
+            href="https://pressu-ya.vercel.app/"
+            className="mt-4 inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--primary),black_12%)]"
+          >
+            Tornar a l'inici
+          </a>
         </div>
 
         <div className="rounded-xl border bg-card p-5 sm:p-7">
