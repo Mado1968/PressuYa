@@ -26,6 +26,12 @@ export function CabeceraWeb({ telefono, conBoton = true }: { telefono: string; c
             <PhoneIcon className="size-4" />
             <span className="cifra">{telefono}</span>
           </a>
+          <Link
+            href="/entrar"
+            className="inline-flex h-9 items-center rounded-lg border border-border px-3 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          >
+            Acceso del Equipo
+          </Link>
           {conBoton && (
             <Link
               href="/solicitar"
