@@ -42,7 +42,7 @@ export function AccionesDeSolicitud({
         disabled={!presupuestoId}
         onClick={() => presupuestoId && router.push(`/panel/presupuestos/${presupuestoId}`)}
       >
-        Ver el Presupuesto
+        Veure el pressupost
         <ArrowRightIcon data-icon="inline-end" />
       </Button>
     );
@@ -79,7 +79,7 @@ export function AccionesDeSolicitud({
           render={<a href={`tel:${telefono.replace(/\s/g, "")}`} />}
         >
           <PhoneIcon data-icon="inline-start" />
-          Llamar
+          Trucar al client
         </Button>
       )}
       <Button
@@ -116,7 +116,7 @@ export function AccionesDeSolicitud({
           </>
         ) : (
           <>
-            Convertir en Presupuesto
+            Convertir en Pressupost
             <ArrowRightIcon data-icon="inline-end" />
           </>
         )}

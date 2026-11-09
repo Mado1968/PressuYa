@@ -52,8 +52,8 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
       <PageHeader
-        titulo="Solicitudes"
-        subtitulo="Cada visita que dictas y cada petición que llega desde la web caen aquí, listas para convertirse en presupuesto."
+        titulo="Solicituds"
+        subtitulo="Cada visita que dictes y cada petició que arriba desde la web estan aqui, llestes per a convertir-se en pressupost."
         acciones={
           <Button nativeButton={false} render={<Link href="/panel/nueva-visita" />}>
             <FilePlusIcon data-icon="inline-start" />
@@ -100,7 +100,7 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
             filtro === "pendiente" ? (
               <Button nativeButton={false} render={<Link href="/panel/nueva-visita" />}>
                 <FilePlusIcon data-icon="inline-start" />
-                Nueva Solicitud
+                Nova Solicitud
               </Button>
             ) : undefined
           }
@@ -128,7 +128,7 @@ function leerConceptos(json: string): ConceptoCrudo[] {
 function vacio(filtro: string): { titulo: string; texto: string } {
   if (filtro === "convertida") {
     return {
-      titulo: "Todavía No Has Convertido Ninguna Visita",
+      titulo: "Encara no has convertit Cap Visita",
       texto: "Cuando conviertas una solicitud en presupuesto, se quedará aquí con el enlace a su ficha.",
     };
   }
@@ -140,6 +140,6 @@ function vacio(filtro: string): { titulo: string; texto: string } {
   }
   return {
     titulo: "La Bandeja Está Vacía",
-    texto: "Dicta la visita al salir del piso y caerá aquí en unos segundos, con el cliente, la dirección y los conceptos ya entendidos. Lo que pidan desde la web también llega aquí.",
+    texto: "Dicta la visita al sortir i estarà aquí en uns segons, amb el client, la direcció i els conceptes. El que es demani des de la web també arriba aqui.",
   };
 }

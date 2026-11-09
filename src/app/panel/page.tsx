@@ -15,10 +15,10 @@ function saludo(fecha: Date): string {
       .format(fecha)
       .replace("24", "0"),
   );
-  if (hora < 6) return "Buenas Noches";
-  if (hora < 14) return "Buenos Días";
-  if (hora < 21) return "Buenas Tardes";
-  return "Buenas Noches";
+  if (hora < 6) return "Bona nit";
+  if (hora < 14) return "Bon Dia";
+  if (hora < 21) return "Bona Tarda";
+  return "Bona Nit";
 }
 
 export default async function Inicio() {
@@ -41,9 +41,9 @@ export default async function Inicio() {
 
       <section className="overflow-hidden rounded-xl border bg-card">
         <header className="flex items-baseline justify-between gap-3 border-b px-5 py-3.5">
-          <h2 className="font-semibold">Los Números</h2>
+          <h2 className="font-semibold">Els nombres</h2>
           <span className="text-xs text-muted-foreground">
-            sumas de presupuestos reales, nunca estimaciones
+            sumas de pressupostos,visites i factures.
           </span>
         </header>
         <div className="grid divide-y sm:grid-cols-2 sm:divide-x lg:grid-cols-3">
