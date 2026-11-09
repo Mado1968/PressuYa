@@ -2,8 +2,8 @@
 //   1 · entender la visita y casarla con el banco de precios (fases 1 y 2);
 //   2 · redactar los tres seguimientos al enviar (fase 4).
 //
-// Siempre en el servidor. Se solicita JSON al modelo y se valida con Zod antes
-// de usarlo; la salida del proveedor nunca se considera confiable por sí sola.
+// Siempre en el servidor, siempre con salida estructurada validada por Zod:
+// nunca se parsea texto libre del modelo.
 //
 // Lo que la IA NO hace, nunca: poner un precio, calcular un importe, decidir un
 // estado ni inventarse un código de partida. Eso es del servidor.

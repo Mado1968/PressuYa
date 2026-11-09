@@ -56,12 +56,12 @@ export type Dictado = { parar: () => void };
 
 const MOTIVOS: Record<string, string> = {
   "not-allowed":
-    "El navegador no ha donat permís per al micròfon. Dona-li permís a la barra d'adreces i torna-ho a provar.",
+    "El navegador no ha dado permiso para el micrófono. Dáselo en la barra de direcciones y vuelve a intentarlo.",
   "service-not-allowed":
-    "El navegador no ha donat permís per al micròfon. Dona-li permís a la barra d'adreces i torna-ho a provar.",
+    "El navegador no ha dado permiso para el micrófono. Dáselo en la barra de direcciones y vuelve a intentarlo.",
   "audio-capture":
-    "No hi ha cap micròfon. Connecta un o utilitza el camp de notes per enganxar la visita.",
-  network: "El reconeixement de veu ha quedat sense xarxa. Pots continuar escrivint les notes.",
+    "No se encuentra ningún micrófono. Conecta uno o usa el campo de notas para pegar la visita.",
+  network: "El reconocimiento de voz se ha quedado sin red. Puedes seguir escribiendo las notas.",
 };
 
 /**
@@ -72,7 +72,7 @@ export function empezarDictado(manejadores: ManejadoresDeDictado): Dictado {
   const w = window as VentanaConDictado;
   const Motor = w.webkitSpeechRecognition ?? w.SpeechRecognition;
   if (!Motor) {
-    manejadores.alFallar("Aquest navegador no té dictat. Prova amb Chrome o Safari.");
+    manejadores.alFallar("Este navegador no sabe dictar. Pega las notas en el cuadro de abajo.");
     return { parar: () => {} };
   }
 
@@ -101,7 +101,7 @@ export function empezarDictado(manejadores: ManejadoresDeDictado): Dictado {
     // y el onend se encarga de volver a arrancar.
     if (e.error === "no-speech" || e.error === "aborted") return;
     escuchando = false;
-    manejadores.alFallar(MOTIVOS[e.error] ?? `El dictat s'ha tallat (${e.error}).`);
+    manejadores.alFallar(MOTIVOS[e.error] ?? `El dictado se ha cortado (${e.error}).`);
   };
 
   motor.onend = () => {
@@ -116,7 +116,7 @@ export function empezarDictado(manejadores: ManejadoresDeDictado): Dictado {
   try {
     motor.start();
   } catch {
-    manejadores.alFallar("El dictat ja està en marxa.");
+    manejadores.alFallar("El dictado ya estaba en marcha.");
   }
 
   return {
