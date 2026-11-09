@@ -33,7 +33,7 @@ export type ResultadoLectura = { ok: true; visita: VisitaLeida } | { ok: false; 
 export async function leerLaVisita(texto: string): Promise<ResultadoLectura> {
   await exigirSesion();
   if (!texto.trim()) {
-    return { ok: false, mensaje: "No hay nada que leer: dicta la visita o pega tus notas." };
+    return { ok: false, mensaje: "No hi ha res a llegir: dicta  o enganxa les notes." };
   }
   if (!hayIa()) {
     return { ok: false, mensaje: new SinClaveDeIa().message };
@@ -53,7 +53,7 @@ export async function leerLaVisita(texto: string): Promise<ResultadoLectura> {
       },
     };
   } catch (e) {
-    console.error("No se ha podido leer la visita:", e);
+    console.error("No s'ha pogut llegir la visita:", e);
     return { ok: false, mensaje: (e as Error).message };
   }
 }
@@ -66,14 +66,14 @@ export type VisitaParaGuardar = VisitaLeida & { textoOriginal: string };
 export async function guardarVisita(visita: VisitaParaGuardar): Promise<ResultadoVisita> {
   await exigirSesion();
   const clienteNombre = visita.clienteNombre.trim();
-  if (!clienteNombre) return { ok: false, mensaje: "Ponle un nombre al cliente antes de guardar." };
+  if (!clienteNombre) return { ok: false, mensaje: "Posa un nom al client abans de guardar." };
 
   const direccion = visita.direccion.trim();
-  if (!direccion) return { ok: false, mensaje: "Falta la dirección de la obra." };
+  if (!direccion) return { ok: false, mensaje: "Falta l'adreça." };
 
   const conceptos = visita.conceptos.filter((c) => c.descripcion.trim());
   if (conceptos.length === 0) {
-    return { ok: false, mensaje: "La visita no tiene ni un concepto: no hay nada que presupuestar." };
+    return { ok: false, mensaje: "La visita no té ni un concepte: no hi ha res a presupostar." };
   }
 
   const solicitudId = await guardarSolicitud({
