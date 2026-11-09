@@ -37,14 +37,14 @@ npm install          # solo la primera vez
 cp .env.example .env.local
 ```
 
-Abre `.env.local` y pon al menos `OPENAI_API_KEY`, `PANEL_PASSWORD` y
+Abre `.env.local` y pon al menos `OPENROUTER_API_KEY`, `PANEL_PASSWORD` y
 `PANEL_SECRET` (este último, con `openssl rand -hex 32`). Lo demás es opcional:
 
 | Variable | Para qué sirve | Si falta |
 |---|---|---|
-| `OPENAI_API_KEY` | La IA que lee la visita y redacta los seguimientos | Aviso en pantalla al convertir; el resto funciona |
-| `OPENAI_MODEL` | Modelo | `gpt-5.6-terra` |
-| `OPENAI_EFFORT` | Esfuerzo de razonamiento | `high` |
+| `OPENROUTER_API_KEY` | La IA que lee la visita y redacta los seguimientos | Aviso en pantalla al convertir; el resto funciona |
+| `OPENROUTER_MODEL` | Modelo | `nvidia/nemotron-3-ultra-550b-a55b:free` |
+| `OPENROUTER_BASE_URL` | URL base de OpenRouter | `https://openrouter.ai/api/v1` |
 | `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | Avisos al móvil del jefe | Solo la campana del panel |
 | `APP_URL` | Dominio con el que se generan los enlaces | `http://localhost:3000` |
 | `PANEL_PASSWORD` | La contraseña del panel | El panel no abre y lo dice |
@@ -74,7 +74,7 @@ que pide la contraseña de `PANEL_PASSWORD`.
 | `npm run check` | `tsc --noEmit`: no se enseña nada con errores de tipos |
 | `npm run reset` | Vacía la base, aplica el esquema, importa el banco y carga el seed |
 | `npm run db:push` | Aplica el esquema a la base sin migraciones |
-| `npm run humo` | Prueba lo externo: la API de OpenAI, Telegram, `APP_URL` y Turso |
+| `npm run humo` | Prueba lo externo: la API de OpenRouter, Telegram, `APP_URL` y Turso |
 | `npm run build` | Compila para producción |
 
 `npm run reset` **vacía la base entera** (borra sus tablas, no el fichero). Los datos de ejemplo se vuelven a
@@ -99,7 +99,7 @@ La app es la misma en local y en producción; solo cambia dónde está la base.
    | `DATABASE_AUTH_TOKEN` | el token de Turso |
    | `APP_URL` | `https://<tu-proyecto>.vercel.app` |
    | `PANEL_PASSWORD`, `PANEL_SECRET`, `CRON_SECRET` | los de tu `.env.local` |
-   | `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_EFFORT` | los de tu `.env.local` |
+   | `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `OPENROUTER_BASE_URL` | los de tu `.env.local` |
    | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | los de tu `.env.local` |
    | `DEMO_MODE` | `1` si quieres la barra del reloj en el panel |
 

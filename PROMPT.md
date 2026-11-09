@@ -129,13 +129,12 @@ Mira la carpeta antes de planificar. Hay tres situaciones posibles:
   antes de guardar, y en el mismo formulario hay siempre la alternativa
   idéntica: pegar las notas escritas. El dictado lo hace el navegador; a la
   API solo le llega texto.
-- **IA**: la API de OpenAI con el SDK oficial `openai`, Responses API. Modelo
-  `gpt-5.6-terra` por defecto, configurable con `OPENAI_MODEL`, y
-  `reasoning: { effort }` con el valor de `OPENAI_EFFORT` (por defecto `high`).
-  Salida estructurada siempre: `client.responses.parse` con
-  `text: { format: zodTextFormat(schema, "nombre") }` (`zodTextFormat` se
-  importa de `openai/helpers/zod`) y se lee `output_parsed`; nunca se parsea
-  texto libre del modelo. Mientras la IA piensa, la interfaz lo dice con
+- **IA**: OpenRouter con el SDK compatible `openai`, Chat Completions API.
+  Modelo `nvidia/nemotron-3-ultra-550b-a55b:free` por defecto, configurable con
+  `OPENROUTER_MODEL`, y URL base configurable con `OPENROUTER_BASE_URL`.
+  Solicitar JSON con el esquema en las instrucciones y validar siempre la
+  respuesta con Zod; el modelo predeterminado no anuncia soporte nativo de
+  salida estructurada. Mientras la IA piensa, la interfaz lo dice con
   claridad («Leyendo la visita…», «Casando partidas contra el banco…»): nunca
   un spinner mudo. Toda llamada a la IA va en el servidor (route handlers o
   server actions), nunca desde el navegador.
@@ -216,9 +215,9 @@ está en `.gitignore` desde el primer commit; `.env.example` va sin valores.
 
 | Variable | Obligatoria | Qué hace | Si falta |
 |---|---|---|---|
-| `OPENAI_API_KEY` | Sí | La IA dentro del producto | Aviso claro en la interfaz al convertir; nada más se rompe |
-| `OPENAI_MODEL` | No | Modelo de la IA | `gpt-5.6-terra` |
-| `OPENAI_EFFORT` | No | Esfuerzo de razonamiento de la IA (`low`, `medium`, `high`) | `high` |
+| `OPENROUTER_API_KEY` | Sí | La IA dentro del producto | Aviso claro en la interfaz al convertir; nada más se rompe |
+| `OPENROUTER_MODEL` | No | Modelo de la IA | `nvidia/nemotron-3-ultra-550b-a55b:free` |
+| `OPENROUTER_BASE_URL` | No | URL base del proveedor | `https://openrouter.ai/api/v1` |
 | `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` | No | La notificación al móvil del jefe | Los avisos van solo a la campana del panel |
 | `APP_URL` | No | Base con la que se generan los enlaces de los presupuestos y de los avisos | `http://localhost:3000` |
 | `DATABASE_URL` + `DATABASE_AUTH_TOKEN` | No | La base que usa la app. En local, el fichero libSQL; en Vercel, la URL de Turso (`libsql://…`) con su token | `file:./data/demo.db` |
@@ -727,7 +726,7 @@ se prueba en pantalla.
   si existe, se respeta. `README.md` para quien arranque el repo en su máquina
   (instalar, crear claves, `npm run reset`, `npm run dev`). Scripts en
   `package.json`: `check` (`tsc --noEmit`), `db:push`, `reset` y `humo`
-  (prueba la API de OpenAI, Telegram y `APP_URL`, sin imprimir claves).
+  (prueba la API de OpenRouter, Telegram y `APP_URL`, sin imprimir claves).
 - `FASE-0.md` con el inventario de lo hecho y cómo verificarlo. Commit y tag
   `v0`.
 

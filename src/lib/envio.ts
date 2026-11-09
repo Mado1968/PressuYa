@@ -50,7 +50,7 @@ function rellenar(
 
 /**
  * Los tres textos sin pasar por la IA: los de Ajustes con los huecos rellenos.
- * Es la red de seguridad, y también lo que se enseña si no hay OPENAI_API_KEY.
+ * Es la red de seguridad, y también lo que se enseña si no hay OPENROUTER_API_KEY.
  */
 export async function seguimientosDeAjustes(presupuestoId: number): Promise<TextoSeguimiento[]> {
   const [p, negocio] = await Promise.all([presupuestoPorId(presupuestoId), elNegocio()]);

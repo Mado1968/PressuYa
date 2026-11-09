@@ -10,7 +10,6 @@
 //
 // DUEÑO: carril A. El resto de la sesión no toca este fichero.
 import OpenAI from "openai";
-import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import { bancoDePrecios, elNegocio, lineasDe, presupuestoPorId } from "./consultas";
 import { formatoEuros, formatoEurosCorto, formatoMedicion, formatoUnidad } from "./formato";
@@ -24,18 +23,18 @@ import type {
   VisitaExtraida,
 } from "./tipos";
 
-export const MODELO = process.env.OPENAI_MODEL ?? "gpt-5.6-terra";
-export const ESFUERZO = (process.env.OPENAI_EFFORT ?? "high") as "low" | "medium" | "high";
+export const MODELO = process.env.OPENROUTER_MODEL ?? "nvidia/nemotron-3-ultra-550b-a55b:free";
+const URL_BASE = process.env.OPENROUTER_BASE_URL ?? "https://openrouter.ai/api/v1";
 
 /** ¿Está la IA configurada? Si no, la interfaz lo dice con claridad. */
 export function hayIa(): boolean {
-  return Boolean(process.env.OPENAI_API_KEY);
+  return Boolean(process.env.OPENROUTER_API_KEY);
 }
 
 export class SinClaveDeIa extends Error {
   constructor() {
     super(
-      "Falta OPENAI_API_KEY en .env.local: sin ella la máquina no puede leer la visita. Añádela y vuelve a intentarlo.",
+      "Falta OPENROUTER_API_KEY en .env.local: sin ella la máquina no puede leer la visita. Añádela y vuelve a intentarlo.",
     );
     this.name = "SinClaveDeIa";
   }
@@ -44,8 +43,9 @@ export class SinClaveDeIa extends Error {
 let clienteCache: OpenAI | null = null;
 
 export function cliente(): OpenAI {
-  if (!hayIa()) throw new SinClaveDeIa();
-  return (clienteCache ??= new OpenAI());
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) throw new SinClaveDeIa();
+  return (clienteCache ??= new OpenAI({ apiKey, baseURL: URL_BASE }));
 }
 
 /** Cuando el modelo responde pero sin salida estructurada: no se adivina nada. */
@@ -54,6 +54,25 @@ class SinRespuestaDeIa extends Error {
     super(`La IA ha respondido sin la estructura esperada al ${trabajo}. Vuelve a intentarlo.`);
     this.name = "SinRespuestaDeIa";
   }
+}
+
+function instruccionesConEsquema(instrucciones: string, esquema: z.ZodType): string {
+  return `${instrucciones}
+
+Devuelve únicamente un objeto JSON válido, sin bloques Markdown ni texto adicional, que cumpla este esquema:
+${JSON.stringify(z.toJSONSchema(esquema))}`;
+}
+
+function salidaValidada<T>(contenido: string | null, esquema: z.ZodType<T>, trabajo: string): T {
+  if (!contenido) throw new SinRespuestaDeIa(trabajo);
+
+  let salida: unknown;
+  try {
+    salida = JSON.parse(contenido);
+  } catch {
+    throw new SinRespuestaDeIa(trabajo);
+  }
+  return esquema.parse(salida);
 }
 
 /* ------------------------------------------------------------------------ */
@@ -132,16 +151,15 @@ export async function extraerVisita(texto: string): Promise<VisitaExtraida> {
   const limpio = texto.trim();
   if (!limpio) throw new Error("No hay nada que leer: dicta la visita o pega tus notas.");
 
-  const respuesta = await cliente().responses.parse({
+  const respuesta = await cliente().chat.completions.create({
     model: MODELO,
-    reasoning: { effort: ESFUERZO },
-    instructions: INSTRUCCIONES_VISITA,
-    input: [{ role: "user", content: `Notas de la visita:\n\n«${limpio}»` }],
-    text: { format: zodTextFormat(VisitaIa, "visita") },
+    messages: [
+      { role: "system", content: instruccionesConEsquema(INSTRUCCIONES_VISITA, VisitaIa) },
+      { role: "user", content: `Notas de la visita:\n\n«${limpio}»` },
+    ],
   });
 
-  const salida = respuesta.output_parsed;
-  if (!salida) throw new SinRespuestaDeIa("leer la visita");
+  const salida = salidaValidada(respuesta.choices[0]?.message.content, VisitaIa, "leer la visita");
 
   return {
     clienteNombre: vacioANull(salida.clienteNombre),
@@ -227,21 +245,18 @@ export async function casarConceptos(conceptos: ConceptoCrudo[]): Promise<Casaci
     })
     .join("\n");
 
-  const respuesta = await cliente().responses.parse({
+  const respuesta = await cliente().chat.completions.create({
     model: MODELO,
-    reasoning: { effort: ESFUERZO },
-    instructions: INSTRUCCIONES_CASAR,
-    input: [
+    messages: [
+      { role: "system", content: instruccionesConEsquema(INSTRUCCIONES_CASAR, CasacionesIa) },
       {
         role: "user",
         content: `BANCO DE PRECIOS (código | capítulo | partida | unidad):\n${catalogo}\n\nCONCEPTOS DE LA VISITA:\n${lista}\n\nDevuelve una casación por cada concepto, con su índice.`,
       },
     ],
-    text: { format: zodTextFormat(CasacionesIa, "casaciones") },
   });
 
-  const salida = respuesta.output_parsed;
-  if (!salida) throw new SinRespuestaDeIa("casar las partidas");
+  const salida = salidaValidada(respuesta.choices[0]?.message.content, CasacionesIa, "casar las partidas");
 
   // Se reconstruye la lista completa por índice: si la IA se deja un concepto,
   // ese concepto sale amarillo, nunca desaparece.
@@ -330,11 +345,10 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
   const diasEnPalabras =
     diasAlCaducar <= 0 ? "menos de un día" : diasAlCaducar === 1 ? "1 día" : `${diasAlCaducar} días`;
 
-  const respuesta = await cliente().responses.parse({
+  const respuesta = await cliente().chat.completions.create({
     model: MODELO,
-    reasoning: { effort: ESFUERZO },
-    instructions: INSTRUCCIONES_SEGUIMIENTOS,
-    input: [
+    messages: [
+      { role: "system", content: instruccionesConEsquema(INSTRUCCIONES_SEGUIMIENTOS, SeguimientosIa) },
       {
         role: "user",
         content: [
@@ -355,11 +369,13 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
         ].join("\n"),
       },
     ],
-    text: { format: zodTextFormat(SeguimientosIa, "seguimientos") },
   });
 
-  const salida = respuesta.output_parsed;
-  if (!salida) throw new SinRespuestaDeIa("redactar los seguimientos");
+  const salida = salidaValidada(
+    respuesta.choices[0]?.message.content,
+    SeguimientosIa,
+    "redactar los seguimientos",
+  );
 
   return salida.seguimientos
     .filter((s) => s.texto?.trim())

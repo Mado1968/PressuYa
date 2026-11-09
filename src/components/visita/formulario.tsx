@@ -125,7 +125,7 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
         <div className="flex items-start gap-2.5 rounded-xl border border-amarilla/50 bg-amarilla-fondo px-4 py-3 text-sm">
           <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-amarilla" />
           <p>
-            Falta <span className="cifra">OPENAI_API_KEY</span> en{" "}
+            Falta <span className="cifra">OPENROUTER_API_KEY</span> en{" "}
             <span className="cifra">.env.local</span>: sin ella la máquina no puede leer la visita.
             Puedes dictar o escribir la visita, pero para entenderla y guardarla en la bandeja hace falta la IA.
           </p>

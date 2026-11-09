@@ -26,10 +26,11 @@ fecha, se firma en la propia página y se mide en un panel con euros reales.
   flotante; solo se divide entre 100 al formatear.
 - Despliegue en Vercel (plan gratuito, región `dub1`, junto a la base de Turso
   en Irlanda).
-- IA: SDK oficial `openai`, Responses API. Modelo `gpt-5.6-terra`
-  (`OPENAI_MODEL`), esfuerzo `high` (`OPENAI_EFFORT`), salida estructurada con
-  `client.responses.parse` + `zodTextFormat` (de `openai/helpers/zod`). Solo
-  en servidor.
+- IA: OpenRouter con el SDK compatible `openai`, Chat Completions API. Modelo
+  `nvidia/nemotron-3-ultra-550b-a55b:free` (`OPENROUTER_MODEL`) y URL base
+  configurable (`OPENROUTER_BASE_URL`). Solicitar JSON con el esquema en las
+  instrucciones y validar siempre con Zod; el modelo predeterminado no anuncia
+  soporte nativo de salida estructurada. Solo en servidor.
 
 ## Comandos
 
@@ -39,7 +40,7 @@ fecha, se firma en la propia página y se mide en un panel con euros reales.
   esquema, importa el banco de precios y carga el seed. Al terminar comprueba que
   las cifras de las diapositivas cuadran al céntimo y aborta si no
 - `npm run db:push` — aplica el esquema a la base sin migraciones
-- `npm run humo` — prueba las cosas externas: API de OpenAI, Telegram, `APP_URL` y Turso
+- `npm run humo` — prueba las cosas externas: API de OpenRouter, Telegram, `APP_URL` y Turso
 
 ## Estructura
 

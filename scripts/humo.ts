@@ -1,8 +1,7 @@
-// Prueba de humo de TTiA: la API de OpenAI, Telegram, APP_URL y
+// Prueba de humo de TTiA: la API de OpenRouter, Telegram, APP_URL y
 // la base de producción en Turso.
 // Se ejecuta con `npm run humo`. No imprime ninguna clave.
 import OpenAI from "openai";
-import { zodTextFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
 let fallos = 0;
@@ -21,29 +20,32 @@ function cargarEnv() {
   }
 }
 
-async function apiDeOpenAI() {
-  if (!process.env.OPENAI_API_KEY) return ko("OPENAI_API_KEY no está en .env.local");
-  const client = new OpenAI();
-  const model = process.env.OPENAI_MODEL ?? "gpt-5.6-terra";
-  const effort = (process.env.OPENAI_EFFORT ?? "high") as "low" | "medium" | "high";
+async function apiDeOpenRouter() {
+  if (!process.env.OPENROUTER_API_KEY) return ko("OPENROUTER_API_KEY no está en .env.local");
+  const client = new OpenAI({
+    apiKey: process.env.OPENROUTER_API_KEY,
+    baseURL: process.env.OPENROUTER_BASE_URL ?? "https://openrouter.ai/api/v1",
+  });
+  const model = process.env.OPENROUTER_MODEL ?? "nvidia/nemotron-3-ultra-550b-a55b:free";
   const Esquema = z.object({ partida: z.string(), medicion: z.number(), unidad: z.string() });
   const t0 = Date.now();
-  const r = await client.responses.parse({
+  const r = await client.chat.completions.create({
     model,
-    reasoning: { effort },
-    input: [
+    messages: [
+      {
+        role: "system",
+        content: `Devuelve únicamente un objeto JSON válido con partida (texto), medicion (número) y unidad (texto). Esquema: ${JSON.stringify(z.toJSONSchema(Esquema))}`,
+      },
       {
         role: "user",
         content: "Extrae la partida, la medición y la unidad: «alicatar unos 22 metros de pared».",
       },
     ],
-    text: { format: zodTextFormat(Esquema, "extraccion") },
   });
-  const p = r.output_parsed;
-  if (!p) return ko("La API respondió pero sin salida estructurada");
-  ok(
-    `API de OpenAI (${model}, esfuerzo ${effort}) en ${((Date.now() - t0) / 1000).toFixed(1)} s: «${p.partida}» · ${p.medicion} ${p.unidad}`,
-  );
+  const contenido = r.choices[0]?.message.content;
+  if (!contenido) return ko("OpenRouter respondió sin contenido");
+  const p = Esquema.parse(JSON.parse(contenido));
+  ok(`OpenRouter (${model}) en ${((Date.now() - t0) / 1000).toFixed(1)} s: «${p.partida}» · ${p.medicion} ${p.unidad}`);
 }
 
 type Updates = { result?: Array<{ message?: { chat: { id: number; first_name?: string } } }> };
@@ -110,7 +112,7 @@ async function turso() {
 
 async function main() {
   cargarEnv();
-  await apiDeOpenAI().catch((e) => ko(`API de OpenAI: ${(e as Error).message}`));
+  await apiDeOpenRouter().catch((e) => ko(`OpenRouter: ${(e as Error).message}`));
   await telegram().catch((e) => ko(`Telegram: ${(e as Error).message}`));
   await appUrl();
   await turso().catch((e) => ko(`Turso: ${(e as Error).message}`));
