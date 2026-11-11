@@ -126,7 +126,7 @@ const VisitaIa = z.object({
   urgencia: z
     .enum(URGENCIAS)
     .describe(
-      "alta si el cliente mete prisa o hay una fecha que corre; baja si se habla de más adelante o sin fecha; media en el resto.",
+      "alta si el cliente mete prisa o hay una fecha que corre; mitjana si se habla de más adelante o sin fecha; baixa en el resto.",
     ),
   conceptos: z
     .array(ConceptoIa)
@@ -214,7 +214,7 @@ const INSTRUCCIONES_CASAR = `Eres el ayudante de Francesc, jefe de TTiA. Tienes 
 Reglas que no se saltan:
 - El código que devuelvas tiene que estar COPIADO LETRA A LETRA del catálogo que se te da. NUNCA te inventes un código, ni lo compongas, ni lo aproximes. Si ninguna partida encaja de verdad, devuelve codigo null: es una respuesta perfectamente válida y es preferible a forzar una partida que no es.
 - Si una descripción encaja con varias partidas, elige la MÁS ESPECÍFICA.
-- Si dudas entre dos gamas (media y alta), elige la GAMA MEDIA.
+- Si dudas entre dos gamas (mitjana y alta), elige la GAMA MITJANA.
 - La medición va SIEMPRE en la unidad de la partida elegida. Si el concepto viene en otra unidad, conviértela con criterio de obra. Si el concepto no trae medición, propón la que tenga sentido para lo descrito (y si no hay forma de saberlo, 1).
 - La confianza es honesta: 0,9 o más cuando la partida es literalmente lo descrito; alrededor de 0,7 cuando es lo mismo dicho de otra forma; por debajo de 0,6 cuando dudas de verdad. Por debajo de 0,6 la línea saldrá marcada en amarillo para que Francesc la revise, y eso está bien.
 - Devuelve exactamente una casación por concepto, con su índice.
