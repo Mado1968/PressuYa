@@ -23,7 +23,7 @@ import type {
   VisitaExtraida,
 } from "./tipos";
 
-export const MODELO = process.env.OPENROUTER_MODEL ?? "nvidia/Nemotron 3.5 Embed 1B (free)";
+export const MODELO = process.env.OPENROUTER_MODEL ?? "nvidia/nemotron-3.5-lightning:free";
 const URL_BASE = process.env.OPENROUTER_BASE_URL ?? "https://openrouter.ai/api/v1";
 
 /** ¿Está la IA configurada? Si no, la interfaz lo dice con claridad. */
