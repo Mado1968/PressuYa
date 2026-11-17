@@ -110,8 +110,8 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
         toast.error(resultado.mensaje);
         return;
       }
-      toast.success("La visita ya está en la bandeja de solicitudes.");
-      router.push("/panel/solicitudes?estado=pendiente");
+      toast.success("La visita ja es a la safata de sol·licituds.");
+      router.push("/panel/solicitudes?estado=pendent");
     } finally {
       setGuardando(false);
     }
@@ -125,9 +125,9 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
         <div className="flex items-start gap-2.5 rounded-xl border border-amarilla/50 bg-amarilla-fondo px-4 py-3 text-sm">
           <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-amarilla" />
           <p>
-            Falta <span className="cifra">OPENROUTER_API_KEY</span> en{" "}
-            <span className="cifra">.env.local</span>: sin ella la máquina no puede leer la visita.
-            Puedes dictar o escribir la visita, pero para entenderla y guardarla en la bandeja hace falta la IA.
+            Falta <span className="cifra">API_KEY</span> {" "}
+            <span className="cifra"></span>: sinó  no podem llegir la visita.
+            Pots dictar o escriure la visita, pero per entendre-la i guardar-la a la safata fa falta la IA.
           </p>
         </div>
       )}
@@ -184,7 +184,7 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
             disabled={leyendo || guardando}
-            placeholder="Dicta con el botón de arriba o pega aquí tus notas. Por ejemplo: «Piso de Mallorca 42, tercero primera. Quitar la bañera y poner plato de ducha de 120 por 80 con mampara, picar 22 metros de alicatado…»"
+            placeholder="Dicta amb el botó de dalt o enganxa aqui les teves notes. Per exemple: «Harness per a petita empresa. Ordenar les dades per conceptes»"
             className="min-h-48 resize-y leading-relaxed"
           />
 
@@ -197,8 +197,8 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground">
               {sePuedeDictar === false
-                ? "Este navegador no sabe dictar (prueba con Chrome o Safari). Pega aquí tus notas y funciona igual."
-                : "El texto es tuyo: corrígelo aquí mismo antes de que lo lea la máquina."}
+                ? "Aquest navegador no sap dictar (provaa amb Chrome o Safari). Enganxa aqui les notes i funciona igual."
+                : "El text es teu: corregeix aqui mateix abans que ho faci la IA."}
             </p>
             <Button type="button" onClick={leer} disabled={!hayTexto || leyendo || guardando}>
               {leyendo ? (
@@ -209,7 +209,7 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
               ) : (
                 <>
                   <BrainIcon data-icon="inline-start" />
-                  {visita ? "Volver a Leer la Visita" : "Leer la Visita"}
+                  {visita ? "Tornar a Llegir la Visita" : "Llegir la Visita"}
                 </>
               )}
             </Button>
@@ -237,26 +237,26 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
               etiqueta="Cliente"
               valor={visita.clienteNombre}
               alCambiar={(v) => setVisita({ ...visita, clienteNombre: v })}
-              placeholder="Nombre y apellidos"
+              placeholder="Nom i cognoms"
             />
             <Campo
               id="titulo"
-              etiqueta="La Obra"
+              etiqueta="La tasca"
               valor={visita.titulo}
               alCambiar={(v) => setVisita({ ...visita, titulo: v })}
-              placeholder="Reforma de baño"
+              placeholder="Harness"
             />
             <Campo
               id="direccion"
-              etiqueta="Dirección de la Obra"
+              etiqueta="Adreça"
               valor={visita.direccion}
               alCambiar={(v) => setVisita({ ...visita, direccion: v })}
-              placeholder="Calle, número, piso y población"
+              placeholder="Carrer, número, pis i població"
               className="sm:col-span-2"
             />
             <Campo
               id="telefono"
-              etiqueta="Teléfono"
+              etiqueta="Telefon"
               valor={visita.telefono}
               alCambiar={(v) => setVisita({ ...visita, telefono: v })}
               placeholder="6XX XXX XXX"
@@ -313,14 +313,14 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
             </ul>
             {visita.conceptos.length === 0 && (
               <p className="py-4 text-sm text-muted-foreground">
-                No queda ningún concepto. Vuelve a leer la visita o añade más notas arriba.
+                No queda cap concepte. Torna a llegir la visita o afegeix més notes a dalt.
               </p>
             )}
           </div>
 
           <footer className="flex flex-wrap items-center justify-between gap-3 border-t bg-secondary/40 px-5 py-3">
             <p className="text-xs text-muted-foreground">
-              Al guardar, la visita cae en Solicitudes. Desde ahí se convierte en presupuesto.
+              En desar, la visita va a les Solicituds. De allà es converteix en pressupost.
             </p>
             <Button
               type="button"
@@ -330,11 +330,11 @@ export function FormularioDeVisita({ conIa }: { conIa: boolean }) {
               {guardando ? (
                 <>
                   <LoaderIcon data-icon="inline-start" className="animate-spin" />
-                  Guardando…
+                  Desant…
                 </>
               ) : (
                 <>
-                  Guardar en Solicitudes
+                  Desar a Solicituds
                   <ArrowRightIcon data-icon="inline-end" />
                 </>
               )}

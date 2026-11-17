@@ -67,7 +67,7 @@ export type PartidaEnPantalla = {
   activa: boolean;
 };
 
-type Filtro = "todas" | "activas" | "inactivas";
+type Filtro = "totes" | "actives" | "inactives";
 
 function sinTildes(texto: string): string {
   return texto
@@ -78,8 +78,8 @@ function sinTildes(texto: string): string {
 
 export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) {
   const [busqueda, setBusqueda] = useState("");
-  const [capitulo, setCapitulo] = useState("todos");
-  const [filtro, setFiltro] = useState<Filtro>("todas");
+  const [capitulo, setCapitulo] = useState("tots");
+  const [filtro, setFiltro] = useState<Filtro>("totes");
   const [aBorrar, setABorrar] = useState<PartidaEnPantalla | null>(null);
 
   const capitulos = useMemo(
@@ -88,7 +88,7 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
   );
 
   const itemsCapitulo = useMemo(() => {
-    const items: Record<string, string> = { todos: "Todos los Capítulos" };
+    const items: Record<string, string> = { todos: "Tots els Capítols" };
     for (const c of capitulos) items[c] = formatoTitulo(c);
     return items;
   }, [capitulos]);
@@ -96,22 +96,22 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
   const visibles = useMemo(() => {
     const aguja = sinTildes(busqueda.trim());
     return partidas.filter((p) => {
-      if (capitulo !== "todos" && p.capitulo !== capitulo) return false;
-      if (filtro === "activas" && !p.activa) return false;
-      if (filtro === "inactivas" && p.activa) return false;
+      if (capitulo !== "tots" && p.capitulo !== capitulo) return false;
+      if (filtro === "actives" && !p.activa) return false;
+      if (filtro === "inactives" && p.activa) return false;
       if (!aguja) return true;
       return sinTildes(`${p.codigo} ${p.nombre} ${p.capitulo}`).includes(aguja);
     });
   }, [partidas, busqueda, capitulo, filtro]);
 
   const grupos = useMemo(() => porCapitulos(visibles), [visibles]);
-  const hayFiltros = busqueda.trim() !== "" || capitulo !== "todos" || filtro !== "todas";
+  const hayFiltros = busqueda.trim() !== "" || capitulo !== "tots" || filtro !== "totes";
   const activas = partidas.filter((p) => p.activa).length;
 
   function limpiar() {
     setBusqueda("");
-    setCapitulo("todos");
-    setFiltro("todas");
+    setCapitulo("tots");
+    setFiltro("totes");
   }
 
   return (
@@ -124,18 +124,18 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
             <Input
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
-              placeholder="Buscar por código, partida o capítulo"
-              aria-label="Buscar en el banco de precios"
+              placeholder="Buscar per codi, partida o capitol"
+              aria-label="Buscar en el banc de preus"
               className="pl-7.5"
             />
           </div>
 
           <Select
             value={capitulo}
-            onValueChange={(v) => setCapitulo(String(v ?? "todos"))}
+            onValueChange={(v) => setCapitulo(String(v ?? "tots"))}
             items={itemsCapitulo}
           >
-            <SelectTrigger className="w-full sm:w-56" aria-label="Filtrar por capítulo">
+            <SelectTrigger className="w-full sm:w-56" aria-label="Filtrar per capitol">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -149,36 +149,36 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
 
           <Select
             value={filtro}
-            onValueChange={(v) => setFiltro((v ?? "todas") as Filtro)}
-            items={{ todas: "Activas e Inactivas", activas: "Solo Activas", inactivas: "Solo Inactivas" }}
+            onValueChange={(v) => setFiltro((v ?? "totes") as Filtro)}
+            items={{ totes: "Actives e Inactives", actives: "Només Actives", inactives: "Només Inactives" }}
           >
-            <SelectTrigger className="w-full sm:w-44" aria-label="Filtrar por estado">
+            <SelectTrigger className="w-full sm:w-44" aria-label="Filtrar per estat">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todas">Activas e Inactivas</SelectItem>
-              <SelectItem value="activas">Solo Activas</SelectItem>
-              <SelectItem value="inactivas">Solo Inactivas</SelectItem>
+              <SelectItem value="totes">Actives e Inactives</SelectItem>
+              <SelectItem value="actives">Només Actives</SelectItem>
+              <SelectItem value="inactives">Només Inactives</SelectItem>
             </SelectContent>
           </Select>
 
           {hayFiltros && (
             <Button variant="ghost" size="sm" onClick={limpiar} className="self-start sm:self-auto">
               <XIcon />
-              Quitar Filtros
+              Treure Filtres
             </Button>
           )}
         </div>
 
         {visibles.length === 0 ? (
           <div className="px-6 py-14 text-center">
-            <p className="font-medium">Ninguna Partida Encaja con lo que Buscas</p>
+            <p className="font-medium">Cap Partida Encaixa amb el que Busques</p>
             <p className="mx-auto mt-1 max-w-md text-sm text-muted-foreground">
-              El banco tiene {partidas.length} partidas. Prueba con el código («ALB»), con una
-              palabra de la partida («alicatado») o quita los filtros.
+              El banc té {partidas.length} partides. Prueva amb el codi («ASS»), amb una
+              paraula de la partida («Test i proves») o treu els filtres.
             </p>
             <Button variant="outline" size="sm" className="mt-4" onClick={limpiar}>
-              Quitar Filtros
+              Treure Filtres
             </Button>
           </div>
         ) : (
@@ -204,12 +204,12 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
-                <TableHead className="w-28 pl-3">Código</TableHead>
+                <TableHead className="w-28 pl-3">Codi</TableHead>
                 <TableHead>Partida</TableHead>
-                <TableHead className="w-16 text-center">Unidad</TableHead>
-                <TableHead className="w-32 text-right">Precio</TableHead>
-                <TableHead className="w-28 text-right">Margen</TableHead>
-                <TableHead className="w-28 text-right">Coste</TableHead>
+                <TableHead className="w-16 text-center">Unitat</TableHead>
+                <TableHead className="w-32 text-right">Preu</TableHead>
+                <TableHead className="w-28 text-right">Marge</TableHead>
+                <TableHead className="w-28 text-right">Cost</TableHead>
                 <TableHead className="w-10 pr-3" />
               </TableRow>
             </TableHeader>
@@ -247,24 +247,24 @@ export function BancoDePrecios({ partidas }: { partidas: PartidaEnPantalla[] }) 
               </>
             )}{" "}
             {partidas.length === 1 ? "partida" : "partidas"} ·{" "}
-            <span className="cifra">{capitulos.length}</span> capítulos ·{" "}
-            <span className="cifra">{activas}</span> activas
+            <span className="cifra">{capitulos.length}</span> capitols ·{" "}
+            <span className="cifra">{activas}</span> actives
           </span>
-          <span>Precios sin IVA, con material y mano de obra salvo que la partida diga otra cosa.</span>
+          <span>Preus sense IVA, amb tasca i hores excepte que la partida digui una altre cosa.</span>
         </div>
       </div>
 
       <Dialog open={aBorrar !== null} onOpenChange={(abierto) => !abierto && setABorrar(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Borrar {aBorrar?.codigo} del Banco</DialogTitle>
+            <DialogTitle>Esborrar {aBorrar?.codigo} del Banc</DialogTitle>
             <DialogDescription>
-              {formatoTitulo(aBorrar?.nombre)}. Si esta partida está usada en algún presupuesto no se borrará:
-              el sistema te dirá que la desactives para no romper el historial.
+              {formatoTitulo(aBorrar?.nombre)}. Si aquesta partida està en ús en algun pressupost, no s'esborrarà:
+              el sistema t'indicarà que la desactivis per no trencar l'historial.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>No la Borres</DialogClose>
+            <DialogClose render={<Button variant="outline" />}>No la esborris</DialogClose>
             {aBorrar && <BotonBorrar id={aBorrar.id} alTerminar={() => setABorrar(null)} />}
           </DialogFooter>
         </DialogContent>
@@ -420,12 +420,12 @@ function MenuAccionesPartida({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-52">
         <DropdownMenuItem onClick={alternar}>
-          {p.activa ? "Desactivar en el Banco" : "Volver a Activar"}
+          {p.activa ? "Desactivar en el Banc" : "Volver a Activar"}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive" onClick={alBorrar}>
           <Trash2Icon />
-          Borrar del Banco
+          Esborrar del Banc
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -451,7 +451,7 @@ function BotonBorrar({ id, alTerminar }: { id: number; alTerminar: () => void })
       }
     >
       <Trash2Icon />
-      {pendiente ? "Borrando…" : "Borrar la Partida"}
+      {pendiente ? "Esborrant…" : "Esborrar la Partida"}
     </Button>
   );
 }

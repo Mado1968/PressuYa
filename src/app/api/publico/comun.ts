@@ -18,13 +18,13 @@ export type DatosDeLaPeticion = {
   dispositivo: Dispositivo;
 };
 
-/** «móvil», «tablet» u «ordenador» a partir del user agent. */
+/** «móvil», «tablet» u «ordinador» a partir del user agent. */
 export function dispositivoDeUserAgent(ua: string | null): Dispositivo {
-  if (!ua) return "ordenador";
+  if (!ua) return "ordinador";
   const u = ua.toLowerCase();
   if (/ipad|tablet|playbook|silk|kindle|android(?!.*mobi)/.test(u)) return "tablet";
-  if (/mobi|iphone|ipod|android.*mobi|windows phone|blackberry/.test(u)) return "movil";
-  return "ordenador";
+  if (/mobi|iphone|ipod|android.*mobi|windows phone|blackberry/.test(u)) return "mòbil";
+  return "ordinador";
 }
 
 /**
@@ -62,18 +62,18 @@ export function estaCaducado(p: PresupuestoConCliente): boolean {
  * No si ha caducado y no si ya está cerrado.
  */
 export function estaAbierto(p: PresupuestoConCliente): boolean {
-  if (p.estado === "ganado" || p.estado === "perdido" || p.estado === "expirado") return false;
+  if (p.estado === "guaynat" || p.estado === "perdut" || p.estado === "expirat") return false;
   return !estaCaducado(p);
 }
 
 // Una respuesta nueva cada vez: el cuerpo de una Response solo se puede leer
 // una vez, así que no se puede reutilizar entre peticiones.
 export function noEncontrado(): Response {
-  return Response.json({ error: "Este enlace no es válido o ya no está disponible." }, { status: 404 });
+  return Response.json({ error: "Aquest enllaç no es vàlid o ja no està disponible." }, { status: 404 });
 }
 
 export function cerrado(): Response {
-  return Response.json({ error: "Este presupuesto ya no admite cambios." }, { status: 409 });
+  return Response.json({ error: "Aquest pressupost ja no admet canvis." }, { status: 409 });
 }
 
 /** Lee el cuerpo JSON sin tumbar la petición si viene mal. */

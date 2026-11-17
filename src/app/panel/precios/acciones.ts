@@ -70,14 +70,14 @@ export async function guardarPrecio(id: number, texto: string): Promise<Resultad
   await exigirSesion();
   const centimos = euroAcentimos(texto);
   if (centimos === null) {
-    return { ok: false, mensaje: "El precio tiene que ser un número de euros, como 84 o 84,50." };
+    return { ok: false, mensaje: "El preu ha de ser un nombre en euros, com 84 o 84,50." };
   }
   if (centimos === 0) {
-    return { ok: false, mensaje: "Una partida del banco no puede valer 0 €. Si no la usas, desactívala." };
+    return { ok: false, mensaje: "Una partida del banc no pot valer 0 €. Si no la utilitzes, desactívala." };
   }
   await db.update(partida).set({ precio: centimos }).where(eq(partida.id, id)).run();
   refrescar();
-  return { ok: true, mensaje: "Precio actualizado." };
+  return { ok: true, mensaje: "Preu actualitzat." };
 }
 
 /** Cambia el margen objetivo de una partida. */
@@ -85,64 +85,64 @@ export async function guardarMargen(id: number, texto: string): Promise<Resultad
   await exigirSesion();
   const valor = porcentaje(texto);
   if (valor === null) {
-    return { ok: false, mensaje: "El margen tiene que ser un porcentaje entre 0 y 99, como 30 o 32,5." };
+    return { ok: false, mensaje: "El marge ha de ser un porcentatge entre 0 y 99, com 30 o 32,5." };
   }
   await db.update(partida).set({ margenObjetivo: valor }).where(eq(partida.id, id)).run();
   refrescar();
-  return { ok: true, mensaje: "Margen actualizado." };
+  return { ok: true, mensaje: "Marge actualitzat." };
 }
 
 /* ---------------------------------------------------------- alta y baja */
 
 export async function crearPartida(_previo: Resultado | null, datos: FormData): Promise<Resultado> {
   await exigirSesion();
-  const codigo = campo(datos, "codigo").toUpperCase();
+  const codigo = campo(datos, "codi").toUpperCase();
   const capitulo = campo(datos, "capitulo");
-  const nombre = campo(datos, "nombre");
-  const unidad = campo(datos, "unidad") as Unidad;
+  const nombre = campo(datos, "nom");
+  const unidad = campo(datos, "unitat") as Unidad;
 
   if (!/^[A-Z0-9-]{2,12}$/.test(codigo)) {
-    return { ok: false, mensaje: "El código son letras, números y guiones, como ALB-11." };
+    return { ok: false, mensaje: "El códi són lletres, nombres i guions, com ALB-11." };
   }
-  if (!capitulo) return { ok: false, mensaje: "Elige o escribe un capítulo." };
+  if (!capitulo) return { ok: false, mensaje: "Escull o escriu un capítol." };
   if (nombre.length < 5) {
-    return { ok: false, mensaje: "Describe la partida como la describirías en un presupuesto." };
+    return { ok: false, mensaje: "Descriu la partida com la descriuries en un pressupost." };
   }
-  if (!UNIDADES.includes(unidad)) return { ok: false, mensaje: "Elige una unidad." };
+  if (!UNIDADES.includes(unidad)) return { ok: false, mensaje: "Escull una unitat." };
 
-  const precio = euroAcentimos(campo(datos, "precio"));
+  const precio = euroAcentimos(campo(datos, "preu"));
   if (precio === null || precio === 0) {
-    return { ok: false, mensaje: "El precio tiene que ser un número de euros mayor que cero." };
+    return { ok: false, mensaje: "El preu ha de ser un nombre en euros, com 84 o 84,50." };
   }
   const margen = porcentaje(campo(datos, "margenObjetivo"));
   if (margen === null) {
-    return { ok: false, mensaje: "El margen tiene que ser un porcentaje entre 0 y 99." };
+    return { ok: false, mensaje: "El marge ha de ser un porcentatge entre 0 i 99, com 30 o 32,5." };
   }
 
   const repetido = await db.select({ id: partida.id }).from(partida).where(eq(partida.codigo, codigo)).get();
   if (repetido) {
-    return { ok: false, mensaje: `El código ${codigo} ya está en el banco. Usa otro.` };
+    return { ok: false, mensaje: `El codi ${codigo} ja está en el banc. Utilitza un altre.` };
   }
 
   await db.insert(partida)
     .values({ codigo, capitulo, nombre, unidad, precio, margenObjetivo: margen, activa: true })
     .run();
   refrescar();
-  return { ok: true, mensaje: `${codigo} dada de alta en el banco.` };
+  return { ok: true, mensaje: `${codigo} donat d'alta al banc.` };
 }
 
 /** Activar o desactivar. Las inactivas no las ve la IA ni el buscador del editor. */
 export async function cambiarActiva(id: number, activa: boolean): Promise<Resultado> {
   await exigirSesion();
   const fila = await db.select({ codigo: partida.codigo }).from(partida).where(eq(partida.id, id)).get();
-  if (!fila) return { ok: false, mensaje: "Esa partida ya no está en el banco." };
+  if (!fila) return { ok: false, mensaje: "Aquesta partida ja no està al banc." };
   await db.update(partida).set({ activa }).where(eq(partida.id, id)).run();
   refrescar();
   return {
     ok: true,
     mensaje: activa
-      ? `${fila.codigo} vuelve a estar disponible.`
-      : `${fila.codigo} desactivada: deja de salir en los presupuestos nuevos.`,
+      ? `${fila.codigo} torna a estar disponible.`
+      : `${fila.codigo} desactivada: deixa de sortir als pressupostos nous.`,
   };
 }
 
@@ -153,7 +153,7 @@ export async function cambiarActiva(id: number, activa: boolean): Promise<Result
 export async function borrarPartida(id: number): Promise<Resultado> {
   await exigirSesion();
   const fila = await db.select({ codigo: partida.codigo }).from(partida).where(eq(partida.id, id)).get();
-  if (!fila) return { ok: false, mensaje: "Esa partida ya no está en el banco." };
+  if (!fila) return { ok: false, mensaje: "Aquesta partida ja no està al banc." };
 
   const usos = Number(
     (await db.select({ n: sql<number>`count(*)` }).from(linea).where(eq(linea.partidaId, id)).get())?.n ?? 0,
@@ -162,13 +162,13 @@ export async function borrarPartida(id: number): Promise<Resultado> {
   if (usos > 0) {
     return {
       ok: false,
-      mensaje: `${fila.codigo} está usada en ${usos} ${usos === 1 ? "línea" : "líneas"} de presupuestos ya hechos: borrarla rompería el historial. Desactívala y dejará de salir en los nuevos.`,
+      mensaje: `${fila.codigo} està utilitzada a ${usos} ${usos === 1 ? "linia" : "linies"} de pressupostos ja fets: Eliminar-la trencaria l'historial. Desactiva-la i deixarà de sortir en els nous.`,
     };
   }
 
   await db.delete(partida).where(eq(partida.id, id)).run();
   refrescar();
-  return { ok: true, mensaje: `${fila.codigo} borrada del banco.` };
+  return { ok: true, mensaje: `${fila.codigo} Eliminada del banc.` };
 }
 
 /* ------------------------------------------------------------ importar CSV */
@@ -181,9 +181,9 @@ export async function reimportarBancoOriginal(): Promise<ResultadoImportacion> {
   try {
     const { altas, actualizadas } = await importarBanco(leerBancoDelDisco());
     refrescar();
-    return { ok: true, mensaje: "Banco reimportado.", altas, actualizadas };
+    return { ok: true, mensaje: "Banc reimportat.", altas, actualizadas };
   } catch (e) {
-    return { ok: false, mensaje: `No se ha podido leer el CSV: ${(e as Error).message}` };
+    return { ok: false, mensaje: `No s'ha pogut llegir el CSV: ${(e as Error).message}` };
   }
 }
 
@@ -195,16 +195,16 @@ export async function importarCsv(
   await exigirSesion();
   const fichero = datos.get("csv");
   if (!(fichero instanceof File) || fichero.size === 0) {
-    return { ok: false, mensaje: "Elige un fichero CSV." };
+    return { ok: false, mensaje: "Tria un fitxer CSV." };
   }
   if (fichero.size > 2_000_000) {
-    return { ok: false, mensaje: "El fichero pasa de 2 MB: eso no es un banco de precios." };
+    return { ok: false, mensaje: "El fitxer supera els 2 MB: això no és un banc de preus." };
   }
   try {
     const { altas, actualizadas } = await importarBanco(leerBanco(await fichero.text()));
     refrescar();
-    return { ok: true, mensaje: "CSV importado.", altas, actualizadas };
+    return { ok: true, mensaje: "CSV importat.", altas, actualizadas };
   } catch (e) {
-    return { ok: false, mensaje: `El CSV no se ha podido leer: ${(e as Error).message}` };
+    return { ok: false, mensaje: `El CSV no s'ha pogut llegir: ${(e as Error).message}` };
   }
 }

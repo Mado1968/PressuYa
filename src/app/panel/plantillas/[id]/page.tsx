@@ -49,7 +49,7 @@ export default async function FichaDePlantilla({ params }: PageProps<"/panel/pla
             className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
           >
             <ArrowLeftIcon className="size-3" />
-            Plantillas
+            Plantilles
           </Link>
           <h1 className="mt-1 text-[22px] leading-7 font-semibold tracking-tight">{formatoTitulo(ficha.nombre)}</h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{ficha.descripcion}</p>
@@ -63,9 +63,9 @@ export default async function FichaDePlantilla({ params }: PageProps<"/panel/pla
 
       {fueraDelBanco > 0 && (
         <p className="rounded-lg border border-amarilla/60 bg-amarilla-fondo px-3 py-2 text-[13px] leading-relaxed">
-          {fueraDelBanco} {fueraDelBanco === 1 ? "línea de esta plantilla ya no tiene" : "líneas de esta plantilla ya no tienen"}{" "}
-          partida activa en el banco: {fueraDelBanco === 1 ? "saldrá" : "saldrán"} en amarillo y sin
-          precio hasta que se lo pongas en el editor.
+          {fueraDelBanco} {fueraDelBanco === 1 ? "línia d'aquesta plantilla ja no té" : "línies d'aquesta plantilla ja no tenen"}{" "}
+          partida activa en el banc: {fueraDelBanco === 1 ? "saldrá" : "saldrán"} en color groc i sense
+          preu fins que l'hi indiquis a l'editor.
         </p>
       )}
 
@@ -74,10 +74,10 @@ export default async function FichaDePlantilla({ params }: PageProps<"/panel/pla
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="pl-4">Partida</TableHead>
-              <TableHead className="w-16 text-center">Unidad</TableHead>
-              <TableHead className="w-24 text-right">Medición</TableHead>
-              <TableHead className="w-28 text-right">Precio</TableHead>
-              <TableHead className="w-24 text-right">Margen</TableHead>
+              <TableHead className="w-16 text-center">Unitat</TableHead>
+              <TableHead className="w-24 text-right">Valoració</TableHead>
+              <TableHead className="w-28 text-right">Preu</TableHead>
+              <TableHead className="w-24 text-right">Marge</TableHead>
               <TableHead className="w-32 pr-4 text-right">Total</TableHead>
             </TableRow>
           </TableHeader>
@@ -99,7 +99,7 @@ export default async function FichaDePlantilla({ params }: PageProps<"/panel/pla
 
             {opcionales.length > 0 && (
               <Grupo
-                capitulo="Opcionales · los marca el cliente en su página"
+                capitulo="Opcionals · els marca el client en la seva pàgina"
                 lineas={opcionales}
                 subtotal={opcionales.reduce(
                   (suma, l) => suma + totalLinea(l.precio ?? 0, l.medicion),
@@ -118,13 +118,13 @@ export default async function FichaDePlantilla({ params }: PageProps<"/panel/pla
             valor={<Importe centimos={importes.ivaImporte} />}
           />
           <div className="flex items-baseline justify-between gap-4 border-t pt-1.5">
-            <dt className="font-medium">Total Orientativo</dt>
+            <dt className="font-medium">Total Orientatiu</dt>
             <dd>
               <Importe centimos={importes.total} className="text-base font-semibold" />
             </dd>
           </div>
           <p className="pt-1 text-xs leading-relaxed text-muted-foreground">
-            Con los precios de hoy del banco y sin los opcionales. Margen{" "}
+            Amb els preus d'avui del banc i sense els opcionals. Marge{" "}
             {formatoPorcentaje(importes.margenPct, 1)}.
           </p>
         </dl>
@@ -169,7 +169,7 @@ function Grupo({
             {formatoTitulo(l.descripcion)}
             {l.amarilla && (
               <span className="ml-2 rounded-sm bg-amarilla-fondo px-1.5 py-0.5 text-[11px] font-medium text-conversacion">
-                fuera del banco
+                fora del banc
               </span>
             )}
           </TableCell>

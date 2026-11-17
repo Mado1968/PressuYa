@@ -39,27 +39,27 @@ async function main() {
   const destinoToken = process.env.TURSO_AUTH_TOKEN;
 
   if (!destinoUrl || !destinoToken) {
-    console.error("❌ Faltan TURSO_DATABASE_URL o TURSO_AUTH_TOKEN en .env.local.");
+    console.error("❌ Falten TURSO_DATABASE_URL o TURSO_AUTH_TOKEN en .env.local.");
     process.exit(1);
   }
   if (!origenUrl.startsWith("file:")) {
-    console.error("❌ DATABASE_URL tiene que ser tu base local (file:…): es la que se copia a Turso.");
+    console.error("❌ DATABASE_URL ha de ser la teva base local (file:…): es la que es copia a Turso.");
     process.exit(1);
   }
   if (!process.argv.includes("--confirmar")) {
-    console.log("Esto BORRA la base de producción en Turso y la sustituye por tu base local:");
+    console.log("Això ESBORRA la base de producció a Turso i la sustitueix per la teva base local:");
     console.log(`  origen:  ${origenUrl}`);
-    console.log(`  destino: ${destinoUrl}`);
-    console.log("\nSi es lo que quieres: npm run turso -- --confirmar");
+    console.log(`  desti: ${destinoUrl}`);
+    console.log("\nSi es el que vols: npm run turso -- --confirmar");
     process.exit(1);
   }
 
   const t0 = Date.now();
   const borradas = await vaciar(destinoUrl, destinoToken);
-  console.log(`· Turso vaciada (${borradas} tablas)`);
+  console.log(`· Turso buidada (${borradas} taules)`);
 
   aplicarEsquema(destinoUrl, destinoToken);
-  console.log("· esquema aplicado en Turso");
+  console.log("· esquema aplicat a Turso");
 
   const origen = createClient({ url: origenUrl });
   const destino = createClient({ url: destinoUrl, authToken: destinoToken });
@@ -87,10 +87,10 @@ async function main() {
   destino.close();
 
   if (fallos) {
-    console.error(`\n❌ ${fallos} tabla(s) no cuadran entre tu base local y Turso.`);
+    console.error(`\n❌ ${fallos} taule(s) no quadren entre la teva base local y Turso.`);
     process.exit(1);
   }
-  console.log(`\n✅ Turso tiene exactamente lo mismo que tu base local (${((Date.now() - t0) / 1000).toFixed(1)} s).`);
+  console.log(`\n✅ Turso te exactament el mateix que la teva base local (${((Date.now() - t0) / 1000).toFixed(1)} s).`);
 }
 
 main().catch((e) => {

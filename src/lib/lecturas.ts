@@ -35,9 +35,9 @@ export function seccionValida(valor: unknown): Seccion | null {
  * todo lo que no es móvil ni tablet se cuenta como ordenador.
  */
 export function dispositivoDesdeTipo(tipo: string | undefined): Dispositivo {
-  if (tipo === "mobile") return "movil";
+  if (tipo === "mobile") return "mòbil";
   if (tipo === "tablet") return "tablet";
-  return "ordenador";
+  return "ordinador";
 }
 
 /** En qué visita va este navegador sobre este presupuesto. */
@@ -72,7 +72,7 @@ async function acumularSeccion(
   const candidatos = await db
     .select({ id: evento.id, meta: evento.meta })
     .from(evento)
-    .where(and(eq(evento.presupuestoId, presupuestoId), eq(evento.tipo, "abierto")))
+    .where(and(eq(evento.presupuestoId, presupuestoId), eq(evento.tipo, "obert")))
     .orderBy(desc(evento.ts))
     .limit(20)
     .all();
@@ -138,10 +138,10 @@ export async function registrarLectura(lectura: Lectura): Promise<void> {
       .values({ ...comun, visitaN, seccion: null, duracionS: null, ts })
       .run();
 
-    const expirado = p.estado === "expirado";
+    const expirado = p.estado === "expirat";
     await registrarEvento(
       p.id,
-      "abierto",
+      "vist",
       {
         visitanteId: lectura.visitanteId,
         visitaN,
@@ -156,8 +156,8 @@ export async function registrarLectura(lectura: Lectura): Promise<void> {
     );
 
     // La primera apertura es la que pasa de Enviado a Visto.
-    if (p.estado === "enviado") {
-      await cambiarEstado(p.id, "visto", "el cliente lo ha abierto");
+    if (p.estado === "enviant") {
+      await cambiarEstado(p.id, "vist", "el client l'ha obert");
     }
 
     await avisarApertura(p.id, {

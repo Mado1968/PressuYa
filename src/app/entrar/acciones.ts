@@ -13,7 +13,7 @@ function destinoSeguro(desde: FormDataEntryValue | null): string {
 
 export async function entrar(_previo: EstadoEntrar, datos: FormData): Promise<EstadoEntrar> {
   const contrasena = String(datos.get("contrasena") ?? "");
-  if (!contrasena) return { mensaje: "Escribe la contraseña." };
+  if (!contrasena) return { mensaje: "Escriu el password." };
 
   const resultado = await entrarConContrasena(contrasena);
   if (!resultado.ok) return { mensaje: resultado.mensaje };

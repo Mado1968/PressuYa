@@ -35,12 +35,12 @@ export async function enviarEmail(asunto: string, texto: string): Promise<boolea
       }),
     });
     if (!res.ok) {
-      console.error(`Resend devolvió ${res.status}: ${await res.text()}`);
+      console.error(`Resend retorna ${res.status}: ${await res.text()}`);
       return false;
     }
     return true;
   } catch (e) {
-    console.error("Resend no respondió:", (e as Error).message);
+    console.error("Resend no ha respost:", (e as Error).message);
     return false;
   }
 }

@@ -10,6 +10,6 @@ export async function POST(req: Request) {
   const p = await presupuestoPublico(datos.token);
   if (!p) return noEncontrado();
 
-  await registrarEvento(p.id, "pdf_descargado", {});
+  await registrarEvento(p.id, "pdf_descarregat", {});
   return Response.json({ ok: true });
 }

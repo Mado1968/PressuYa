@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   const lineaId = Number(datos.lineaId);
   const elegida = datos.elegida === true;
   if (!Number.isInteger(lineaId)) {
-    return Response.json({ error: "Falta la línea." }, { status: 400 });
+    return Response.json({ error: "Falta la linia." }, { status: 400 });
   }
 
   // La línea tiene que ser de ESTE presupuesto y ser opcional: nunca se toca
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
   if (fila.elegida !== elegida) {
     await db.update(linea).set({ elegida }).where(eq(linea.id, fila.id)).run();
-    await registrarEvento(p.id, "opcional_marcado", { descripcion: fila.descripcion, elegida });
+    await registrarEvento(p.id, "opcional_mercat", { descripcion: fila.descripcion, elegida });
   }
 
   const importes = await recalcular(p.id);

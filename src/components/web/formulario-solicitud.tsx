@@ -74,8 +74,8 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
             {enviada.nombre ? `Gracias, ${enviada.nombre}` : "Gracias"}
           </h2>
           <p className="mt-2 leading-relaxed text-muted-foreground">
-            Hem rebut la teva sol·licitud. El Francesc et trucarà per concertar la visita: sense veure l'obra
-            no donem preus, perquè cada casa és diferent. Després de la visita, tindràs el
+            Hem rebut la teva sol·licitud. El Francesc et trucarà per concertar una visita: 
+            no donem preus, perquè cada cas és diferent. Després de la visita, tindràs el
             pressupost al dia següent.
           </p>
         </div>
@@ -149,7 +149,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
         <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
           <input name="consentimiento" type="checkbox" className="mt-0.5 size-4 shrink-0 accent-[var(--primary)]" />
           <span>
-            Accepto que TTiA utilitzi aquestes dades només per contactar-me sobre la meva obra.
+            Accepto que TTiA utilitzi aquestes dades només per contactar-me sobre la meva petició.
           </span>
         </label>
         {errores.consentimiento && <Error texto={errores.consentimiento} />}
@@ -163,7 +163,7 @@ export function FormularioSolicitud({ telefono }: { telefono: string }) {
 
       <Button type="submit" size="lg" disabled={enviando} className="h-11 w-full sm:w-auto sm:self-start">
         {enviando ? <LoaderCircleIcon className="animate-spin" /> : <SendIcon />}
-        {enviando ? "Enviando…" : "Enviar Solicitud"}
+        {enviando ? "Enviant…" : "Enviar Solicitud"}
       </Button>
     </form>
   );

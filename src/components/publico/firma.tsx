@@ -127,7 +127,7 @@ export function Firma({
       }
       onFirmado();
     } catch {
-      setError("No hay conexión. Comprueba la red y vuelve a intentarlo.");
+      setError("No hi ha conexió. Comprova la xarxa i torna a intentar.");
       setEnviando(false);
     }
   }
@@ -137,14 +137,14 @@ export function Firma({
       className="no-imprimir fixed inset-0 z-50 flex items-end justify-center bg-foreground/40 p-0 sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
-      aria-label="Firmar el Presupuesto"
+      aria-label="Signar el Pressupost"
     >
       <div className="max-h-full w-full overflow-y-auto rounded-t-xl bg-card p-5 shadow-lg sm:max-w-lg sm:rounded-xl">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">Firma Aquí y la Obra Es Tuya</h2>
+            <h2 className="text-lg font-semibold tracking-tight">Signa Aquí y la tasca ja és Teva</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Aceptas el presupuesto por{" "}
+              Acceptes el pressupost per{" "}
               <strong className="cifra font-semibold text-foreground">{formatoEuros(total)}</strong>,
               IVA incluido.
             </p>
@@ -178,7 +178,7 @@ export function Firma({
             onClick={borrar}
             className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground"
           >
-            Borrar y Repetir
+            esborrar i repetir
           </button>
         </div>
 
@@ -195,18 +195,18 @@ export function Firma({
           {enviando ? (
             <>
               <Loader2Icon className="size-4 animate-spin" />
-              Guardando la Firma…
+              Guardant la signatura…
             </>
           ) : (
             <>
               <CheckIcon className="size-4" />
-              Confirmar y Aceptar el Presupuesto
+              Confirmar y Acceptar el Pressupost
             </>
           )}
         </button>
         <p className="mt-2.5 text-center text-xs leading-relaxed text-muted-foreground">
-          Al confirmar se guardan la firma, la fecha y la hora, la dirección IP y el dispositivo
-          desde el que firmas.
+          Al confirmar es guarda la signatura, la data i l'hora, la adreça IP i el dispositiu
+          desde el que signes.
         </p>
       </div>
     </div>

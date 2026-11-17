@@ -12,8 +12,9 @@ export function PieWeb({ negocio, anyo }: { negocio: Negocio; anyo: number }) {
             src="/ttia-logo.png"
             alt="Logotipo de TTiA"
             width={48}
-            height={43}
-            className="mb-3"
+            height={45}
+            className="mb-3 h-auto w-12"
+            style={{ height: "auto" }}
           />
           <p className="font-semibold text-black">{negocio.nombre}</p>
           <p className="mt-2 leading-relaxed text-muted-foreground">

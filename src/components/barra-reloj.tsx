@@ -11,7 +11,7 @@ export function BarraReloj({ desfase, fecha }: { desfase: number; fecha: string 
 
   return (
     <div className="no-imprimir flex flex-wrap items-center gap-2 border-b bg-secondary/70 px-6 py-1.5 text-xs text-muted-foreground">
-      <span className="font-medium">Reloj de la Demo</span>
+      <span className="font-medium">Rellotge</span>
       <span className="cifra">{fecha}</span>
       {dias !== 0 && (
         <span className="rounded-md bg-conversacion-fondo px-1.5 py-0.5 font-medium text-conversacion">
@@ -41,7 +41,7 @@ export function BarraReloj({ desfase, fecha }: { desfase: number; fecha: string 
         onClick={() => empezar(() => void adelantarReloj(0))}
         className="inline-flex items-center gap-1 rounded-md border bg-card px-2 py-1 font-medium transition-colors hover:bg-secondary disabled:opacity-40"
       >
-        <RotateCcwIcon className="size-3" /> Reiniciar Reloj
+        <RotateCcwIcon className="size-3" /> Reiniciar Rellotge
       </button>
     </div>
   );

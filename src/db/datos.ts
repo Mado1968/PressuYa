@@ -19,20 +19,19 @@ export const EMPRESA = {
   /** Días que hace que Francesc usa el sistema. Parte en dos las métricas. */
   diasDesdeAlta: 45,
   condiciones: [
-    "Forma de pago: 40 % a la firma del presupuesto, 40 % a mitad de obra y 20 % a la entrega.",
-    "Plazo orientativo de ejecución: entre 3 y 5 semanas desde el inicio, salvo imprevistos de obra o retrasos de suministro.",
-    "No se incluyen licencias, tasas municipales ni permisos de la comunidad, que se gestionan aparte y se facturan a coste.",
-    "No se incluyen los electrodomésticos ni los sanitarios que aporte el cliente.",
+    "Forma de pagament: 40 % a la signatura del pressupost, 40 % a mitad de la tasca y 20 % a la entrega.",
+    "Plaç orientatiu d'execució: entre 3 y 5 setmanae desde l'inici, excepte imprevistos de la tasca o retrassos de suministres(dades,imatges,dissenys...).",
+    "No s'inclouen llicències, contractes de tercers(LLM,Hosting,...), que es gestionen apart i es facturarán amb cost.",
     "Los materiales de acabado están presupuestados en la gama indicada en cada partida; cualquier cambio se valora por escrito.",
-    "Las mediciones son las tomadas en la visita; las diferencias en obra se regularizan al cierre.",
-    "Este presupuesto es válido hasta la fecha indicada. Pasada esa fecha, los precios pueden variar.",
+    "Las necessitats son les indicades i acordades; les diferencies en la tasca es regularitzen al tancament.",
+    "Aquest pressupost es vàlid fins la data indicada. Després d'aquesta data, els preus poden variar.",
   ].join("\n"),
-  seguimiento1:
-    "Hola {cliente}, soy Francesc de TTiA. Te escribo por el presupuesto de {obra} que te pasé hace unos días. ¿Has podido verlo con calma? Si tienes cualquier duda sobre las partidas o los plazos, dímelo y lo repasamos juntos sin compromiso.",
-  seguimiento2:
-    "Hola {cliente}, vuelvo a escribirte por el presupuesto de {obra} ({total}). ¿Os encajó el precio o preferís que lo ajustemos por fases? Muchas veces separando la obra en dos entregas sale mucho más llevadero. Dime qué te parece y lo vemos.",
-  seguimiento3:
-    "Hola {cliente}, te aviso de que el presupuesto de {obra} caduca en {dias}. A partir de esa fecha tendría que revisar los precios de material, que este año se mueven bastante. Si quieres que lo dejemos cerrado antes, avísame y lo preparo.",
+  seguiment1:
+    "Hola {cliente}, soy en Francesc de TTiA. T'escric sobre el pressupost de {obra} que et vaig fer fa uns dies. Has pogut revisar amb calma? Si tens algun dubte sobre les partidas o els plaços, comenta-ho i ho revisem plegats sense compromis.",
+  seguiment2:
+    "Hola {cliente}, torno a contactar sobre el pressupost de {obra} ({total}). Us encaixa el preu o prefereixes que ho ajustem per fases? Sovint separan la tasca en dos entregues es millor. Comenta'm i ho veiem.",
+  seguiment3:
+    "Hola {cliente}, t'aviso  que el pressupost de {obra} caduca en {dias}. A partir d'aquesta data cal revisar els preus. Si vols que ho tanquem abans, avisa'm i ho preparo.",
 };
 
 export type ClienteSeed = {
@@ -123,22 +122,22 @@ export type PresupuestoSeed = {
 };
 
 const SECCIONES_LARGAS: [Seccion, number][] = [
-  ["cabecera", 12],
-  ["capitulos", 96],
-  ["opcionales", 41],
+  ["capçalera", 12],
+  ["capítols", 96],
+  ["opcionals", 41],
   ["total", 68],
-  ["condiciones", 24],
+  ["condicions", 24],
 ];
 const SECCIONES_CORTAS: [Seccion, number][] = [
-  ["cabecera", 8],
-  ["capitulos", 34],
+  ["capçalera", 8],
+  ["capítols", 34],
   ["total", 22],
 ];
 const SECCIONES_MEDIAS: [Seccion, number][] = [
-  ["cabecera", 10],
-  ["capitulos", 62],
+  ["capçalera", 10],
+  ["capítols", 62],
   ["total", 45],
-  ["condiciones", 18],
+  ["condicions", 18],
 ];
 
 export const PRESUPUESTOS: PresupuestoSeed[] = [
@@ -211,7 +210,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 3,
     titulo: "Reforma de cocina",
     direccion: "Carrer del Rosselló 271, 08008 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 12,
     envio: 1,
     total: 1_080_000,
@@ -233,7 +232,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 10, hora: 21, minuto: 14, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.112.7", secciones: SECCIONES_MEDIAS },
+      { dias: 10, hora: 21, minuto: 14, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.112.7", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -241,7 +240,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 5,
     titulo: "Baño principal y aseo de cortesía",
     direccion: "Passeig de Sant Joan 92, 08009 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 14,
     envio: 1,
     total: 860_000,
@@ -263,7 +262,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 12, hora: 19, minuto: 42, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "212.170.44.19", secciones: SECCIONES_CORTAS },
+      { dias: 12, hora: 19, minuto: 42, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "212.170.44.19", secciones: SECCIONES_CORTAS },
     ],
   },
   {
@@ -271,7 +270,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 8,
     titulo: "Cambio de suelo y pintura",
     direccion: "Carrer de Sants 186, 08028 Barcelona",
-    estado: "enviado",
+    estado: "enviat",
     visita: 11,
     envio: 2,
     total: 620_000,
@@ -291,7 +290,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 12,
     titulo: "Reforma de baño",
     direccion: "Carrer Gran de Gràcia 149, 08012 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 13,
     envio: 1,
     total: 560_000,
@@ -311,7 +310,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 11, hora: 8, minuto: 27, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.201.88", secciones: SECCIONES_CORTAS },
+      { dias: 11, hora: 8, minuto: 27, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.201.88", secciones: SECCIONES_CORTAS },
     ],
   },
 
@@ -321,7 +320,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 0,
     titulo: "Reforma integral de baño",
     direccion: "Carrer de Mallorca 42, 08029 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 2,
     envio: 0,
     total: 1_430_000,
@@ -353,8 +352,8 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 1, hora: 22, minuto: 6, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.112.41", secciones: SECCIONES_MEDIAS },
-      { dias: 0, hora: 9, minuto: 12, visitaN: 2, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.112.41", secciones: SECCIONES_LARGAS },
+      { dias: 1, hora: 22, minuto: 6, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.112.41", secciones: SECCIONES_MEDIAS },
+      { dias: 0, hora: 9, minuto: 12, visitaN: 2, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.112.41", secciones: SECCIONES_LARGAS },
     ],
   },
   {
@@ -362,7 +361,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 1,
     titulo: "Reforma integral de piso",
     direccion: "Carrer de Balmes 214, 08006 Barcelona",
-    estado: "en_conversacion",
+    estado: "en_conversa",
     visita: 6,
     envio: 1,
     total: 1_240_000,
@@ -390,8 +389,8 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
         "Buenos días Francesc. Nos gusta el presupuesto pero se nos va un poco de lo que teníamos pensado. ¿Habría forma de dejar la cocina para el año que viene y hacer ahora solo el baño y los suelos? Llámame cuando puedas.",
     },
     aperturas: [
-      { dias: 4, hora: 20, minuto: 51, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.9.144", secciones: SECCIONES_LARGAS },
-      { dias: 3, hora: 13, minuto: 5, visitaN: 2, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.66.10", secciones: SECCIONES_MEDIAS },
+      { dias: 4, hora: 20, minuto: 51, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.9.144", secciones: SECCIONES_LARGAS },
+      { dias: 3, hora: 13, minuto: 5, visitaN: 2, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.66.10", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -399,7 +398,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 2,
     titulo: "Cocina completa",
     direccion: "Carrer de la Indústria 77, 08025 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 4,
     envio: 1,
     total: 820_000,
@@ -419,7 +418,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 0, hora: 11, minuto: 38, visitaN: 1, ciudad: "Sabadell", dispositivo: "ordenador", ip: "88.12.204.61", secciones: SECCIONES_MEDIAS },
+      { dias: 0, hora: 11, minuto: 38, visitaN: 1, ciudad: "Sabadell", dispositivo: "ordinador", ip: "88.12.204.61", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -427,7 +426,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 6,
     titulo: "Pintura integral del piso",
     direccion: "Carrer de Provença 388, 08025 Barcelona",
-    estado: "enviado",
+    estado: "enviat",
     visita: 1,
     envio: 0,
     total: 280_000,
@@ -445,7 +444,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 9,
     titulo: "Baño completo",
     direccion: "Carrer del Comerç 31, 08003 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 7,
     envio: 1,
     total: 570_000,
@@ -466,7 +465,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 2, hora: 18, minuto: 3, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.130.12", secciones: SECCIONES_MEDIAS },
+      { dias: 2, hora: 18, minuto: 3, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.130.12", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -474,7 +473,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 11,
     titulo: "Cambio de ventanas",
     direccion: "Carrer de Muntaner 305, 08021 Barcelona",
-    estado: "enviado",
+    estado: "enviat",
     visita: 6,
     envio: 2,
     total: 240_000,
@@ -491,7 +490,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 4,
     titulo: "Reforma de cocina",
     direccion: "Carrer de Sardenya 140, 08013 Barcelona",
-    estado: "en_conversacion",
+    estado: "en_conversa",
     visita: 10,
     envio: 1,
     total: 630_000,
@@ -514,8 +513,8 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
         "Hola, gracias por el presupuesto. Mi marido pregunta si la encimera de laminado se puede cambiar por la de cuarzo y cuánto subiría. Por lo demás lo vemos bien.",
     },
     aperturas: [
-      { dias: 8, hora: 12, minuto: 22, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.77.203", secciones: SECCIONES_MEDIAS },
-      { dias: 6, hora: 19, minuto: 9, visitaN: 2, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.31.7", secciones: SECCIONES_LARGAS },
+      { dias: 8, hora: 12, minuto: 22, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.77.203", secciones: SECCIONES_MEDIAS },
+      { dias: 6, hora: 19, minuto: 9, visitaN: 2, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.31.7", secciones: SECCIONES_LARGAS },
     ],
   },
   {
@@ -523,7 +522,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 16,
     titulo: "Suelo de todo el piso",
     direccion: "Carrer de Còrsega 512, 08025 Barcelona",
-    estado: "visto",
+    estado: "vist",
     visita: 9,
     envio: 1,
     total: 410_000,
@@ -546,7 +545,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 7,
     titulo: "Reforma integral de baño y cocina",
     direccion: "Carrer de Rocafort 96, 08015 Barcelona",
-    estado: "ganado",
+    estado: "guanyat",
     visita: 13,
     envio: 1,
     cerrado: 6,
@@ -576,18 +575,18 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 11, hora: 21, minuto: 30, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.90.22", secciones: SECCIONES_LARGAS },
-      { dias: 7, hora: 10, minuto: 14, visitaN: 2, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.77.31", secciones: SECCIONES_MEDIAS },
-      { dias: 6, hora: 18, minuto: 51, visitaN: 3, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.90.22", secciones: SECCIONES_LARGAS },
+      { dias: 11, hora: 21, minuto: 30, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.90.22", secciones: SECCIONES_LARGAS },
+      { dias: 7, hora: 10, minuto: 14, visitaN: 2, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.77.31", secciones: SECCIONES_MEDIAS },
+      { dias: 6, hora: 18, minuto: 51, visitaN: 3, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.90.22", secciones: SECCIONES_LARGAS },
     ],
-    firma: { dias: 6, hora: 19, ip: "83.45.90.22", dispositivo: "movil" },
+    firma: { dias: 6, hora: 19, ip: "83.45.90.22", dispositivo: "mòbil" },
   },
   {
     ref: "G2",
     cliente: 10,
     titulo: "Reforma de cocina y salón",
     direccion: "Avinguda de Madrid 145, 08028 Barcelona",
-    estado: "ganado",
+    estado: "guanyat",
     visita: 21,
     envio: 1,
     cerrado: 11,
@@ -608,17 +607,17 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 19, hora: 20, minuto: 2, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.120.9", secciones: SECCIONES_LARGAS },
-      { dias: 12, hora: 9, minuto: 41, visitaN: 2, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.55.8", secciones: SECCIONES_MEDIAS },
+      { dias: 19, hora: 20, minuto: 2, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.120.9", secciones: SECCIONES_LARGAS },
+      { dias: 12, hora: 9, minuto: 41, visitaN: 2, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.55.8", secciones: SECCIONES_MEDIAS },
     ],
-    firma: { dias: 11, hora: 12, ip: "80.58.120.9", dispositivo: "ordenador" },
+    firma: { dias: 11, hora: 12, ip: "80.58.120.9", dispositivo: "ordinador" },
   },
   {
     ref: "G3",
     cliente: 13,
     titulo: "Baño adaptado sin bañera",
     direccion: "Carrer Major 24, 08172 Sant Cugat del Vallès",
-    estado: "ganado",
+    estado: "guanyat",
     visita: 29,
     envio: 2,
     cerrado: 18,
@@ -637,10 +636,10 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 26, hora: 18, minuto: 12, visitaN: 1, ciudad: "Sant Cugat del Vallès", dispositivo: "movil", ip: "83.47.11.90", secciones: SECCIONES_LARGAS },
-      { dias: 19, hora: 11, minuto: 7, visitaN: 2, ciudad: "Sant Cugat del Vallès", dispositivo: "movil", ip: "83.47.11.90", secciones: SECCIONES_MEDIAS },
+      { dias: 26, hora: 18, minuto: 12, visitaN: 1, ciudad: "Sant Cugat del Vallès", dispositivo: "mòbil", ip: "83.47.11.90", secciones: SECCIONES_LARGAS },
+      { dias: 19, hora: 11, minuto: 7, visitaN: 2, ciudad: "Sant Cugat del Vallès", dispositivo: "mòbil", ip: "83.47.11.90", secciones: SECCIONES_MEDIAS },
     ],
-    firma: { dias: 18, hora: 17, ip: "83.47.11.90", dispositivo: "movil" },
+    firma: { dias: 18, hora: 17, ip: "83.47.11.90", dispositivo: "mòbil" },
   },
 
   /* ------------------------------ ganados fuera de la ventana de 30 días */
@@ -649,7 +648,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 15,
     titulo: "Pintura y suelo del piso",
     direccion: "Carrer de Cartagena 289, 08025 Barcelona",
-    estado: "ganado",
+    estado: "guanyat",
     visita: 44,
     envio: 1,
     cerrado: 36,
@@ -665,16 +664,16 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 42, hora: 19, minuto: 22, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.208.4", secciones: SECCIONES_MEDIAS },
+      { dias: 42, hora: 19, minuto: 22, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.208.4", secciones: SECCIONES_MEDIAS },
     ],
-    firma: { dias: 36, hora: 20, ip: "83.45.208.4", dispositivo: "movil" },
+    firma: { dias: 36, hora: 20, ip: "83.45.208.4", dispositivo: "mòbil" },
   },
   {
     ref: "G5",
     cliente: 3,
     titulo: "Reforma de aseo",
     direccion: "Carrer de Sepúlveda 61, 08015 Barcelona",
-    estado: "ganado",
+    estado: "guanyat",
     visita: 90,
     envio: 14,
     cerrado: 61,
@@ -693,7 +692,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["PIN-01", 12],
       ["GES-02", 1],
     ],
-    firma: { dias: 61, hora: 13, ip: "83.45.11.202", dispositivo: "ordenador" },
+    firma: { dias: 61, hora: 13, ip: "83.45.11.202", dispositivo: "ordinador" },
   },
 
   /* ------------------------------------------------ perdidos tras el alta */
@@ -702,7 +701,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 2,
     titulo: "Reforma de baño",
     direccion: "Carrer de Tarragona 108, 08015 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 38,
     envio: 0,
     cerrado: 30,
@@ -723,7 +722,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 36, hora: 21, minuto: 11, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.140.77", secciones: SECCIONES_CORTAS },
+      { dias: 36, hora: 21, minuto: 11, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.140.77", secciones: SECCIONES_CORTAS },
     ],
   },
   {
@@ -731,7 +730,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 5,
     titulo: "Cocina completa",
     direccion: "Carrer d'Aragó 455, 08013 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 34,
     envio: 1,
     cerrado: 26,
@@ -752,7 +751,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 32, hora: 13, minuto: 40, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.55.19", secciones: SECCIONES_MEDIAS },
+      { dias: 32, hora: 13, minuto: 40, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.55.19", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -760,7 +759,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 9,
     titulo: "Pintura del piso",
     direccion: "Carrer de Bailèn 92, 08009 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 30,
     envio: 1,
     cerrado: 22,
@@ -778,7 +777,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 11,
     titulo: "Reforma integral",
     direccion: "Rambla de Catalunya 77, 08007 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 27,
     envio: 2,
     cerrado: 14,
@@ -807,7 +806,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 24, hora: 20, minuto: 33, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.201.5", secciones: SECCIONES_LARGAS },
+      { dias: 24, hora: 20, minuto: 33, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.201.5", secciones: SECCIONES_LARGAS },
     ],
   },
   {
@@ -815,7 +814,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 14,
     titulo: "Baño y aseo",
     direccion: "Carrer de Lepant 233, 08013 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 24,
     envio: 1,
     cerrado: 16,
@@ -837,7 +836,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 22, hora: 18, minuto: 55, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.166.30", secciones: SECCIONES_MEDIAS },
+      { dias: 22, hora: 18, minuto: 55, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.166.30", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -845,7 +844,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 1,
     titulo: "Cambio de suelo",
     direccion: "Carrer de Calàbria 154, 08015 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 21,
     envio: 1,
     cerrado: 12,
@@ -859,7 +858,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 19, hora: 12, minuto: 18, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.3.140", secciones: SECCIONES_CORTAS },
+      { dias: 19, hora: 12, minuto: 18, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.3.140", secciones: SECCIONES_CORTAS },
     ],
   },
   {
@@ -867,7 +866,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 16,
     titulo: "Cocina y office",
     direccion: "Carrer de Nàpols 190, 08013 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 19,
     envio: 0,
     cerrado: 10,
@@ -892,7 +891,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 6,
     titulo: "Reforma de baño",
     direccion: "Carrer de Viladomat 88, 08015 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 16,
     envio: 1,
     cerrado: 8,
@@ -916,7 +915,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 14, hora: 21, minuto: 2, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.99.11", secciones: SECCIONES_MEDIAS },
+      { dias: 14, hora: 21, minuto: 2, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.99.11", secciones: SECCIONES_MEDIAS },
     ],
   },
   {
@@ -924,7 +923,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 12,
     titulo: "Ventanas y persianas",
     direccion: "Carrer de Dos de Maig 271, 08025 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 13,
     envio: 1,
     cerrado: 5,
@@ -938,7 +937,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 11, hora: 19, minuto: 27, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordenador", ip: "80.58.14.72", secciones: SECCIONES_CORTAS },
+      { dias: 11, hora: 19, minuto: 27, visitaN: 1, ciudad: "Barcelona", dispositivo: "ordinador", ip: "80.58.14.72", secciones: SECCIONES_CORTAS },
     ],
   },
   {
@@ -946,7 +945,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 17,
     titulo: "Pintura y alisado de gotelé",
     direccion: "Carrer de Padilla 320, 08025 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 10,
     envio: 1,
     cerrado: 3,
@@ -965,7 +964,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 4,
     titulo: "Reforma de cocina",
     direccion: "Carrer d'Entença 121, 08015 Barcelona",
-    estado: "expirado",
+    estado: "expirat",
     visita: 40,
     envio: 2,
     lineas: [
@@ -983,7 +982,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 36, hora: 20, minuto: 44, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.222.18", secciones: SECCIONES_CORTAS },
+      { dias: 36, hora: 20, minuto: 44, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.222.18", secciones: SECCIONES_CORTAS },
     ],
   },
   {
@@ -991,7 +990,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 8,
     titulo: "Baño completo",
     direccion: "Carrer de la Marina 204, 08013 Barcelona",
-    estado: "expirado",
+    estado: "expirat",
     visita: 26,
     envio: 1,
     lineas: [
@@ -1014,8 +1013,8 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
       ["GES-02", 1],
     ],
     aperturas: [
-      { dias: 24, hora: 19, minuto: 6, visitaN: 1, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.70.19", secciones: SECCIONES_MEDIAS },
-      { dias: 2, hora: 22, minuto: 47, visitaN: 2, ciudad: "Barcelona", dispositivo: "movil", ip: "83.45.70.19", secciones: SECCIONES_LARGAS },
+      { dias: 24, hora: 19, minuto: 6, visitaN: 1, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.70.19", secciones: SECCIONES_MEDIAS },
+      { dias: 2, hora: 22, minuto: 47, visitaN: 2, ciudad: "Barcelona", dispositivo: "mòbil", ip: "83.45.70.19", secciones: SECCIONES_LARGAS },
     ],
   },
   {
@@ -1023,7 +1022,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 13,
     titulo: "Suelo y pintura del piso",
     direccion: "Carrer de Rogent 45, 08026 Barcelona",
-    estado: "expirado",
+    estado: "expirat",
     visita: 18,
     envio: 0,
     lineas: [
@@ -1043,7 +1042,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 0,
     titulo: "Aseo de cortesía",
     direccion: "Carrer de Villarroel 178, 08036 Barcelona",
-    estado: "expirado",
+    estado: "expirat",
     visita: 79,
     envio: 14,
     lineas: [
@@ -1065,7 +1064,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 7,
     titulo: "Reforma de baño",
     direccion: "Carrer de Provença 12, 08029 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 78,
     envio: 12,
     cerrado: 52,
@@ -1091,7 +1090,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 10,
     titulo: "Cocina",
     direccion: "Carrer del Consell de Cent 402, 08013 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 72,
     envio: 13,
     cerrado: 47,
@@ -1115,11 +1114,11 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 15,
     titulo: "Pintura del piso",
     direccion: "Carrer de Marià Cubí 63, 08006 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 82,
     envio: 15,
     cerrado: 55,
-    motivo: "Sin respuesta del cliente",
+    motivo: "Sense resposta del client",
     lineas: [
       ["PIN-01", 168],
       ["PIN-03", 5],
@@ -1131,7 +1130,7 @@ export const PRESUPUESTOS: PresupuestoSeed[] = [
     cliente: 16,
     titulo: "Suelo del salón",
     direccion: "Carrer de Berlín 41, 08014 Barcelona",
-    estado: "perdido",
+    estado: "perdut",
     visita: 85,
     envio: 16,
     cerrado: 58,
@@ -1159,7 +1158,7 @@ export type SolicitudSeed = {
   conceptos: { descripcion: string; medicion: number | null; unidad: Unidad | null; notas: string | null }[];
   /** Horas antes de ahora en que entró la solicitud. */
   horas: number;
-  /** «francesc» (dictada tras la visita) o «cliente» (llegó por la web). Por defecto, «francesc». */
+  /** «Francesc» (dictada tras la visita) o «cliente» (llegó por la web). Por defecto, «Francesc». */
   origen?: Origen;
 };
 

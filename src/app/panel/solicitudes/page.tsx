@@ -17,14 +17,14 @@ import type { ConceptoCrudo } from "@/lib/tipos";
 export const dynamic = "force-dynamic";
 
 const FILTROS = [
-  { clave: "pendiente", etiqueta: "Pendientes" },
-  { clave: "convertida", etiqueta: "Convertidas" },
-  { clave: "descartada", etiqueta: "Descartadas" },
+  { clave: "pendent", etiqueta: "Pendents" },
+  { clave: "convertida", etiqueta: "Convertides" },
+  { clave: "descartada", etiqueta: "Descartades" },
 ] as const;
 
 export default async function Solicitudes({ searchParams }: PageProps<"/panel/solicitudes">) {
   const { estado } = await searchParams;
-  const filtro = FILTROS.some((f) => f.clave === estado) ? String(estado) : "pendiente";
+  const filtro = FILTROS.some((f) => f.clave === estado) ? String(estado) : "pendent";
 
   await cargarReloj();
   const todas = await db.select().from(solicitud).orderBy(desc(solicitud.creadoEn)).all();
@@ -44,7 +44,7 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
       textoOriginal: s.textoOriginal,
       conceptos: leerConceptos(s.conceptos),
       estado: s.estado,
-      origen: s.origen === "cliente" ? "cliente" : "francesc",
+      origen: s.origen === "cliente" ? "cliente" : "Francesc",
       presupuestoId: s.presupuestoId,
       cuando: formatoRelativo(s.creadoEn, hoy),
     }));
@@ -57,7 +57,7 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
         acciones={
           <Button nativeButton={false} render={<Link href="/panel/nueva-visita" />}>
             <FilePlusIcon data-icon="inline-start" />
-            Nueva Solicitud
+            Nova Sol·licitud
           </Button>
         }
       />
@@ -97,10 +97,10 @@ export default async function Solicitudes({ searchParams }: PageProps<"/panel/so
           titulo={vacio(filtro).titulo}
           texto={vacio(filtro).texto}
           accion={
-            filtro === "pendiente" ? (
+            filtro === "pendent" ? (
               <Button nativeButton={false} render={<Link href="/panel/nueva-visita" />}>
                 <FilePlusIcon data-icon="inline-start" />
-                Nova Solicitud
+                Nova Sol·licitud
               </Button>
             ) : undefined
           }
@@ -129,17 +129,17 @@ function vacio(filtro: string): { titulo: string; texto: string } {
   if (filtro === "convertida") {
     return {
       titulo: "Encara no has convertit Cap Visita",
-      texto: "Cuando conviertas una solicitud en presupuesto, se quedará aquí con el enlace a su ficha.",
+      texto: "Quan convierteixis una solicitud en pressupost, es quedarà aqui amb l'enllaç a la fitxa.",
     };
   }
   if (filtro === "descartada") {
     return {
-      titulo: "No Has Descartado Ninguna Visita",
-      texto: "Lo que descartes se guarda aquí por si te arrepientes: siempre puedes recuperarlo.",
+      titulo: "No Has Descartat Cap Visita",
+      texto: "El que descartis es guarda aqui por si hi vols tornar: sempre pots recuperar-ho.",
     };
   }
   return {
-    titulo: "La Bandeja Está Vacía",
-    texto: "Dicta la visita al sortir i estarà aquí en uns segons, amb el client, la direcció i els conceptes. El que es demani des de la web també arriba aqui.",
+    titulo: "La Safata Està buida",
+    texto: "Dicta la visita al sortir i estarà aquí en uns segons, amb el client, l'adreça i els conceptes. El que es demani des de la web també arriba aqui.",
   };
 }

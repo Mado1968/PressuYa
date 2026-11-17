@@ -28,13 +28,13 @@ import {
 } from "@/components/ui/sheet";
 
 const ENTRADAS = [
-  { href: "/panel", etiqueta: "Inicio", icono: HouseIcon },
-  { href: "/panel/solicitudes", etiqueta: "Solicitudes", icono: InboxIcon },
-  { href: "/panel/presupuestos", etiqueta: "Presupuestos", icono: FileTextIcon },
-  { href: "/panel/clientes", etiqueta: "Clientes", icono: UsersIcon },
-  { href: "/panel/precios", etiqueta: "Precios", icono: TagsIcon },
+  { href: "/panel", etiqueta: "Inici", icono: HouseIcon },
+  { href: "/panel/solicitudes", etiqueta: "Solicituds", icono: InboxIcon },
+  { href: "/panel/presupuestos", etiqueta: "Pressupostos", icono: FileTextIcon },
+  { href: "/panel/clientes", etiqueta: "Clients", icono: UsersIcon },
+  { href: "/panel/precios", etiqueta: "Preus", icono: TagsIcon },
   { href: "/panel/plantillas", etiqueta: "Plantillas", icono: LayoutTemplateIcon },
-  { href: "/panel/ajustes", etiqueta: "Ajustes", icono: SettingsIcon },
+  { href: "/panel/ajustes", etiqueta: "Ajustos", icono: SettingsIcon },
 ] as const;
 
 export function Sidebar({
@@ -87,7 +87,7 @@ export function Sidebar({
               className="gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
             >
               <SheetHeader className="border-b border-white/10 pr-12">
-                <SheetTitle className="text-white">Menú del Panel</SheetTitle>
+                <SheetTitle className="text-white">Menú del Panell</SheetTitle>
               </SheetHeader>
               <ContenidoNavegacion
                 ruta={ruta}
@@ -145,7 +145,7 @@ function ContenidoNavegacion({
           className="flex h-10 w-full items-center justify-center gap-1.5 rounded-lg bg-white text-sm font-medium text-black transition-colors hover:bg-white/90"
         >
           <PlusIcon className="size-4" />
-          Nueva Solicitud
+          Nova Solicitud
         </Link>
       </div>
 
@@ -180,8 +180,8 @@ function ContenidoNavegacion({
                   )}
                   title={
                     href === "/panel/presupuestos"
-                      ? "Presupuestos sin respuesta desde hace más de 7 días"
-                      : "Solicitudes pendientes de convertir"
+                      ? "Pressupostos sense resposta desde fa més de 7 dies"
+                      : "Solicituds pendents de convertir"
                   }
                 >
                   {badge}
@@ -206,7 +206,7 @@ function ContenidoNavegacion({
           <button
             type="submit"
             title="Salir"
-            aria-label="Salir del Panel"
+            aria-label="Sortir del Panell"
             className="flex size-9 items-center justify-center rounded-lg text-sidebar-foreground/60 transition-colors hover:bg-white/10 hover:text-white"
           >
             <LogOutIcon className="size-4" />

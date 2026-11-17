@@ -160,8 +160,8 @@ function textoDeUnaApertura(
     formatoUbicacion(datos.ciudad, datos.pais),
   ].join(" · ");
   return expirado
-    ? `🔁 ${p.clienteNombre} ha vuelto a abrir un presupuesto caducado de ${formatoEurosCorto(p.total)} · ${cola} · es una señal de compra: llámale`
-    : `👀 ${p.clienteNombre} acaba de abrir tu presupuesto de ${formatoEurosCorto(p.total)} · ${cola}`;
+    ? `🔁 ${p.clienteNombre} ha tornat a obrir un pressupost caducat de ${formatoEurosCorto(p.total)} · ${cola} · es un senyal de compra: truca'l`
+    : `👀 ${p.clienteNombre} acaba d'obrir el teu pressupost de ${formatoEurosCorto(p.total)} · ${cola}`;
 }
 
 /** Las aperturas de un presupuesto desde un instante: cuántas y de qué ciudades. */
@@ -185,8 +185,8 @@ async function aperturasDesde(presupuestoId: number, desde: Date): Promise<{ cua
 
 /** «… · 12 ciudades», «… · 1 ciudad», o nada si no sabemos de dónde vinieron. */
 function colaDeCiudades(ciudades: number): string {
-  if (ciudades <= 0) return " · ubicación desconocida";
-  return ciudades === 1 ? " · 1 ciudad" : ` · ${ciudades} ciudades`;
+  if (ciudades <= 0) return " · ubicació desconeguda";
+  return ciudades === 1 ? " · 1 ciutat" : ` · ${ciudades} ciutats`;
 }
 
 /** Deja el aviso en la campana y lo manda, sin volver a tocar la hora (ya reclamada). */
@@ -218,7 +218,7 @@ export async function avisarApertura(
   if (p.ultimoAvisoEn && ts.getTime() - p.ultimoAvisoEn.getTime() < UN_MINUTO) return; // se acumula y calla
   if (!(await reclamarElMinuto(presupuestoId, p.ultimoAvisoEn, ts))) return; // otra apertura se lo ha llevado
 
-  const expirado = p.estado === "expirado";
+  const expirado = p.estado === "expirat";
   // Las aperturas acumuladas desde el último aviso, incluida la de ahora mismo.
   // Nunca se mira más atrás de la ventana: lo de hace horas es historia, no
   // una apertura pendiente de avisar.
@@ -228,7 +228,7 @@ export async function avisarApertura(
 
   const texto =
     acumuladas.cuantas > 1
-      ? `👀 ${acumuladas.cuantas} aperturas nuevas del presupuesto de ${formatoEurosCorto(p.total)} en el último minuto${colaDeCiudades(acumuladas.ciudades)}`
+      ? `👀 ${acumuladas.cuantas} obertures noves del pressupost de ${formatoEurosCorto(p.total)} en l'últim minut${colaDeCiudades(acumuladas.ciudades)}`
       : textoDeUnaApertura(p, datos, expirado);
   await avisarYa(presupuestoId, texto, ts);
 }
@@ -282,8 +282,8 @@ export async function avisarAperturasPendientes(): Promise<number> {
     if (!(await reclamarElMinuto(c.id, c.ultimoAvisoEn, ts))) continue; // otro latido se lo ha llevado
     const texto =
       cuantas === 1
-        ? `👀 1 apertura nueva del presupuesto de ${formatoEurosCorto(c.total)} en el último minuto${colaDeCiudades(Number(c.ciudades))}`
-        : `👀 ${cuantas} aperturas nuevas del presupuesto de ${formatoEurosCorto(c.total)} en el último minuto${colaDeCiudades(Number(c.ciudades))}`;
+        ? `👀 1 obertura nova del pressupost de ${formatoEurosCorto(c.total)} en l'últim minut${colaDeCiudades(Number(c.ciudades))}`
+        : `👀 ${cuantas} obertures noves del pressupost de ${formatoEurosCorto(c.total)} en l'últim minut${colaDeCiudades(Number(c.ciudades))}`;
     await avisarYa(c.id, texto, ts);
     enviados++;
   }

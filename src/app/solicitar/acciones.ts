@@ -33,7 +33,7 @@ export async function enviarSolicitud(crudo: Record<string, unknown>): Promise<R
   if (espera > 0) {
     return {
       ok: false,
-      mensaje: `Acabamos de recibir una solicitud desde esta conexión. Si quieres enviar otra, espera ${espera} ${espera === 1 ? "minuto" : "minutos"} o llámanos.`,
+      mensaje: `Acabem de rebre una solicitud desde aquesta conexió. Si vols enviar una altre, espera ${espera} ${espera === 1 ? "minut" : "minuts"} o trucan's.`,
     };
   }
   await apuntarPeticion(ip, "solicitar");
@@ -41,7 +41,7 @@ export async function enviarSolicitud(crudo: Record<string, unknown>): Promise<R
   await guardarSolicitudDeLaWeb(datos);
   await notificar(
     null,
-    `🔔 Nueva solicitud desde la web · ${datos.nombre} · ${tituloDeObra(datos.obra)} · ${datos.direccion} · sin visita: llámale para ir a verla`,
+    `🔔 Nova solicitud desde la web · ${datos.nombre} · ${tituloDeObra(datos.obra)} · ${datos.direccion} · sense visita: Truca-la`,
     `${urlDeLaApp()}/panel/solicitudes`,
   );
 

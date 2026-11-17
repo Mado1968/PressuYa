@@ -46,7 +46,7 @@ export async function ganadoUltimos30(): Promise<{ total: number; cuantos: numbe
   const fila = await db
     .select({ total: suma(), n: sql<number>`count(*)` })
     .from(presupuesto)
-    .where(and(eq(presupuesto.estado, "ganado"), gte(presupuesto.cerradoEn, desde)))
+    .where(and(eq(presupuesto.estado, "guanyat"), gte(presupuesto.cerradoEn, desde)))
     .get();
   return { total: Number(fila?.total ?? 0), cuantos: Number(fila?.n ?? 0) };
 }
@@ -60,7 +60,7 @@ export async function tasaDeFirma(): Promise<{ antes: Tasa; despues: Tasa }> {
     const fila = await db
       .select({
         cerrados: sql<number>`count(*)`,
-        ganados: sql<number>`sum(case when ${presupuesto.estado} = 'ganado' then 1 else 0 end)`,
+        ganados: sql<number>`sum(case when ${presupuesto.estado} = 'guanyat' then 1 else 0 end)`,
       })
       .from(presupuesto)
       .where(
@@ -119,42 +119,42 @@ export async function losNumeros(): Promise<Metrica[]> {
 
   return [
     {
-      clave: "vivos",
-      etiqueta: "En presupuestos vivos",
+      clave: "vius",
+      etiqueta: "En pressupostos vius",
       valor: formatoEurosCorto(vivos.total),
-      formula: `suma del total con IVA de los ${vivos.cuantos} presupuestos en Enviado, Visto y En conversación`,
+      formula: `suma del total amb IVA dels ${vivos.cuantos} pressupostos en Enviat, Vist y En conversa`,
     },
     {
-      clave: "parados",
-      etiqueta: "Sin respuesta más de 7 días",
+      clave: "parats",
+      etiqueta: "Sense resposta fa més de 7 dies",
       valor: formatoEurosCorto(parados.total),
-      formula: `${parados.cuantos} presupuestos vivos enviados hace 8 días o más sin ninguna apertura ni respuesta en los últimos 7`,
+      formula: `${parados.cuantos} pressupostos vius enviats fa 8 dies o més sense cap apertura ni resposta en els últims 7`,
     },
     {
-      clave: "ganado30",
-      etiqueta: "Ganado en los últimos 30 días",
+      clave: "guanyat30",
+      etiqueta: "Guanyat en los últimos 30 días",
       valor: formatoEurosCorto(ganado.total),
-      formula: `suma de los ${ganado.cuantos} presupuestos que pasaron a Ganado en los últimos 30 días`,
+      formula: `suma dels ${ganado.cuantos} pressupostos que han passat a Guanyat en els últims 30 dies`,
     },
     {
-      clave: "firma",
-      etiqueta: "Tasa de firma",
+      clave: "signatura",
+      etiqueta: "Tasa de signatura",
       valor: formatoPorcentaje(firma.despues.pct, 0),
-      formula: `${firma.despues.ganados} ganados de ${firma.despues.cerrados} cerrados desde que usas la máquina`,
+      formula: `${firma.despues.ganados} guanyats de ${firma.despues.cerrados} tancats desde que utilitzes PressuYa`,
       antes: {
-        etiqueta: "antes",
+        etiqueta: "abans",
         valor: `${formatoPorcentaje(firma.antes.pct, 0)} · ${firma.antes.ganados} de ${firma.antes.cerrados}`,
       },
       mejora: firma.despues.pct >= firma.antes.pct ? "sube" : "baja",
     },
     {
-      clave: "tiempo",
-      etiqueta: "De la visita al envío",
+      clave: "temps",
+      etiqueta: "De la visita al enviament",
       valor: dias(tiempo.despues.dias),
-      formula: `media de los ${tiempo.despues.cuantos} presupuestos enviados desde que usas la máquina`,
+      formula: `mitjana dels ${tiempo.despues.cuantos} pressupostos enviats desde que utilitzes PressuYa`,
       antes: {
-        etiqueta: "antes",
-        valor: `${dias(tiempo.antes.dias)} · ${tiempo.antes.cuantos} presupuestos`,
+        etiqueta: "abans",
+        valor: `${dias(tiempo.antes.dias)} · ${tiempo.antes.cuantos} pressupostos`,
       },
       mejora: tiempo.despues.dias <= tiempo.antes.dias ? "sube" : "baja",
     },

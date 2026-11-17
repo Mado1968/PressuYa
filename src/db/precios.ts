@@ -52,33 +52,43 @@ function partirLinea(linea: string): string[] {
 /** Lee el CSV y devuelve las filas válidas. Lanza si el formato no es el esperado. */
 export function leerBanco(csv: string): FilaBanco[] {
   const lineas = csv.split(/\r?\n/).filter((l) => l.trim() !== "");
-  if (lineas.length < 2) throw new Error("El CSV del banco de precios está vacío");
+  if (lineas.length < 2) throw new Error("El CSV del banc de preus està buit");
   const cabecera = partirLinea(lineas[0]).map((c) => c.toLowerCase());
-  const esperada = ["codigo", "capitulo", "partida", "unidad", "precio", "margen_objetivo"];
-  for (const columna of esperada) {
-    if (!cabecera.includes(columna)) {
-      throw new Error(`Al CSV le falta la columna «${columna}»`);
+  const indice = (columna: string, alternativa?: string) => {
+    const encontrado = cabecera.indexOf(columna);
+    const indiceAlternativo = alternativa ? cabecera.indexOf(alternativa) : -1;
+    const resultado = encontrado >= 0 ? encontrado : indiceAlternativo;
+    if (resultado < 0) {
+      throw new Error(
+        `Al CSV li falta la columna «${columna}${alternativa ? `» / «${alternativa}` : ""}»`,
+      );
     }
-  }
-  const indice = (columna: string) => cabecera.indexOf(columna);
+    return resultado;
+  };
+  const codigo = indice("codi", "codigo");
+  const capitulo = indice("capítol", "capitulo");
+  const partida = indice("partida");
+  const unidad = indice("unitat", "unidad");
+  const precio = indice("preu", "precio");
+  const margen = indice("marge_objetiu", "margen_objetivo");
 
   return lineas.slice(1).map((linea, n) => {
     const campos = partirLinea(linea);
-    const unidadCruda = campos[indice("unidad")];
-    const unidad = UNIDAD_CSV[unidadCruda];
-    if (!unidad) throw new Error(`Unidad desconocida «${unidadCruda}» en la fila ${n + 2}`);
-    const precio = Number(campos[indice("precio")].replace(",", "."));
-    const margen = Number(campos[indice("margen_objetivo")].replace(",", "."));
-    if (!Number.isFinite(precio) || !Number.isFinite(margen)) {
-      throw new Error(`Precio o margen no numérico en la fila ${n + 2}`);
+    const unidadCruda = campos[unidad];
+    const unidadNormalizada = UNIDAD_CSV[unidadCruda];
+    if (!unidadNormalizada) throw new Error(`Unitat desconeguda «${unidadCruda}» en la fila ${n + 2}`);
+    const precioNormalizado = Number(campos[precio].replace(",", "."));
+    const margenNormalizado = Number(campos[margen].replace(",", "."));
+    if (!Number.isFinite(precioNormalizado) || !Number.isFinite(margenNormalizado)) {
+      throw new Error(`Preu o marge no numèric a la fila ${n + 2}`);
     }
     return {
-      codigo: campos[indice("codigo")],
-      capitulo: campos[indice("capitulo")],
-      nombre: campos[indice("partida")],
-      unidad,
-      precio: Math.round(precio * 100),
-      margenObjetivo: margen,
+      codigo: campos[codigo],
+      capitulo: campos[capitulo],
+      nombre: campos[partida],
+      unidad: unidadNormalizada,
+      precio: Math.round(precioNormalizado * 100),
+      margenObjetivo: margenNormalizado,
     };
   });
 }

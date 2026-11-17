@@ -58,12 +58,12 @@ export function AccionesDeSolicitud({
         onClick={() =>
           mover(async () => {
             await recuperarSolicitud(solicitudId);
-            toast.success("La solicitud vuelve a la bandeja.");
+            toast.success("La solicitud torna a la safata.");
           })
         }
       >
         <RotateCcwIcon data-icon="inline-start" />
-        {moviendo ? "Recuperando…" : "Recuperar"}
+        {moviendo ? "Recuperant…" : "Recuperar"}
       </Button>
     );
   }
@@ -95,7 +95,7 @@ export function AccionesDeSolicitud({
         }
       >
         <XIcon data-icon="inline-start" />
-        {moviendo ? "Descartando…" : "Descartar"}
+        {moviendo ? "Descartant…" : "Descartar"}
       </Button>
 
       <Button
@@ -112,7 +112,7 @@ export function AccionesDeSolicitud({
         {convirtiendo ? (
           <>
             <LoaderIcon data-icon="inline-start" className="animate-spin" />
-            {deLaWeb ? "Leyendo lo que Pide el Cliente…" : "Casando Partidas contra el Banco…"}
+            {deLaWeb ? "Llegint el que demana el Client…" : "Casant Partides contra el Banc…"}
           </>
         ) : (
           <>

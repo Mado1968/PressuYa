@@ -9,19 +9,19 @@
 
 export const ESTADOS = [
   "borrador",
-  "enviado",
-  "visto",
-  "en_conversacion",
-  "ganado",
-  "perdido",
-  "expirado",
+  "enviat",
+  "vist",
+  "en_conversa",
+  "guanyat",
+  "perdut",
+  "expirat",
 ] as const;
 export type Estado = (typeof ESTADOS)[number];
 
 /** Estados en los que el presupuesto sigue vivo: su € cuenta en «presupuestos vivos». */
-export const ESTADOS_VIVOS = ["enviado", "visto", "en_conversacion"] as const satisfies readonly Estado[];
+export const ESTADOS_VIVOS = ["enviat", "vist", "en_conversa"] as const satisfies readonly Estado[];
 /** Estados cerrados: cuentan para la tasa de firma. */
-export const ESTADOS_CERRADOS = ["ganado", "perdido", "expirado"] as const satisfies readonly Estado[];
+export const ESTADOS_CERRADOS = ["guanyat", "perdut", "expirat"] as const satisfies readonly Estado[];
 
 export const UNIDADES = ["ud", "m2", "ml", "m3", "h", "pa"] as const;
 export type Unidad = (typeof UNIDADES)[number];
@@ -29,39 +29,40 @@ export type Unidad = (typeof UNIDADES)[number];
 export const URGENCIAS = ["baixa", "mitjana", "alta"] as const;
 export type Urgencia = (typeof URGENCIAS)[number];
 
-export type EstadoSolicitud = "pendiente" | "convertida" | "descartada";
+export type EstadoSolicitud = "pendent" | "convertida" | "descartada";
 
 /**
  * De dónde viene una solicitud. La de Francesc trae mediciones porque él ha visto
  * la obra; la del cliente llega de la web sin ellas: sin visita no hay precio.
  */
-export const ORIGENES = ["francesc", "cliente"] as const;
+export const ORIGENES = ["Francesc", "cliente"] as const;
 export type Origen = (typeof ORIGENES)[number];
 
-export const TIPOS_TAREA = ["seguimiento_1", "seguimiento_2", "cierre"] as const;
+export const TIPOS_TAREA = ["seguimient_1", "seguimient_2", "tancament"] as const;
 export type TipoTarea = (typeof TIPOS_TAREA)[number];
-export type EstadoTarea = "pendiente" | "enviada" | "cancelada";
+export type EstadoTarea = "pendent" | "enviada" | "cancelada";
 
-export type Dispositivo = "movil" | "tablet" | "ordenador";
+export type Dispositivo = "mòbil" | "tablet" | "ordinador";
 
 /** Las secciones de la página pública que mide el tracking. */
-export const SECCIONES = ["cabecera", "capitulos", "opcionales", "total", "condiciones", "firma"] as const;
+export const SECCIONES = ["capçalera", "capítols", "opcionals", "total", "condicions", "signatura"] as const;
 export type Seccion = (typeof SECCIONES)[number];
 
 /** Tipos de evento del timeline. Cada uno se convierte en una frase humana. */
 export const TIPOS_EVENTO = [
-  "creado",
-  "enviado",
-  "abierto",
+  "creat",
+  "enviat",
+  "obert",
+  "vist",
   "seccion_leida",
-  "respuesta_cliente",
-  "seguimiento_enviado",
-  "seguimiento_cancelado",
+  "resposta_cliente",
+  "seguimient_enviat",
+  "seguimient_cancelat",
   "cambio_estado",
-  "aviso_enviado",
-  "firmado",
-  "opcional_marcado",
-  "pdf_descargado",
+  "avis_enviat",
+  "signat",
+  "opcional_mercat",
+  "pdf_descarregat",
 ] as const;
 export type TipoEvento = (typeof TIPOS_EVENTO)[number];
 

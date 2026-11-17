@@ -15,10 +15,10 @@ export default async function EnlaceNoValido() {
           <LinkIcon className="size-5" />
         </span>
         <p className="mt-4 text-lg font-semibold tracking-tight text-black">{negocio.nombre}</p>
-        <h1 className="mt-3 text-base font-semibold">Este Enlace Ya No Está Disponible</h1>
+        <h1 className="mt-3 text-base font-semibold">Aquest Enllaç ja no està disponible</h1>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Puede que el presupuesto se haya retirado o que el enlace esté incompleto. Copia otra vez
-          el enlace que te pasamos o llámanos y te lo mandamos de nuevo.
+          Potser que el pressupost s'hagi retirat o que l'enllaç estigui incomplert. Copia altra vegada
+          l'enllaç que t'hem enviat o truca'ns i t'ho tornarem a enviar.
         </p>
         <p className="mt-4 text-sm font-medium">
           <a href={`tel:${negocio.telefono.replace(/\s/g, "")}`} className="cifra text-black">

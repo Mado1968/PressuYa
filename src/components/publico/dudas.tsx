@@ -41,13 +41,13 @@ export function Dudas({
       });
       if (!res.ok) {
         const cuerpo = (await res.json().catch(() => ({}))) as { error?: string };
-        setError(cuerpo.error ?? "No se ha podido enviar. Vuelve a intentarlo.");
+        setError(cuerpo.error ?? "No s'ha pogut enviar. Torna-ho a provar.");
         setEnviando(false);
         return;
       }
       onEnviado();
     } catch {
-      setError("No hay conexión. Comprueba la red y vuelve a intentarlo.");
+      setError("No hi ha conexió. Comprova la xarxa i torna a provar.");
       setEnviando(false);
     }
   }
@@ -57,14 +57,14 @@ export function Dudas({
       className="no-imprimir fixed inset-0 z-50 flex items-end justify-center bg-foreground/40 p-0 sm:items-center sm:p-6"
       role="dialog"
       aria-modal="true"
-      aria-label="Escribir una Duda"
+      aria-label="Escriure un Dubte"
     >
       <div className="max-h-full w-full overflow-y-auto rounded-t-xl bg-card p-5 shadow-lg sm:max-w-lg sm:rounded-xl">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">¿Qué Te Ha Quedado por Resolver?</h2>
+            <h2 className="text-lg font-semibold tracking-tight">¿Què ha quedat pendent de Resoldre?</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Escríbelo y Francesc te llama. También puedes llamarle al{" "}
+              Escriu i en Francesc et trucarà. També pots trucar-lo al{" "}
               <a href={`tel:${telefono.replace(/\s/g, "")}`} className="font-medium text-black">
                 {telefono}
               </a>
@@ -88,7 +88,7 @@ export function Dudas({
           rows={5}
           autoFocus
           maxLength={2000}
-          placeholder="Por ejemplo: ¿el plato de ducha se puede hacer más grande? ¿Cuánto duraría la obra?"
+          placeholder="Per exemple: Vull una aplicació per resoldre.....? En quin plaç?"
           className="mt-4 w-full resize-y rounded-lg border border-input bg-card px-3 py-2.5 text-sm leading-relaxed outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
 
@@ -105,12 +105,12 @@ export function Dudas({
           {enviando ? (
             <>
               <Loader2Icon className="size-4 animate-spin" />
-              Enviando…
+              Enviant…
             </>
           ) : (
             <>
               <SendIcon className="size-4" />
-              Enviar la Duda
+              Enviar el Dubte
             </>
           )}
         </button>

@@ -46,7 +46,7 @@ export async function entrarConContrasena(contrasena: string): Promise<Resultado
   if (!esperada || !secreto) {
     return {
       ok: false,
-      mensaje: "El acceso no está configurado: faltan PANEL_PASSWORD o PANEL_SECRET en las variables de entorno.",
+      mensaje: "L'accés no està configurat: falta PANEL_PASSWORD o PANEL_SECRET en les variables d'entorn.",
     };
   }
 
@@ -55,13 +55,13 @@ export async function entrarConContrasena(contrasena: string): Promise<Resultado
   if (espera > 0) {
     return {
       ok: false,
-      mensaje: `Demasiados intentos fallidos. Vuelve a probar dentro de ${espera} ${espera === 1 ? "minuto" : "minutos"}.`,
+      mensaje: `Massa intents fallits. Torna a provar en ${espera} ${espera === 1 ? "minut" : "minuts"}.`,
     };
   }
 
   if (!igualesEnTiempoConstante(contrasena, esperada)) {
     await apuntarPeticion(ip, "entrar");
-    return { ok: false, mensaje: "La contraseña no es correcta." };
+    return { ok: false, mensaje: "El password no es correcte." };
   }
 
   await olvidarFallos(ip, "entrar");

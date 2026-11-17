@@ -29,17 +29,17 @@ export type TarjetaPresupuesto = {
 };
 
 export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
-  const [vista, setVista] = useState<"kanban" | "lista">("kanban");
+  const [vista, setVista] = useState<"kanban" | "llista">("kanban");
   const [busqueda, setBusqueda] = useState("");
-  const [filtro, setFiltro] = useState<Estado | "activos" | "todos">("todos");
+  const [filtro, setFiltro] = useState<Estado | "actius" | "tots">("tots");
 
   const filtrados = useMemo(() => {
     const texto = busqueda.trim().toLowerCase();
     return presupuestos.filter((p) => {
-      if (filtro === "activos" && !(ESTADOS_VIVOS as readonly string[]).includes(p.estado)) {
+      if (filtro === "actius" && !(ESTADOS_VIVOS as readonly string[]).includes(p.estado)) {
         return false;
       }
-      if (filtro !== "todos" && filtro !== "activos" && p.estado !== filtro) return false;
+      if (filtro !== "tots" && filtro !== "actius" && p.estado !== filtro) return false;
       if (!texto) return true;
       return (
         p.clienteNombre.toLowerCase().includes(texto) ||
@@ -58,17 +58,17 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
           <Input
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Buscar por cliente, obra, número o dirección"
+            placeholder="Cerca per client, obra, número o adreça."
             className="h-9 pl-8"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-1">
-          <BotonFiltro activo={filtro === "todos"} onClick={() => setFiltro("todos")}>
-            Todos
+          <BotonFiltro activo={filtro === "tots"} onClick={() => setFiltro("tots")}>
+            Tots
           </BotonFiltro>
-          <BotonFiltro activo={filtro === "activos"} onClick={() => setFiltro("activos")}>
-            Activos
+          <BotonFiltro activo={filtro === "actius"} onClick={() => setFiltro("actius")}>
+            Actius
           </BotonFiltro>
           {ESTADOS.map((estado) => (
             <BotonFiltro key={estado} activo={filtro === estado} onClick={() => setFiltro(estado)}>
@@ -81,7 +81,7 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
           <BotonVista activo={vista === "kanban"} onClick={() => setVista("kanban")} icono={KanbanIcon}>
             Kanban
           </BotonVista>
-          <BotonVista activo={vista === "lista"} onClick={() => setVista("lista")} icono={ListIcon}>
+          <BotonVista activo={vista === "llista"} onClick={() => setVista("llista")} icono={ListIcon}>
             Lista
           </BotonVista>
         </div>
@@ -90,7 +90,7 @@ export function Tablero({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }
       <div className="flex flex-col gap-2 lg:hidden">
         {filtrados.length === 0 ? (
           <div className="rounded-xl border bg-card px-4 py-10 text-center text-sm text-muted-foreground">
-            Ningún presupuesto encaja con lo que has buscado. Prueba con otra búsqueda o cambia el filtro.
+            Cap pressupost encaixa amb el que has buscat. Prova una altra cerca o canvia el filtre.
           </div>
         ) : (
           filtrados.map((presupuesto) => <TarjetaMovil key={presupuesto.id} presupuesto={presupuesto} />)
@@ -197,7 +197,7 @@ function Kanban({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
           <div className="flex flex-col gap-2 p-2">
             {filas.length === 0 ? (
               <p className="px-1 py-4 text-center text-xs text-muted-foreground">
-                Nada en {etiquetaDeEstado(estado).toLowerCase()}
+                Res en {etiquetaDeEstado(estado).toLowerCase()}
               </p>
             ) : (
               filas.map((p) => (
@@ -217,7 +217,7 @@ function Kanban({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
                     <span className="truncate">{p.pie}</span>
                     {p.parado && (
                       <span className="ml-auto shrink-0 rounded-sm bg-naranja-suave px-1 font-medium text-conversacion">
-                        parado
+                        parat
                       </span>
                     )}
                   </p>
@@ -237,8 +237,7 @@ function Lista({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
   if (presupuestos.length === 0) {
     return (
       <div className="rounded-xl border bg-card px-5 py-12 text-center text-sm text-muted-foreground">
-        Ningún presupuesto encaja con lo que has buscado. Prueba con otro cliente, otra obra o quita
-        el filtro de estado.
+        Cap pressupost encaixa amb el que has buscat. Prova una altra cerca o canvia el filtre.
       </div>
     );
   }
@@ -249,12 +248,12 @@ function Lista({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
         <thead className="border-b text-xs text-muted-foreground">
           <tr>
             <th className="px-4 py-2.5 text-left font-medium">Número</th>
-            <th className="px-4 py-2.5 text-left font-medium">Cliente</th>
-            <th className="px-4 py-2.5 text-left font-medium">Obra</th>
-            <th className="px-4 py-2.5 text-left font-medium">Estado</th>
-            <th className="px-4 py-2.5 text-right font-medium">Margen</th>
-            <th className="px-4 py-2.5 text-right font-medium">Importe</th>
-            <th className="px-4 py-2.5 text-left font-medium">Enviado</th>
+            <th className="px-4 py-2.5 text-left font-medium">Client</th>
+            <th className="px-4 py-2.5 text-left font-medium">Tasca</th>
+            <th className="px-4 py-2.5 text-left font-medium">Estat</th>
+            <th className="px-4 py-2.5 text-right font-medium">Marge</th>
+            <th className="px-4 py-2.5 text-right font-medium">Import</th>
+            <th className="px-4 py-2.5 text-left font-medium">Enviat</th>
           </tr>
         </thead>
         <tbody className="divide-y">
@@ -289,7 +288,7 @@ function Lista({ presupuestos }: { presupuestos: TarjetaPresupuesto[] }) {
         <tfoot className="border-t bg-secondary/40 text-sm">
           <tr className="h-10">
             <td className="px-4 font-medium" colSpan={5}>
-              {presupuestos.length} presupuestos
+              {presupuestos.length} pressupostos
             </td>
             <td className="cifra px-4 text-right font-semibold">{formatoEurosCorto(total)}</td>
             <td />

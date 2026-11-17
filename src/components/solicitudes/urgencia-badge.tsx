@@ -5,7 +5,7 @@ import type { Urgencia } from "@/lib/tipos";
 
 const ESTILO: Record<Urgencia, { etiqueta: string; punto: string; fondo: string; texto: string }> = {
   alta: {
-    etiqueta: "Urgente",
+    etiqueta: "Urgent",
     punto: "bg-conversacion",
     fondo: "bg-conversacion-fondo",
     texto: "text-conversacion",

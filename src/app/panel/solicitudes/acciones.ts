@@ -85,7 +85,7 @@ export async function guardarVisita(visita: VisitaParaGuardar): Promise<Resultad
     urgencia: visita.urgencia,
     textoOriginal: visita.textoOriginal,
     conceptos,
-    origen: "francesc",
+    origen: "Francesc",
   });
 
   revalidatePath("/", "layout");

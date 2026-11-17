@@ -22,8 +22,8 @@ export default async function Clientes() {
         titulo="Clientes"
         subtitulo={
           <>
-            {clientes.length} clientes · {ganados} obras ganadas por {formatoEurosCorto(contratado)}{" "}
-            contratados
+            {clientes.length} clients · {ganados} tasques guanyades per {formatoEurosCorto(contratado)}{" "}
+            contractats
           </>
         }
       />
@@ -32,12 +32,12 @@ export default async function Clientes() {
         <table className="w-full text-sm">
           <thead className="border-b text-xs text-muted-foreground">
             <tr>
-              <th className="px-4 py-2.5 text-left font-medium">Cliente</th>
-              <th className="px-4 py-2.5 text-left font-medium">Contacto</th>
-              <th className="px-4 py-2.5 text-right font-medium">Presupuestos</th>
-              <th className="px-4 py-2.5 text-right font-medium">Ganados</th>
-              <th className="px-4 py-2.5 text-right font-medium">Contratado</th>
-              <th className="px-4 py-2.5 text-left font-medium">Último</th>
+              <th className="px-4 py-2.5 text-left font-medium">Client</th>
+              <th className="px-4 py-2.5 text-left font-medium">Contacte</th>
+              <th className="px-4 py-2.5 text-right font-medium">Pressupostos</th>
+              <th className="px-4 py-2.5 text-right font-medium">Guanyats</th>
+              <th className="px-4 py-2.5 text-right font-medium">Contractat</th>
+              <th className="px-4 py-2.5 text-left font-medium">Últim</th>
               <th className="w-8 px-4" />
             </tr>
           </thead>

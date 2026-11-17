@@ -30,17 +30,17 @@ export async function crearDesdePlantilla(
   await cargarReloj();
   const plantillaId = Number(campo(datos, "plantillaId"));
   const ficha = await db.select().from(plantilla).where(eq(plantilla.id, plantillaId)).get();
-  if (!ficha) return { ok: false, mensaje: "Esa plantilla ya no existe." };
+  if (!ficha) return { ok: false, mensaje: "Aquesta plantilla ja no existeix." };
 
   const clienteNombre = campo(datos, "clienteNombre");
   const direccionObra = campo(datos, "direccionObra");
-  if (clienteNombre.length < 3) return { ok: false, mensaje: "Escribe el nombre del cliente." };
+  if (clienteNombre.length < 3) return { ok: false, mensaje: "Escriu el nom del client." };
   if (direccionObra.length < 5) {
-    return { ok: false, mensaje: "Escribe la dirección de la obra: sale en el presupuesto." };
+    return { ok: false, mensaje: "Escriu la direcció de la tasca: surt al pressupost." };
   }
 
-  const titulo = campo(datos, "titulo") || ficha.nombre;
-  const telefono = campo(datos, "telefono") || null;
+  const titulo = campo(datos, "titol") || ficha.nombre;
+  const telefono = campo(datos, "telefon") || null;
   const email = campo(datos, "email") || null;
 
   let presupuestoId: number;
@@ -62,7 +62,7 @@ export async function crearDesdePlantilla(
     }
     await recalcular(presupuestoId);
   } catch (e) {
-    return { ok: false, mensaje: `No se ha podido crear el presupuesto: ${(e as Error).message}` };
+    return { ok: false, mensaje: `No s'ha pogut crear el pressupost: ${(e as Error).message}` };
   }
 
   revalidatePath("/panel/presupuestos");
@@ -105,26 +105,26 @@ export async function guardarComoPlantilla(
   await exigirSesion();
   await cargarReloj();
   const presupuestoId = Number(campo(datos, "presupuestoId"));
-  const nombre = campo(datos, "nombre");
-  const descripcion = campo(datos, "descripcion");
+  const nombre = campo(datos, "nom");
+  const descripcion = campo(datos, "descripcio");
 
   if (!Number.isInteger(presupuestoId) || presupuestoId <= 0) {
-    return { ok: false, mensaje: "No sé de qué presupuesto quieres hacer la plantilla." };
+    return { ok: false, mensaje: "Desconec de quin pressupost vols fer la plantilla." };
   }
-  if (nombre.length < 3) return { ok: false, mensaje: "Ponle un nombre, como «Baño completo»." };
+  if (nombre.length < 3) return { ok: false, mensaje: "Posa-hi un nom, como «Harness»." };
   if (descripcion.length < 10) {
     return {
       ok: false,
-      mensaje: "Describe para qué obra sirve: es lo que leerás dentro de seis meses.",
+      mensaje: "Descriu per a quina tasca serveix: es el que llegiras en sis mesos.",
     };
   }
 
   const repetido = await db.select({ id: plantilla.id }).from(plantilla).where(eq(plantilla.nombre, nombre)).get();
-  if (repetido) return { ok: false, mensaje: `Ya tienes una plantilla que se llama «${nombre}».` };
+  if (repetido) return { ok: false, mensaje: `ja tens una plantilla que s'anomena «${nombre}».` };
 
   const lineas = await lineasComoPlantilla(presupuestoId);
   if (lineas.length === 0) {
-    return { ok: false, mensaje: "Ese presupuesto no tiene líneas: no hay nada que guardar." };
+    return { ok: false, mensaje: "Aquest pressupost no té linies: no hi ha res a guardar." };
   }
 
   const { id } = await db
@@ -142,9 +142,9 @@ export async function guardarComoPlantilla(
 export async function borrarPlantilla(id: number): Promise<Resultado> {
   await exigirSesion();
   const ficha = await db.select({ nombre: plantilla.nombre }).from(plantilla).where(eq(plantilla.id, id)).get();
-  if (!ficha) return { ok: false, mensaje: "Esa plantilla ya no existe." };
+  if (!ficha) return { ok: false, mensaje: "Aquesta plantilla ja no existeix." };
 
   await db.delete(plantilla).where(eq(plantilla.id, id)).run();
   revalidatePath("/panel/plantillas");
-  return { ok: true, mensaje: `Plantilla «${ficha.nombre}» borrada.` };
+  return { ok: true, mensaje: `Plantilla «${ficha.nombre}» esborrada.` };
 }

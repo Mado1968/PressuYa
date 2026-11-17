@@ -32,7 +32,7 @@ export function GuardarComoPlantilla({
       <input type="hidden" name="presupuestoId" value={presupuestoId} />
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="nombre">Nombre de la Plantilla</Label>
+        <Label htmlFor="nombre">Nom de la Plantilla</Label>
         <Input
           id="nombre"
           name="nombre"
@@ -41,12 +41,12 @@ export function GuardarComoPlantilla({
           required
         />
         <p className="text-xs text-muted-foreground">
-          Como lo dirías en obra: «Baño completo», «Cocina con isla», «Pintura integral».
+          Com ho dirías en visita: «Harness», «Web», «Aplicació a mida».
         </p>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="descripcion">Para Qué Sirve</Label>
+        <Label htmlFor="descripcion">Per a què serveix</Label>
         <Textarea
           id="descripcion"
           name="descripcion"
@@ -56,14 +56,14 @@ export function GuardarComoPlantilla({
           required
         />
         <p className="text-xs text-muted-foreground">
-          Los metros, la gama y qué entra. Es lo que leerás dentro de seis meses para saber si te
-          sirve.
+          Les necessitats, la gama i què entra. Es el que llegiràs en sis mesos per saber si et
+          serveix.
         </p>
       </div>
 
       <div className="flex justify-end">
         <Button type="submit" disabled={pendiente}>
-          {pendiente ? "Guardando…" : "Guardar como Plantilla"}
+          {pendiente ? "Guardant…" : "Guardar com Plantilla"}
         </Button>
       </div>
     </form>

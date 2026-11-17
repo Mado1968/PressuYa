@@ -8,7 +8,7 @@ import { accesoConfigurado, haySesion } from "@/lib/sesion";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Acceso al Panel · TTiA",
+  title: "Acces al Panell · TTiA",
   robots: { index: false, follow: false },
 };
 
@@ -24,7 +24,7 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
           <Link href="/" className="text-xl font-semibold tracking-tight text-white">
             TTiA
           </Link>
-          <p className="mt-1 text-sm text-white/60">TTiA</p>
+          <p className="mt-1 text-sm text-white/60"></p>
         </div>
 
         <div className="rounded-xl border bg-card p-6 shadow-lg">
@@ -36,8 +36,8 @@ export default async function Entrar({ searchParams }: PageProps<"/entrar">) {
             <FormularioEntrar desde={destino} />
           ) : (
             <p role="alert" className="rounded-lg bg-perdido-fondo px-3 py-2.5 text-sm text-perdido">
-              El acceso no está configurado: faltan <span className="cifra">PANEL_PASSWORD</span> o{" "}
-              <span className="cifra">PANEL_SECRET</span> en las variables de entorno.
+              L'acces no està configurat: falten <span className="cifra">PANEL_PASSWORD</span> o{" "}
+              <span className="cifra">PANEL_SECRET</span> a les variables d'entorn.
             </p>
           )}
         </div>

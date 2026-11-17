@@ -19,7 +19,7 @@ export default async function Presupuestos() {
     const pie = p.enviadoEn
       ? vivo && p.validoHasta
         ? `caduca en ${formatoDiasRestantes(p.validoHasta, hoy)}`
-        : `enviado ${formatoRelativo(p.enviadoEn, hoy)}`
+        : `enviat ${formatoRelativo(p.enviadoEn, hoy)}`
       : `visita ${formatoRelativo(p.visitaEn, hoy)}`;
     return {
       id: p.id,
@@ -44,11 +44,11 @@ export default async function Presupuestos() {
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
-        titulo="Presupuestos"
+        titulo="Pressupostos"
         subtitulo={
           <>
-            {todos.length} en total · {vivos.length} vivos por {formatoEurosCorto(enVivos)} ·{" "}
-            {parados.size} sin respuesta desde hace más de 7 días
+            {todos.length} Total · {vivos.length} vius per {formatoEurosCorto(enVivos)} ·{" "}
+            {parados.size} sense resposta desde fa més de 7 dies
           </>
         }
       />

@@ -55,7 +55,7 @@ export default async function Solicitar() {
             .
           </p>
           <a
-            href="https://pressu-ya.vercel.app/"
+            href="/"
             className="mt-4 inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--primary),black_12%)]"
           >
             Tornar a l'inici

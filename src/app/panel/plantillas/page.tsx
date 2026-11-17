@@ -23,15 +23,15 @@ export default async function Plantillas() {
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5">
       <PageHeader
-        titulo="Plantillas"
-        subtitulo="Presupuestos tipo para las obras de siempre. El importe es orientativo, con los precios de hoy del banco: en cada obra se ajustan las mediciones."
+        titulo="Plantilles"
+        subtitulo="Pressupostos tipus per a les tasques de sempre. l'import es orientatiu, amb els preus de avui del banc: en cada tasca s'ajusten les opcions."
       />
 
       {lista.length === 0 ? (
         <EmptyState
           icono={LayoutTemplateIcon}
-          titulo="Todavía No Tienes Ninguna Plantilla"
-          texto="Las plantillas nacen de un presupuesto que ya has hecho: abre uno, dale a «Guardar como plantilla» y lo tendrás aquí para la próxima obra igual."
+          titulo="Encara no Tens cap Plantilla"
+          texto="Les plantilles neixen d'un pressupost que ja has fet: obre'n un, i a «Guardar com a plantilla» el tindràs aqui pera la propera tasca igual."
         />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
@@ -42,8 +42,8 @@ export default async function Plantillas() {
       )}
 
       <p className="text-xs text-muted-foreground">
-        ¿Te falta una? Abre cualquier presupuesto y guárdalo como plantilla: se copian sus líneas,
-        sus unidades y sus mediciones.
+        T'en falta una? Obre un pressupost i guarda'l com a plantilla: es copien les linies,
+        les unitats i les tasques.
       </p>
     </div>
   );

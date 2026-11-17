@@ -12,7 +12,7 @@ export default function NuevaVisita() {
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <PageHeader
         titulo="Nova visita"
-        subtitulo="Al sortir de la visita explica-ho amb veu i PRESUYA ho converteix en pressupost."
+        subtitulo="Dicta i explica amb veu i PRESUYA ho converteix en sol·licitud."
       />
       <FormularioDeVisita conIa={hayIa()} />
     </div>

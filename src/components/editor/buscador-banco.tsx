@@ -66,14 +66,13 @@ export function BuscadorDelBanco({
         render={<Button variant="outline" size="sm" disabled={deshabilitado} />}
       >
         <PlusIcon />
-        Añadir del Banco
+        Afegir del Banc
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Añadir una Partida del Banco</DialogTitle>
+          <DialogTitle>Afegir una Partida del Banc</DialogTitle>
           <DialogDescription>
-            {banco.length} partidas activas. El precio y el margen los trae la partida: no se
-            escribe ningún importe a mano.
+            {banco.length} partidas actives. El preu i el marge els porta la partida: no s'escriu cap import a ma.
           </DialogDescription>
         </DialogHeader>
 
@@ -83,7 +82,7 @@ export function BuscadorDelBanco({
             autoFocus
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Buscar por código, capítulo o partida: alicatado, FON-03, pintura…"
+            placeholder="Buscar por codi, capítul o partida: harness, FON-03, web…"
             className="h-9 pl-8"
           />
         </div>
@@ -91,8 +90,8 @@ export function BuscadorDelBanco({
         <div className="-mx-1 max-h-[22rem] overflow-y-auto px-1">
           {cuantas === 0 ? (
             <p className="px-1 py-10 text-center text-sm text-muted-foreground">
-              Ninguna partida del banco encaja con «{busqueda.trim()}». Si de verdad no existe,
-              ciérralo y añade la línea a mano: saldrá en amarillo hasta que le pongas precio.
+              Cap partida del banc encaixa amb «{busqueda.trim()}». Si de veritat no existeix,
+              tanca i afegeix la línia a mana: estarà en groc fins que li posis preu.
             </p>
           ) : (
             encontradas.map(([capitulo, partidas]) => (

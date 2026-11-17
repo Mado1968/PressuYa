@@ -36,14 +36,14 @@ export type Solicitud = typeof solicitud.$inferSelect;
 export async function elNegocio(): Promise<Negocio> {
   const fila = await db.select().from(negocio).limit(1).get();
   if (!fila) throw new Error("La base no está sembrada: ejecuta npm run reset");
-  if (fila.nombre === "Reformas Soler") {
+  if (fila.nombre === "PressuYa") {
     await db
       .update(negocio)
       .set({ nombre: "TTiA" })
-      .where(and(eq(negocio.id, fila.id), eq(negocio.nombre, "Reformas Soler")))
+      .where(and(eq(negocio.id, fila.id), eq(negocio.nombre, "PressuYa")))
       .run();
     const actualizada = await db.select().from(negocio).where(eq(negocio.id, fila.id)).get();
-    if (!actualizada) throw new Error("No se pudo actualizar el nombre de la empresa a TTiA");
+    if (!actualizada) throw new Error("No s'ha pogut actualtizar el nom de l'empresa a TTiA");
     return actualizada;
   }
   return fila;
@@ -135,7 +135,7 @@ export async function proximaTarea(presupuestoId: number): Promise<Tarea | null>
     .select()
     .from(tareaProgramada)
     .where(
-      and(eq(tareaProgramada.presupuestoId, presupuestoId), eq(tareaProgramada.estado, "pendiente")),
+      and(eq(tareaProgramada.presupuestoId, presupuestoId), eq(tareaProgramada.estado, "pendent")),
     )
     .orderBy(asc(tareaProgramada.ejecutarEn))
     .limit(1)
@@ -281,7 +281,7 @@ export async function seguimientosDeHoy(): Promise<SeguimientoDeHoy[]> {
     .innerJoin(cliente, eq(presupuesto.clienteId, cliente.id))
     .where(
       and(
-        eq(tareaProgramada.estado, "pendiente"),
+        eq(tareaProgramada.estado, "pendent"),
         gte(tareaProgramada.ejecutarEn, desde),
         lt(tareaProgramada.ejecutarEn, hasta),
       ),
@@ -330,7 +330,7 @@ export async function expiradosReabiertos(dias = 7): Promise<Reapertura[]> {
     .innerJoin(presupuesto, eq(eventoLectura.presupuestoId, presupuesto.id))
     .innerJoin(cliente, eq(presupuesto.clienteId, cliente.id))
     .where(
-      and(isNull(eventoLectura.seccion), eq(presupuesto.estado, "expirado"), gte(eventoLectura.ts, desde)),
+      and(isNull(eventoLectura.seccion), eq(presupuesto.estado, "expirat"), gte(eventoLectura.ts, desde)),
     )
     .orderBy(desc(eventoLectura.ts))
     .all();
@@ -359,14 +359,14 @@ export async function clientesConResumen(): Promise<ClienteConResumen[]> {
     .select({
       cliente,
       presupuestos: sql<number>`count(${presupuesto.id})`,
-      ganados: sql<number>`sum(case when ${presupuesto.estado} = 'ganado' then 1 else 0 end)`,
-      contratado: sql<number>`coalesce(sum(case when ${presupuesto.estado} = 'ganado' then ${presupuesto.total} else 0 end), 0)`,
+      ganados: sql<number>`sum(case when ${presupuesto.estado} = 'guanyat' then 1 else 0 end)`,
+      contratado: sql<number>`coalesce(sum(case when ${presupuesto.estado} = 'guanyat' then ${presupuesto.total} else 0 end), 0)`,
       ultimoEn: sql<number | null>`max(${presupuesto.creadoEn})`,
     })
     .from(cliente)
     .leftJoin(presupuesto, eq(presupuesto.clienteId, cliente.id))
     .groupBy(cliente.id)
-    .orderBy(desc(sql`coalesce(sum(case when ${presupuesto.estado} = 'ganado' then ${presupuesto.total} else 0 end), 0)`))
+    .orderBy(desc(sql`coalesce(sum(case when ${presupuesto.estado} = 'guanyat' then ${presupuesto.total} else 0 end), 0)`))
     .all();
   return filas.map((f) => ({
     ...f.cliente,
@@ -408,7 +408,7 @@ export async function solicitudesPendientes(): Promise<Solicitud[]> {
   return db
     .select()
     .from(solicitud)
-    .where(eq(solicitud.estado, "pendiente"))
+    .where(eq(solicitud.estado, "pendent"))
     .orderBy(desc(solicitud.creadoEn))
     .all();
 }
@@ -417,7 +417,7 @@ export async function cuantasSolicitudesPendientes(): Promise<number> {
   const fila = await db
     .select({ n: sql<number>`count(*)` })
     .from(solicitud)
-    .where(eq(solicitud.estado, "pendiente"))
+    .where(eq(solicitud.estado, "pendent"))
     .get();
   return Number(fila?.n ?? 0);
 }
@@ -457,7 +457,7 @@ export async function datosDeLaWeb(): Promise<DatosDeLaWeb> {
   const [negocioFila, activas, contratadas, clientes] = await Promise.all([
     elNegocio(),
     db.select().from(partida).where(eq(partida.activa, true)).orderBy(asc(partida.id)).all(),
-    db.select({ n: sql<number>`count(*)` }).from(presupuesto).where(eq(presupuesto.estado, "ganado")).get(),
+    db.select({ n: sql<number>`count(*)` }).from(presupuesto).where(eq(presupuesto.estado, "guanyat")).get(),
     db.select({ n: sql<number>`count(*)` }).from(cliente).get(),
   ]);
 
@@ -465,7 +465,10 @@ export async function datosDeLaWeb(): Promise<DatosDeLaWeb> {
   for (const p of activas) {
     const capitulo = porCapitulo.get(p.capitulo) ?? { nombre: p.capitulo, partidas: 0, ejemplos: [] };
     capitulo.partidas++;
-    if (capitulo.ejemplos.length < 3) capitulo.ejemplos.push(p.nombre);
+    const ejemplo = p.nombre.trim();
+    if (ejemplo && capitulo.ejemplos.length < 3 && !capitulo.ejemplos.includes(ejemplo)) {
+      capitulo.ejemplos.push(ejemplo);
+    }
     porCapitulo.set(p.capitulo, capitulo);
   }
 

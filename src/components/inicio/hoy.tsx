@@ -79,11 +79,11 @@ export async function Hoy() {
       tono: "naranja",
       texto: (
         <>
-          <strong className="font-medium">{p.clienteNombre}</strong> ha vuelto a abrir un
-          presupuesto caducado
+          <strong className="font-medium">{p.clienteNombre}</strong> ha tornat a obrir un
+          pressupst caducat.
         </>
       ),
-      detalle: `${formatoRelativo(p.ultimaLectura, hoy)} · ${formatoTitulo(p.titulo)} · es una señal de compra: llámale`,
+      detalle: `${formatoRelativo(p.ultimaLectura, hoy)} · ${formatoTitulo(p.titulo)} · es un senyal de compra: Truca'l.`,
       importe: p.total,
       href: `/panel/presupuestos/${p.id}`,
       prioridad: REABIERTO - p.ultimaLectura.getTime() / 1000,
@@ -98,7 +98,7 @@ export async function Hoy() {
       tono: "violeta",
       texto: (
         <>
-          <strong className="font-medium">{a.clienteNombre}</strong> ha abierto su presupuesto de{" "}
+          <strong className="font-medium">{a.clienteNombre}</strong> ha obert el seu pressupost de{" "}
           {formatoTitulo(a.titulo)}
         </>
       ),
@@ -117,7 +117,7 @@ export async function Hoy() {
       tono: "azul",
       texto: (
         <>
-          Hoy sale el <strong className="font-medium">seguimiento {numero}</strong> a{" "}
+          Avui surt el <strong className="font-medium">seguiment {numero}</strong> a{" "}
           {s.clienteNombre}
         </>
       ),
@@ -135,7 +135,7 @@ export async function Hoy() {
       tono: "ambar",
       texto: (
         <>
-          El presupuesto de <strong className="font-medium">{p.clienteNombre}</strong> caduca en{" "}
+          El pressupost de <strong className="font-medium">{p.clienteNombre}</strong> caduca en{" "}
           {formatoDiasRestantes(p.validoHasta, hoy)}
         </>
       ),
@@ -151,7 +151,7 @@ export async function Hoy() {
   return (
     <section className="overflow-hidden rounded-xl border bg-card">
       <header className="flex items-baseline justify-between gap-3 border-b px-5 py-3.5">
-        <h2 className="font-semibold">Hoy</h2>
+        <h2 className="font-semibold">Avui</h2>
         <span className="text-xs text-muted-foreground">
           {filas.length === 0
             ? "sin movimientos"
@@ -161,8 +161,8 @@ export async function Hoy() {
 
       {filas.length === 0 ? (
         <p className="px-5 py-8 text-center text-sm text-muted-foreground">
-          Hoy no hay aperturas, ni seguimientos programados, ni presupuestos a punto de caducar.
-          Cuando los haya, aparecerán aquí con el cliente, la obra y el importe.
+          Avui no hi ha apertures, ni seguiments programats, ni pressupostos a punt de caducar.
+          Quan n'hi hagi, apareixeran aquí amb el client, la tasca i l'import.
         </p>
       ) : (
         <ul className="divide-y">

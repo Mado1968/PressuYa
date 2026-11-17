@@ -27,33 +27,33 @@ export async function guardarTextoDeSeguimiento(
   await exigirSesion();
   const limpio = texto.trim();
   if (!limpio) {
-    return { ok: false, mensaje: "El seguimiento no puede quedarse sin texto." };
+    return { ok: false, mensaje: "El seguiment no pot quedar sense text." };
   }
   if (limpio.length > 1500) {
-    return { ok: false, mensaje: "El seguimiento se ha ido de largo: déjalo en un par de párrafos." };
+    return { ok: false, mensaje: "El seguiment ha exedit el llarg: redueix-lo a dues linies." };
   }
 
   const tarea = await db.select().from(tareaProgramada).where(eq(tareaProgramada.id, tareaId)).get();
-  if (!tarea) return { ok: false, mensaje: "Ese seguimiento ya no existe." };
-  if (tarea.estado !== "pendiente") {
+  if (!tarea) return { ok: false, mensaje: "Aquest seguiment ja no existeix." };
+  if (tarea.estado !== "pendent") {
     return {
       ok: false,
       mensaje:
         tarea.estado === "enviada"
-          ? "Ese seguimiento ya ha salido: su texto no se puede cambiar."
-          : "Ese seguimiento está cancelado.",
+          ? "Aquest seguiment ja ha sortit: el text no pot canviar."
+          : "Aquest seguiment està cancel·lat.",
     };
   }
-  if (limpio === tarea.texto) return { ok: true, mensaje: "No había nada que cambiar." };
+  if (limpio === tarea.texto) return { ok: true, mensaje: "No hi havia res a canviar." };
 
   await db
     .update(tareaProgramada)
     .set({ texto: limpio })
-    .where(and(eq(tareaProgramada.id, tareaId), eq(tareaProgramada.estado, "pendiente")))
+    .where(and(eq(tareaProgramada.id, tareaId), eq(tareaProgramada.estado, "pendent")))
     .run();
 
   refrescar(tarea.presupuestoId);
-  return { ok: true, mensaje: "Texto del seguimiento guardado." };
+  return { ok: true, mensaje: "Text del seguiment guardat." };
 }
 
 /** Cancela un solo toque. Los otros dos siguen su calendario. */
@@ -61,27 +61,27 @@ export async function cancelarSeguimiento(tareaId: number): Promise<ResultadoTar
   await exigirSesion();
   await cargarReloj();
   const tarea = await db.select().from(tareaProgramada).where(eq(tareaProgramada.id, tareaId)).get();
-  if (!tarea) return { ok: false, mensaje: "Ese seguimiento ya no existe." };
-  if (tarea.estado !== "pendiente") {
-    return { ok: false, mensaje: "Ese seguimiento ya no está programado." };
+  if (!tarea) return { ok: false, mensaje: "Aquest seguiment ja no existeix." };
+  if (tarea.estado !== "pendent") {
+    return { ok: false, mensaje: "Aquest seguiment ja no està programat." };
   }
 
   const cancelada = await db
     .update(tareaProgramada)
-    .set({ estado: "cancelada" })
-    .where(and(eq(tareaProgramada.id, tareaId), eq(tareaProgramada.estado, "pendiente")))
+    .set({ estado: "cancelat" })
+    .where(and(eq(tareaProgramada.id, tareaId), eq(tareaProgramada.estado, "pendent")))
     .run();
   if (cancelada.rowsAffected !== 1) {
-    return { ok: false, mensaje: "Ese seguimiento acaba de salir: ya no se puede cancelar." };
+    return { ok: false, mensaje: "Aquest seguiment acaba de sortir: ja no es pot cancelar." };
   }
 
   await registrarEvento(
     tarea.presupuestoId,
-    "seguimiento_cancelado",
-    { porque: "lo has cancelado a mano", cuantas: 1, tipo: tarea.tipo },
+    "seguimient_cancelat",
+    { porque: "l'has cancelat a mà", cuantas: 1, tipo: tarea.tipo },
     ahora(),
   );
 
   refrescar(tarea.presupuestoId);
-  return { ok: true, mensaje: "Seguimiento cancelado: no saldrá." };
+  return { ok: true, mensaje: "Seguiment cancelat: no sortirà." };
 }

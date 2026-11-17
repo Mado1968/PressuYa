@@ -32,7 +32,7 @@ export async function POST(req: Request) {
 
   const png = typeof datos.firma === "string" ? datos.firma : "";
   if (!png.startsWith("data:image/png;base64,") || png.length > LARGO_MAXIMO) {
-    return Response.json({ error: "La firma no ha llegado bien. Vuelve a intentarlo." }, { status: 400 });
+    return Response.json({ error: "La firma no ha arribat correctament.Torna a intentar." }, { status: 400 });
   }
 
   const { ip, dispositivo } = await datosDeLaPeticion();
@@ -50,15 +50,15 @@ export async function POST(req: Request) {
     .run();
   if (guardada.rowsAffected !== 1) return Response.json({ ok: true });
 
-  await cambiarEstado(p.id, "ganado", "el cliente ha firmado");
+  await cambiarEstado(p.id, "guanyat", "el client ha signat el pressupost");
 
   const firmado = (await presupuestoPorId(p.id))!;
-  await registrarEvento(p.id, "firmado", { total: firmado.total, ip, dispositivo }, ts);
+  await registrarEvento(p.id, "signat", { total: firmado.total, ip, dispositivo }, ts);
 
   const nombre = firmado.clienteNombre.split(" ")[0];
   await notificar(
     p.id,
-    `✅ ${nombre} ha aceptado y firmado el presupuesto de ${formatoEurosCorto(firmado.total)} · ${firmado.titulo} · obra ganada`,
+    `✅ ${nombre} ha acceptat i signat el pressupost de ${formatoEurosCorto(firmado.total)} · ${firmado.titulo} · obra ganada`,
   );
 
   return Response.json({ ok: true });

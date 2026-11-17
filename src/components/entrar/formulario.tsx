@@ -34,7 +34,7 @@ export function FormularioEntrar({ desde }: { desde: string }) {
       )}
       <Button type="submit" size="lg" className="h-10" disabled={pendiente}>
         {pendiente ? <LoaderCircleIcon className="animate-spin" /> : <LockKeyholeIcon />}
-        {pendiente ? "Entrando…" : "Entrar al Panel"}
+        {pendiente ? "Entrant…" : "Entrar al Panell"}
       </Button>
     </form>
   );

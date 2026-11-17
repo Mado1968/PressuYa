@@ -33,11 +33,11 @@ export async function generateMetadata({
   const { token } = await params;
   const presupuesto = await presupuestoPorToken(token);
   if (!presupuesto || presupuesto.estado === "borrador") {
-    return { title: "Presupuesto no disponible · TTiA" };
+    return { title: "Pressupost no disponible · TTiA" };
   }
   return {
-    title: `Presupuesto ${presupuesto.numero} · ${formatoTitulo(presupuesto.titulo)} · TTiA`,
-    description: `Presupuesto de TTiA para ${presupuesto.direccionObra}.`,
+    title: `Pressupost ${presupuesto.numero} · ${formatoTitulo(presupuesto.titulo)} · TTiA`,
+    description: `Pressupost de TTiA per a ${presupuesto.direccionObra}.`,
     robots: { index: false, follow: false },
   };
 }
@@ -54,9 +54,9 @@ export default async function PaginaDelCliente({ params }: PageProps<"/p/[token]
     ? presupuesto.validoHasta.getTime() < hoy.getTime()
     : false;
   const cerrado =
-    presupuesto.estado === "ganado" ||
-    presupuesto.estado === "perdido" ||
-    presupuesto.estado === "expirado";
+    presupuesto.estado === "guanyat" ||
+    presupuesto.estado === "perdut" ||
+    presupuesto.estado === "expirat";
 
   const lineas: LineaPublica[] = filas.map((l) => ({
     id: l.id,

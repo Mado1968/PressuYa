@@ -20,20 +20,20 @@ import type { EnvioPresupuesto, TextoSeguimiento, TipoTarea } from "./tipos";
 
 /** A los 3, 7 y 14 días del envío. Máximo tres toques, por construcción. */
 export const CALENDARIO: { tipo: TipoTarea; dias: number }[] = [
-  { tipo: "seguimiento_1", dias: 3 },
-  { tipo: "seguimiento_2", dias: 7 },
-  { tipo: "cierre", dias: 14 },
+  { tipo: "seguimient_1", dias: 3 },
+  { tipo: "seguimient_2", dias: 7 },
+  { tipo: "tancament", dias: 14 },
 ];
 
 const ASUNTOS: Record<TipoTarea, string> = {
-  seguimiento_1: "¿Has podido ver el presupuesto?",
-  seguimiento_2: "¿Lo ajustamos por fases?",
-  cierre: "Tu presupuesto caduca pronto",
+  seguimient_1: "Has pogut veure el pressupost?",
+  seguimient_2: "L'ajustem per fases?",
+  tancament: "El teu pressupost caduca aviat",
 };
 
 function diasEnPalabras(dias: number): string {
-  if (dias <= 0) return "menos de un día";
-  return dias === 1 ? "1 día" : `${dias} días`;
+  if (dias <= 0) return "menys d'un dia";
+  return dias === 1 ? "1 dia" : `${dias} dies`;
 }
 
 /** Rellena los huecos del texto base de Ajustes: {cliente}, {obra}, {total}, {dias}. */
@@ -42,10 +42,10 @@ function rellenar(
   datos: { cliente: string; obra: string; total: string; dias: string },
 ): string {
   return base
-    .replaceAll("{cliente}", datos.cliente.split(" ")[0])
-    .replaceAll("{obra}", datos.obra.toLowerCase())
+    .replaceAll("{client}", datos.cliente.split(" ")[0])
+    .replaceAll("{tasca}", datos.obra.toLowerCase())
     .replaceAll("{total}", datos.total)
-    .replaceAll("{dias}", datos.dias);
+    .replaceAll("{dies}", datos.dias);
 }
 
 /**
@@ -54,7 +54,7 @@ function rellenar(
  */
 export async function seguimientosDeAjustes(presupuestoId: number): Promise<TextoSeguimiento[]> {
   const [p, negocio] = await Promise.all([presupuestoPorId(presupuestoId), elNegocio()]);
-  if (!p) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!p) throw new Error(`No existeix el pressupost ${presupuestoId}`);
   const datos = {
     cliente: p.clienteNombre,
     obra: p.titulo,
@@ -62,9 +62,9 @@ export async function seguimientosDeAjustes(presupuestoId: number): Promise<Text
     dias: diasEnPalabras(p.caducidadDias - 14),
   };
   const bases: Record<TipoTarea, string> = {
-    seguimiento_1: negocio.seguimiento1,
-    seguimiento_2: negocio.seguimiento2,
-    cierre: negocio.seguimiento3,
+    seguimient_1: negocio.seguimiento1,
+    seguimient_2: negocio.seguimiento2,
+    tancament: negocio.seguimiento3,
   };
   return CALENDARIO.map(({ tipo }) => ({
     tipo,
@@ -87,7 +87,7 @@ export async function textosDeSeguimiento(presupuestoId: number): Promise<TextoS
       return { tipo, asunto: escrito.asunto?.trim() || ASUNTOS[tipo], texto: escrito.texto.trim() };
     });
   } catch (e) {
-    console.error("La IA no ha podido redactar los seguimientos:", (e as Error).message);
+    console.error("La IA no ha pogut redactar els seguiments:", (e as Error).message);
     return respaldo;
   }
 }
@@ -102,9 +102,9 @@ export async function textosDeSeguimiento(presupuestoId: number): Promise<TextoS
 export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPresupuesto> {
   await cargarReloj();
   const [antes, lineas] = await Promise.all([presupuestoPorId(presupuestoId), lineasDe(presupuestoId)]);
-  if (!antes) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!antes) throw new Error(`No existeix el pressupost ${presupuestoId}`);
   if (lineas.length === 0) {
-    throw new Error("El presupuesto no tiene ni una línea: no se puede enviar vacío.");
+    throw new Error("El pressupost no té ni una linia: no es pot enviar buit.");
   }
   if (antes.estado !== "borrador") {
     return { token: antes.token, url: `${urlDeLaApp()}/p/${antes.token}` };
@@ -117,7 +117,7 @@ export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPre
 
   // Solo quien pasa el Borrador a Enviado sigue adelante: si dos clics llegan a
   // la vez, el segundo no programa otros tres seguimientos.
-  if (!(await cambiarEstado(presupuestoId, "enviado", "enviado al cliente"))) {
+  if (!(await cambiarEstado(presupuestoId, "enviat", "enviat al client"))) {
     return { token: antes.token, url: `${urlDeLaApp()}/p/${antes.token}` };
   }
   await db
@@ -135,7 +135,7 @@ export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPre
         presupuestoId,
         tipo,
         ejecutarEn: new Date(ts.getTime() + dias * UN_DIA),
-        estado: "pendiente",
+        estado: "pendent",
         asunto: escrito?.asunto ?? ASUNTOS[tipo],
         texto: escrito?.texto ?? "",
       })
@@ -145,7 +145,7 @@ export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPre
   const despues = (await presupuestoPorId(presupuestoId))!;
   await registrarEvento(
     presupuestoId,
-    "enviado",
+    "enviat",
     { total: despues.total, validoHasta: validoHasta.getTime() },
     ts,
   );
@@ -153,7 +153,7 @@ export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPre
   const url = `${urlDeLaApp()}/p/${despues.token}`;
   await notificar(
     presupuestoId,
-    `📤 Presupuesto enviado a ${despues.clienteNombre} · ${formatoEurosCorto(despues.total)} · ${despues.titulo} · ${despues.direccionObra}`,
+    `📤 Pressupost enviat a ${despues.clienteNombre} · ${formatoEurosCorto(despues.total)} · ${despues.titulo} · ${despues.direccionObra}`,
   );
 
   return { token: despues.token, url };
@@ -162,13 +162,13 @@ export async function enviarPresupuesto(presupuestoId: number): Promise<EnvioPre
 /** Reenviar: el mismo enlace y las mismas tareas; solo deja constancia y avisa. */
 export async function reenviar(presupuestoId: number): Promise<EnvioPresupuesto> {
   const p = await presupuestoPorId(presupuestoId);
-  if (!p) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!p) throw new Error(`No existeix el pressupost ${presupuestoId}`);
   if (p.estado === "borrador") return enviarPresupuesto(presupuestoId);
 
-  await registrarEvento(presupuestoId, "enviado", { total: p.total, reenvio: true });
+  await registrarEvento(presupuestoId, "enviat", { total: p.total, reenvio: true });
   await notificar(
     presupuestoId,
-    `📤 Presupuesto reenviado a ${p.clienteNombre} · ${formatoEurosCorto(p.total)} · ${p.titulo}`,
+    `📤 Pressupost reenviat a ${p.clienteNombre} · ${formatoEurosCorto(p.total)} · ${p.titulo}`,
   );
   return { token: p.token, url: `${urlDeLaApp()}/p/${p.token}` };
 }

@@ -57,7 +57,7 @@ const PASOS = [
   {
     icono: RulerIcon,
     titulo: "Sol·licita cita",
-    texto: "Et venim a veure, ens expliques què vols fer . Sense compromís.",
+    texto: "Explican's què vols fer . Sense compromís.",
   },
   {
     icono: FileCheckIcon,
@@ -67,13 +67,13 @@ const PASOS = [
   },
   {
     icono: HardHatIcon,
-    titulo: "Fem la feina",
-    texto: "Acceptes firmant el pressupost des de el móbil i ens posem en marxa.",
+    titulo: "En marxa",
+    texto: "Acceptes firmant el pressupost desde el móbil i ens posem en marxa.",
   },
 ];
 
 const PROMESAS = [
-  "Desglossat per capítols i partides",
+  "Desglossat",
   "Amb el preu de cada partida",
   "Amb data de validació, per a que no hi hagi sorpreses",
   "Firma desde el móbil, sense papers",
@@ -98,8 +98,7 @@ export default async function Web() {
                 Demana pressupost
               </h1>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">
-                Indica què necessites o què vols sol·lucionar.Et fem el pressupost desglossat
-                partida per partida. Sense esperar setmanes.
+                Indica què necessites o què vols sol·lucionar.Et fem el pressupost.Sense esperar setmanes.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
@@ -139,9 +138,9 @@ export default async function Web() {
         <section className="border-b bg-card">
           <dl className="mx-auto grid max-w-6xl grid-cols-3 divide-x px-4 py-6 sm:px-6">
             {[
-              { valor: clientes, etiqueta: "Clientes" },
-              { valor: obrasContratadas, etiqueta: "Obras Contratadas" },
-              { valor: partidas, etiqueta: "Partidas con Precio" },
+              { valor: clientes, etiqueta: "Clients" },
+              { valor: obrasContratadas, etiqueta: "Tasques Contractades" },
+              { valor: partidas, etiqueta: "Partides amb Preu" },
             ].map((dato) => (
               <div key={dato.etiqueta} className="flex flex-col justify-between px-3 text-center first:pl-0 last:pr-0">
                 <dt className="text-xs text-muted-foreground sm:text-sm">{dato.etiqueta}</dt>
@@ -156,7 +155,7 @@ export default async function Web() {
           <div className="max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Què fem</h2>
             <p className="mt-2 text-muted-foreground">
-              Aplicacions a mida ( resolem el teu problema ), Xats d'assitència,  Automatitzem tasques repetitives,  Assessorem en implementació.
+              Aplicacions a mida, Xats-assitens, Gestionem el Harness per a Agents, Assessorem en implementació.
             </p>
           </div>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -214,9 +213,9 @@ export default async function Web() {
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-marca px-6 py-10 text-white sm:flex-row sm:items-center sm:px-10">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Ens expliques la teva necessitat?</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Explican's la teva necessitat?</h2>
               <p className="mt-2 max-w-lg text-white/75">
-                Explica que vols resoldre i en Francesc et trucarà per a concertar entrevista.
+                Explica que vols resoldre i ens posem en contacte.
               </p>
             </div>
             <Link

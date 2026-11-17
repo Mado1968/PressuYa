@@ -30,12 +30,12 @@ export default async function Precios() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-5">
       <PageHeader
-        titulo="Precios"
+        titulo="Preus"
         subtitulo={
           <>
-            {partidas.length} partidas en {capitulos.length} capítulos. Es la prueba de que el
-            sistema no inventa precios: en un presupuesto solo entran estos precios o los que
-            escribas tú a mano.
+            {partidas.length} partides en {capitulos.length} capitols. Es la prova de que el
+            sistema no inventa preus: en un pressupost només entren aquests preus o els que
+            escrius tú a mà.
           </>
         }
         acciones={<AccionesDelBanco capitulos={capitulos} />}

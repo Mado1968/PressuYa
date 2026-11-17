@@ -150,10 +150,10 @@ function DialogoResolver({
     <Dialog open onOpenChange={(v) => !v && onCerrar()}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Esta Línea No Está en el Banco</DialogTitle>
+          <DialogTitle>Aquesta Linia No Està al Banc</DialogTitle>
           <DialogDescription>
-            La máquina no se inventa precios. Ponle tú el precio, dala de alta en el banco o
-            quítala del presupuesto.
+            PresuYa no s'inventa preus. Posa tu el preu, dona'l d'alta al banc o
+            treu-la del pressupost.
           </DialogDescription>
         </DialogHeader>
 
@@ -172,22 +172,22 @@ function DialogoResolver({
         <div role="radiogroup" aria-label="Qué Hacer con la Línea" className="grid gap-1.5">
           <Opcion
             icono={BanknoteIcon}
-            titulo="Ponerle Precio a Mano"
-            texto="Solo para este presupuesto. No entra en el banco."
+            titulo="Posar Preu a Ma"
+            texto="Només per aquest pressupost. No entra al banc."
             elegida={via === "mano"}
             onElegir={() => setVia("mano")}
           />
           <Opcion
             icono={LibraryBigIcon}
-            titulo="Darla de Alta en el Banco"
-            texto="A partir de ahora estará disponible para todos los presupuestos."
+            titulo="Donar d'Alta al Banc"
+            texto="A partir d'ara estarà disponible per a tots els pressupostos."
             elegida={via === "banco"}
             onElegir={() => setVia("banco")}
           />
           <Opcion
             icono={Trash2Icon}
-            titulo="Quitarla del Presupuesto"
-            texto="La línea desaparece del documento."
+            titulo="Treure del Pressupost"
+            texto="La línia desapareix del document."
             elegida={via === "descartar"}
             onElegir={() => setVia("descartar")}
           />
@@ -198,35 +198,35 @@ function DialogoResolver({
             {via === "banco" && (
               <>
                 <div className="grid gap-3 sm:grid-cols-[1fr_7rem]">
-                  <Campo etiqueta="Capítulo" id="capitulo">
+                  <Campo etiqueta="Capitol" id="capitol">
                     <Selector
-                      id="capitulo"
+                      id="capitol"
                       valor={capitulo}
                       onCambiar={cambiarCapitulo}
                       opciones={capitulosDisponibles.map((c) => ({ valor: c, etiqueta: c }))}
                       className="w-full"
                     />
                   </Campo>
-                  <Campo etiqueta="Código" id="codigo">
+                  <Campo etiqueta="Codi" id="codi">
                     <Input
-                      id="codigo"
+                      id="codi"
                       value={codigo}
                       onChange={(e) => setCodigo(e.target.value.toUpperCase())}
-                      className="cifra"
+                      className="xifra"
                     />
                   </Campo>
                 </div>
-                <Campo etiqueta="Nombre de la Partida" id="nombre">
-                  <Input id="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                <Campo etiqueta="Nom de la Partida" id="nom">
+                  <Input id="nom" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                 </Campo>
               </>
             )}
 
             <div className="grid gap-3 sm:grid-cols-3">
               {via === "banco" && (
-                <Campo etiqueta="Unidad" id="unidad">
+                <Campo etiqueta="Unitat" id="unitat">
                   <Selector
-                    id="unidad"
+                    id="unitat"
                     valor={unidad}
                     onCambiar={(v) => setUnidad(v as Unidad)}
                     opciones={UNIDAD_OPCIONES}
@@ -234,9 +234,9 @@ function DialogoResolver({
                   />
                 </Campo>
               )}
-              <Campo etiqueta={`Precio por ${formatoUnidad(unidad)}`} id="precio">
+              <Campo etiqueta={`Preu per ${formatoUnidad(unidad)}`} id="preu">
                 <Input
-                  id="precio"
+                  id="preu"
                   autoFocus
                   inputMode="decimal"
                   value={precio}
@@ -245,9 +245,9 @@ function DialogoResolver({
                   className="cifra text-right"
                 />
               </Campo>
-              <Campo etiqueta="Margen %" id="margen">
+              <Campo etiqueta="Marge %" id="marge">
                 <Input
-                  id="margen"
+                  id="marge"
                   inputMode="decimal"
                   value={margen}
                   onChange={(e) => setMargen(e.target.value)}
@@ -259,14 +259,14 @@ function DialogoResolver({
             <p className="text-xs text-muted-foreground">
               {precioValido ? (
                 <>
-                  La línea quedará en{" "}
+                  La linia quedará en{" "}
                   <span className="cifra font-medium text-foreground">
                     {formatoEuros(totalPrevisto)}
                   </span>{" "}
                   ({linea.medicion} {formatoUnidad(unidad)} × {formatoEuros(centimos)}).
                 </>
               ) : (
-                "Escribe el precio por unidad y verás aquí lo que suma la línea."
+                "Escriu el preu per unitat i veuràs aqui el que suma la linia."
               )}
             </p>
           </div>
@@ -286,7 +286,7 @@ function DialogoResolver({
               }}
             >
               <Trash2Icon />
-              Quitar la Línea
+              Treure la Linia
             </Button>
           ) : (
             <Button
@@ -310,7 +310,7 @@ function DialogoResolver({
                 onCerrar();
               }}
             >
-              {via === "mano" ? "Ponerle Este Precio" : "Dar de Alta y Usarla"}
+              {via === "mano" ? "Posar aquest Preu" : "Donar d'Alta y Utilitzar"}
             </Button>
           )}
         </DialogFooter>

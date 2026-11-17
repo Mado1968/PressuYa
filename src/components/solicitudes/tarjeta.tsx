@@ -21,7 +21,7 @@ export type SolicitudEnBandeja = {
   textoOriginal: string;
   conceptos: ConceptoCrudo[];
   estado: string;
-  origen: "francesc" | "cliente";
+  origen: "Francesc" | "cliente";
   presupuestoId: number | null;
   cuando: string;
 };
@@ -40,7 +40,7 @@ export function TarjetaDeSolicitud({ solicitud }: { solicitud: SolicitudEnBandej
             {deLaWeb && (
               <span className="inline-flex items-center gap-1 rounded-md bg-naranja-suave px-1.5 py-0.5 text-xs font-medium text-conversacion">
                 <GlobeIcon className="size-3" />
-                Desde la Web · Sin Visita
+                Desde la Web · Sense Visita
               </span>
             )}
           </div>
@@ -71,7 +71,7 @@ export function TarjetaDeSolicitud({ solicitud }: { solicitud: SolicitudEnBandej
       {deLaWeb ? (
         <div className="px-3 py-3 sm:px-5">
           <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-            Lo que nos cuenta
+            Què ens explica
           </p>
           <p className="mt-2 break-words border-l-2 border-naranja/60 pl-3 text-sm leading-relaxed [overflow-wrap:anywhere]">
             {solicitud.textoOriginal}
@@ -105,8 +105,8 @@ export function TarjetaDeSolicitud({ solicitud }: { solicitud: SolicitudEnBandej
           {solicitud.textoOriginal && (
             <details className="group mt-3">
               <summary className="cursor-pointer list-none text-xs font-medium text-muted-foreground hover:text-foreground">
-                <span className="group-open:hidden">Ver las Notas de la Visita</span>
-                <span className="hidden group-open:inline">Ocultar las Notas de la Visita</span>
+                <span className="group-open:hidden">Veure les Notes de la Visita</span>
+                <span className="hidden group-open:inline">Ocultar les Notes de la Visita</span>
               </summary>
               <p className="mt-2 break-words border-l-2 border-border pl-3 text-sm leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
                 {solicitud.textoOriginal}
@@ -119,8 +119,8 @@ export function TarjetaDeSolicitud({ solicitud }: { solicitud: SolicitudEnBandej
       <footer className="flex flex-col items-stretch gap-3 border-t bg-secondary/40 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-2.5">
         <p className="break-words text-xs text-muted-foreground [overflow-wrap:anywhere]">
           {deLaWeb
-            ? "Nadie ha visto la obra todavía: llama para ir a verla. Si la conviertes, cada línea sale en amarillo y sin precio hasta que la midas."
-            : "Al convertir, la máquina casa cada concepto con el banco de precios. Lo que no esté, sale en amarillo y sin precio."}
+            ? "Ningú ha contactat encara: trucar per a comentar. Si es converteix, cada linia surt en groc i sense preu."
+            : "Al convertir, PressuYa casa cada concepte amb el banc de preus. El que no es defineixi, surt en groc i sense preu."}
         </p>
         <AccionesDeSolicitud
           solicitudId={solicitud.id}

@@ -34,7 +34,7 @@ import { formatoUnidad } from "@/lib/formato";
 import { UNIDADES } from "@/lib/tipos";
 
 const ETIQUETA_UNIDAD: Record<string, string> = Object.fromEntries(
-  UNIDADES.map((u) => [u, `${formatoUnidad(u)}${u === "pa" ? " · partida alzada" : ""}`]),
+  UNIDADES.map((u) => [u, `${formatoUnidad(u)}${u === "pa" ? " · partida alçada" : ""}`]),
 );
 
 export function AccionesDelBanco({ capitulos }: { capitulos: string[] }) {
@@ -70,21 +70,21 @@ function NuevaPartida({ capitulos }: { capitulos: string[] }) {
     <Dialog open={abierto} onOpenChange={setAbierto}>
       <Button onClick={() => setAbierto(true)}>
         <PlusIcon />
-        Nueva Partida
+        Nova Partida
       </Button>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Nueva Partida</DialogTitle>
+          <DialogTitle>Nova Partida</DialogTitle>
           <DialogDescription>
-            A partir de ahora la máquina podrá usar este precio al casar una visita. Mientras no
-            esté aquí, esa línea saldrá en amarillo y sin precio.
+            A partir d'ara PresuYa podrà utilitzar aquest preu al casar una visita. Mentres no
+            estigui aquí, aquesta línia sortirà en groc i sense preu.
           </DialogDescription>
         </DialogHeader>
 
         <form action={accion} className="grid gap-3 sm:grid-cols-2">
           <Campo id="codigo" etiqueta="Código" placeholder="ALB-11" required autoCapitalize="characters" />
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="capitulo">Capítulo</Label>
+            <Label htmlFor="capitulo">Capitol</Label>
             <Input
               id="capitulo"
               name="capitulo"
@@ -110,7 +110,7 @@ function NuevaPartida({ capitulos }: { capitulos: string[] }) {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="unidad">Unidad</Label>
+            <Label htmlFor="unidad">Unitat</Label>
             <Select name="unidad" defaultValue="ud" items={ETIQUETA_UNIDAD}>
               <SelectTrigger id="unidad" className="w-full">
                 <SelectValue />
@@ -125,7 +125,7 @@ function NuevaPartida({ capitulos }: { capitulos: string[] }) {
             </Select>
           </div>
 
-          <Campo id="precio" etiqueta="Precio sin IVA (€)" placeholder="84,50" required inputMode="decimal" />
+          <Campo id="preu" etiqueta="Preu sense IVA (€)" placeholder="84,50" required inputMode="decimal" />
           <Campo
             id="margenObjetivo"
             etiqueta="Margen Objetivo (%)"
@@ -138,7 +138,7 @@ function NuevaPartida({ capitulos }: { capitulos: string[] }) {
           <DialogFooter className="sm:col-span-2">
             <DialogClose render={<Button variant="outline" type="button" />}>Cancelar</DialogClose>
             <Button type="submit" disabled={pendiente}>
-              {pendiente ? "Guardando…" : "Añadir al Banco"}
+              {pendiente ? "Guardant…" : "Afegir al Banc"}
             </Button>
           </DialogFooter>
         </form>
@@ -167,10 +167,10 @@ function resumen(r: ResultadoImportacion): string {
   const altas = r.altas ?? 0;
   const actualizadas = r.actualizadas ?? 0;
   const partes: string[] = [];
-  if (altas) partes.push(`${altas} ${altas === 1 ? "partida nueva" : "partidas nuevas"}`);
+  if (altas) partes.push(`${altas} ${altas === 1 ? "partida nova" : "partides noves"}`);
   if (actualizadas)
-    partes.push(`${actualizadas} ${actualizadas === 1 ? "actualizada" : "actualizadas"}`);
-  return partes.length ? partes.join(" · ") : "El CSV no traía ninguna partida";
+    partes.push(`${actualizadas} ${actualizadas === 1 ? "actualitzada" : "actualitzades"}`);
+  return partes.length ? partes.join(" · ") : "El CSV no portava cap partida";
 }
 
 function ImportarBanco() {
@@ -185,7 +185,7 @@ function ImportarBanco() {
   useEffect(() => {
     if (!estado) return;
     if (estado.ok) {
-      toast.success(`CSV importado · ${resumen(estado)}`);
+      toast.success(`CSV importat · ${resumen(estado)}`);
       setUltimo(resumen(estado));
     } else {
       toast.error(estado.mensaje);
@@ -196,7 +196,7 @@ function ImportarBanco() {
     recargar(async () => {
       const r = await reimportarBancoOriginal();
       if (r.ok) {
-        toast.success(`Banco reimportado · ${resumen(r)}`);
+        toast.success(`Banc reimportat · ${resumen(r)}`);
         setUltimo(resumen(r));
       } else {
         toast.error(r.mensaje);
@@ -212,18 +212,18 @@ function ImportarBanco() {
       </Button>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Importar el Banco de Precios</DialogTitle>
+          <DialogTitle>Importar el Banc de Preus</DialogTitle>
           <DialogDescription>
-            Columnas: <span className="cifra">codigo, capitulo, partida, unidad, precio,
-            margen_objetivo</span>. Las partidas que ya existan se actualizan por su código y las
-            nuevas se dan de alta; no se borra ninguna.
+            Columnes: <span className="cifra">codi, capitol, partida, unidad, preu,
+            margen_objetivo</span>. Les partides que ja existien s'actualitzen pel seu codi i les
+            noves s'afegeixen; no s'en elimina cap.
           </DialogDescription>
         </DialogHeader>
 
         <p className="rounded-lg border border-amarilla/60 bg-amarilla-fondo px-3 py-2 text-[13px] leading-relaxed">
-          Ojo: importar <strong>pisa los precios y los márgenes que hayas editado a mano</strong> en
-          las partidas que vengan en el fichero. Los presupuestos ya hechos no cambian: cada línea
-          guarda el precio con el que se hizo.
+          Atenció: importar <strong>trepitja els preus i els marges que hagis editat a ma</strong> en
+          les partides que vingin en el ficher. Els pressupostos ja fets no canviaran: cada linia
+          guarda el preu amb el que es va fer.
         </p>
 
         <form action={accion} className="flex flex-col gap-1.5">
@@ -236,15 +236,15 @@ function ImportarBanco() {
               disabled={recargando || pendiente}
               onClick={volverAlOriginal}
             >
-              {recargando ? "Cargando…" : "Recargar el Banco de TTiA"}
+              {recargando ? "Carregant…" : "Recarregar el Banc de TTiA"}
             </Button>
             <Button type="submit" disabled={pendiente || recargando}>
-              {pendiente ? "Importando…" : "Importar el Fichero"}
+              {pendiente ? "Important…" : "Importar el Fitxer"}
             </Button>
           </DialogFooter>
         </form>
 
-        {ultimo && <p className="text-xs text-muted-foreground">Última importación: {ultimo}.</p>}
+        {ultimo && <p className="text-xs text-muted-foreground">Darrera importació: {ultimo}.</p>}
       </DialogContent>
     </Dialog>
   );

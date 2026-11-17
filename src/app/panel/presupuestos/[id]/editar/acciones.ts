@@ -78,9 +78,9 @@ async function borrador(presupuestoId: number) {
     .from(presupuesto)
     .where(eq(presupuesto.id, presupuestoId))
     .get();
-  if (!fila) throw new Error("Este presupuesto ya no existe.");
+  if (!fila) throw new Error("Aquest presupost ja no existeix.");
   if (fila.estado !== "borrador") {
-    throw new Error("El presupuesto ya está enviado: el documento no se puede cambiar.");
+    throw new Error("El presupuesto ja està enviat: el document no es pot canviar.");
   }
   return fila;
 }
@@ -117,33 +117,33 @@ export async function guardarLinea(
   return intentar(async () => {
     await borrador(presupuestoId);
     const fila = await leerLinea(lineaId, presupuestoId);
-    if (!fila) return { ok: false, mensaje: "Esa línea ya no está en el presupuesto." };
+    if (!fila) return { ok: false, mensaje: "Aquesta línia ja no està al pressupost." };
 
     const parche: Partial<typeof linea.$inferInsert> = {};
 
     if (campos.descripcion !== undefined) {
       const texto = campos.descripcion.trim();
-      if (!texto) return { ok: false, mensaje: "La descripción no puede quedar vacía." };
+      if (!texto) return { ok: false, mensaje: "La descripció no pot quedar buida." };
       parche.descripcion = texto;
     }
 
     if (campos.unidad !== undefined) {
       if (!UNIDADES.includes(campos.unidad as Unidad)) {
-        return { ok: false, mensaje: "Esa unidad no existe." };
+        return { ok: false, mensaje: "Aquesta unitat no existeix." };
       }
       parche.unidad = campos.unidad;
     }
 
     if (campos.medicion !== undefined) {
       if (!Number.isFinite(campos.medicion) || campos.medicion < 0) {
-        return { ok: false, mensaje: "La medición tiene que ser un número de cero para arriba." };
+        return { ok: false, mensaje: "La valoració ha de ser un nombre zero o més gran." };
       }
       parche.medicion = Math.round(campos.medicion * 100) / 100;
     }
 
     if (campos.margenPct !== undefined) {
       if (!Number.isFinite(campos.margenPct) || campos.margenPct < 0 || campos.margenPct >= 100) {
-        return { ok: false, mensaje: "El margen tiene que estar entre 0 y 99 %." };
+        return { ok: false, mensaje: "El marge ha d'estar entre 0 y 99 %." };
       }
       parche.margenPct = Math.round(campos.margenPct * 10) / 10;
     }
@@ -156,11 +156,11 @@ export async function guardarLinea(
         return {
           ok: false,
           mensaje:
-            "Esta línea sale del banco de precios: su precio se cambia en Precios, no aquí.",
+            "Aquesta línia surt del banc de preus: el preu es camvia desde Preus, no desde aquí.",
         };
       }
       if (!Number.isInteger(campos.precio) || campos.precio < 0) {
-        return { ok: false, mensaje: "El precio tiene que ser un importe válido." };
+        return { ok: false, mensaje: "El preu ha de ser un import vàlid." };
       }
       parche.precio = campos.precio;
       parche.precioManual = true;
@@ -188,7 +188,7 @@ export async function alternarOpcional(
   return intentar(async () => {
     await borrador(presupuestoId);
     const fila = await leerLinea(lineaId, presupuestoId);
-    if (!fila) return { ok: false, mensaje: "Esa línea ya no está en el presupuesto." };
+    if (!fila) return { ok: false, mensaje: "Aquesta línia ja no està al pressupost." };
 
     await db.update(linea)
       .set({ opcional, elegida: !opcional })
@@ -205,7 +205,7 @@ export async function borrarLinea(presupuestoId: number, lineaId: number): Promi
   return intentar(async () => {
     await borrador(presupuestoId);
     const fila = await leerLinea(lineaId, presupuestoId);
-    if (!fila) return { ok: false, mensaje: "Esa línea ya no está en el presupuesto." };
+    if (!fila) return { ok: false, mensaje: "Aquesta línia ja no està al pressupost." };
 
     await db.delete(linea).where(eq(linea.id, lineaId)).run();
     return { ok: true, importes: await cerrar(presupuestoId) };
@@ -226,7 +226,7 @@ export async function anadirDelBanco(
       .from(partida)
       .where(and(eq(partida.id, partidaId), eq(partida.activa, true)))
       .get();
-    if (!p) return { ok: false, mensaje: "Esa partida ya no está activa en el banco." };
+    if (!p) return { ok: false, mensaje: "Aquesta partida ja no està activa al banc." };
 
     const cantidad = Number.isFinite(medicion) && medicion > 0 ? Math.round(medicion * 100) / 100 : 1;
     const id = await anadirLinea(presupuestoId, lineaDesdePartida(p, cantidad));
@@ -250,13 +250,13 @@ export async function anadirLineaAMano(
   return intentar(async () => {
     await borrador(presupuestoId);
     const texto = descripcion.trim();
-    if (!texto) return { ok: false, mensaje: "Escribe qué hay que hacer en esa línea." };
+    if (!texto) return { ok: false, mensaje: "Escriu què s'ha que fer en aquesta línia." };
     if (!UNIDADES.includes(unidad as Unidad)) {
-      return { ok: false, mensaje: "Esa unidad no existe." };
+      return { ok: false, mensaje: "Aquesta unitat no existeix." };
     }
 
     const id = await anadirLinea(presupuestoId, {
-      capitulo: capitulo.trim() || "Sin clasificar",
+      capitulo: capitulo.trim() || "Sense classificar",
       descripcion: texto,
       unidad: unidad as Unidad,
       medicion: Number.isFinite(medicion) && medicion > 0 ? Math.round(medicion * 100) / 100 : 1,
@@ -281,12 +281,12 @@ export async function ponerPrecioAMano(
   return intentar(async () => {
     await borrador(presupuestoId);
     const fila = await leerLinea(lineaId, presupuestoId);
-    if (!fila) return { ok: false, mensaje: "Esa línea ya no está en el presupuesto." };
+    if (!fila) return { ok: false, mensaje: "Aquesta línia ja no està al pressupost." };
     if (!Number.isInteger(precio) || precio <= 0) {
-      return { ok: false, mensaje: "Ponle un precio mayor que cero." };
+      return { ok: false, mensaje: "Indica un preu més gran que zero." };
     }
     if (!Number.isFinite(margenPct) || margenPct < 0 || margenPct >= 100) {
-      return { ok: false, mensaje: "El margen tiene que estar entre 0 y 99 %." };
+      return { ok: false, mensaje: "El marge ha d'estar entre 0 y 99 %." };
     }
 
     await db.update(linea)
@@ -327,27 +327,27 @@ export async function anadirAlBanco(
   return intentar(async () => {
     await borrador(presupuestoId);
     const fila = await leerLinea(lineaId, presupuestoId);
-    if (!fila) return { ok: false, mensaje: "Esa línea ya no está en el presupuesto." };
+    if (!fila) return { ok: false, mensaje: "Aquesta línia ja no està al pressupost." };
 
     const codigo = datos.codigo.trim().toUpperCase();
     if (!/^[A-Z0-9]{2,6}-[0-9]{1,3}$/.test(codigo)) {
-      return { ok: false, mensaje: "El código va como los del banco: tres letras, guion y número (por ejemplo ALB-11)." };
+      return { ok: false, mensaje: "El codi va com en del banc: tres lletres, guió y nombre (per exemple ALB-11)." };
     }
     if (await partidaPorCodigo(codigo)) {
-      return { ok: false, mensaje: `El código ${codigo} ya está en el banco: usa otro.` };
+      return { ok: false, mensaje: `El codi ${codigo} ja está al banc: utilitza un altre.` };
     }
     const nombre = datos.nombre.trim();
-    if (!nombre) return { ok: false, mensaje: "La partida necesita un nombre." };
+    if (!nombre) return { ok: false, mensaje: "La partida necessita un nom." };
     const capitulo = datos.capitulo.trim();
-    if (!capitulo) return { ok: false, mensaje: "Elige el capítulo al que pertenece." };
+    if (!capitulo) return { ok: false, mensaje: "Escull el capítul al que pertany." };
     if (!UNIDADES.includes(datos.unidad as Unidad)) {
-      return { ok: false, mensaje: "Esa unidad no existe." };
+      return { ok: false, mensaje: "Aquesta unitat no existeix." };
     }
     if (!Number.isInteger(datos.precio) || datos.precio <= 0) {
-      return { ok: false, mensaje: "Ponle un precio mayor que cero." };
+      return { ok: false, mensaje: "Indica un preu més gran que zero." };
     }
     if (!Number.isFinite(datos.margenObjetivo) || datos.margenObjetivo < 0 || datos.margenObjetivo >= 100) {
-      return { ok: false, mensaje: "El margen objetivo tiene que estar entre 0 y 99 %." };
+      return { ok: false, mensaje: "El marge objetiu ha d'estar entre 0 y 99 %." };
     }
 
     const nueva = await db
@@ -403,10 +403,10 @@ export async function aplicarDescuento(
   return intentar(async () => {
     await borrador(presupuestoId);
     if (!Number.isFinite(descuentoPct) || descuentoPct < 0 || descuentoPct > 100) {
-      return { ok: false, mensaje: "El descuento tiene que estar entre 0 y 100 %." };
+      return { ok: false, mensaje: "El descompte ha d'estar entre 0 y 100 %." };
     }
     if (descuentoPct > 0 && !confirmado) {
-      return { ok: false, mensaje: "Un descuento no se aplica sin confirmarlo." };
+      return { ok: false, mensaje: "Un descompte no s'aplica sense confirmar.." };
     }
 
     await db.update(presupuesto)
@@ -427,7 +427,7 @@ export async function guardarCaducidad(
   return intentar(async () => {
     await borrador(presupuestoId);
     if (!Number.isInteger(dias) || dias < 1 || dias > 365) {
-      return { ok: false, mensaje: "La caducidad tiene que ser un número de días entre 1 y 365." };
+      return { ok: false, mensaje: "La caducitat ha d'estar entre 1 y 365 dies." };
     }
     await db.update(presupuesto)
       .set({ caducidadDias: dias })
@@ -448,8 +448,8 @@ export async function guardarCabecera(
     await borrador(presupuestoId);
     const t = titulo.trim();
     const d = direccionObra.trim();
-    if (!t) return { ok: false, mensaje: "El presupuesto necesita un título." };
-    if (!d) return { ok: false, mensaje: "Falta la dirección de la obra." };
+    if (!t) return { ok: false, mensaje: "El pressupost neccesita un títol." };
+    if (!d) return { ok: false, mensaje: "Falta l'adreça del client." };
 
     await db.update(presupuesto)
       .set({ titulo: t, direccionObra: d })

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
   const texto = typeof datos.texto === "string" ? datos.texto.trim().slice(0, LARGO_MAXIMO) : "";
   if (texto.length === 0) {
-    return Response.json({ error: "Escribe tu duda antes de enviarla." }, { status: 400 });
+    return Response.json({ error: "Escriu el teu dubte abans de enviar." }, { status: 400 });
   }
 
   // Guarda la respuesta, cancela los seguimientos y pasa a En conversación.
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   const nombre = p.clienteNombre.split(" ")[0];
   await notificar(
     p.id,
-    `💬 ${nombre} tiene dudas · ${formatoEurosCorto(p.total)} · ${p.titulo} · los seguimientos se han pausado · llámale`,
+    `💬 ${nombre} teniu dubtes · ${formatoEurosCorto(p.total)} · ${p.titulo} · els seguimients s'han pausat · Truca'l`,
   );
 
   return Response.json({ ok: true });

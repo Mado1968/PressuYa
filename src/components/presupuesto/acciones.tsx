@@ -37,10 +37,10 @@ import type { PresupuestoConCliente } from "@/lib/consultas";
 import type { Estado } from "@/lib/tipos";
 
 const MOTIVOS = [
-  "Precio: Le Ha Parecido Caro",
-  "Ha Cogido Otro Presupuesto",
-  "Aplaza la Obra",
-  "No Contesta",
+  "Preu: Li Ha semblat Car",
+  "Ha escollit un altre Pressupost",
+  "Aplaça la tasca",
+  "No respon",
 ];
 
 export function AccionesDelPresupuesto({
@@ -58,8 +58,8 @@ export function AccionesDelPresupuesto({
 
   const estado = presupuesto.estado as Estado;
   const esBorrador = estado === "borrador";
-  const estaVivo = estado === "enviado" || estado === "visto" || estado === "en_conversacion";
-  const estaCerrado = estado === "ganado" || estado === "perdido" || estado === "expirado";
+  const estaVivo = estado === "enviat" || estado === "vist" || estado === "en_conversa";
+  const estaCerrado = estado === "guanyat" || estado === "perdut" || estado === "expirat";
 
   function lanzar(accion: () => Promise<ResultadoAccion>) {
     empezar(async () => {
@@ -85,7 +85,7 @@ export function AccionesDelPresupuesto({
             render={<Link href={`/panel/presupuestos/${presupuesto.id}/editar`} />}
           >
             <PencilIcon />
-            Abrir el Editor
+            Obrir l'editor
           </Button>
 
           <Button
@@ -94,15 +94,15 @@ export function AccionesDelPresupuesto({
             onClick={() => lanzar(() => enviarAlCliente(presupuesto.id))}
           >
             {pendiente ? <LoaderCircleIcon className="animate-spin" /> : <SendIcon />}
-            Enviar al Cliente
+            Enviar al Client
           </Button>
 
           {amarillas > 0 && (
             <p className="text-[11px] leading-relaxed text-conversacion">
               {amarillas === 1
-                ? "Queda 1 línea sin precio."
-                : `Quedan ${amarillas} líneas sin precio.`}{" "}
-              Resuélvelas en el editor antes de enviarlo.
+                ? "Queda 1 linia sense preu."
+                : `Queden ${amarillas} linies sense preu.`}{" "}
+              Resol a l'editor abans de enviar.
             </p>
           )}
         </>
@@ -146,9 +146,9 @@ export function AccionesDelPresupuesto({
 
       {estaCerrado && (
         <p className="text-xs leading-relaxed text-muted-foreground">
-          {estado === "ganado"
+          {estado === "guanyat"
             ? "Obra ganada. Los seguimientos pendientes se cancelaron al cerrarla."
-            : estado === "perdido"
+            : estado === "perdut"
               ? "Presupuesto perdido. Queda en el historial del cliente y cuenta en la tasa de firma."
               : "Presupuesto caducado. Si el cliente lo vuelve a abrir, te avisa: es señal de compra."}
         </p>

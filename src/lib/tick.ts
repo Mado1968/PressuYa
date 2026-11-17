@@ -27,23 +27,23 @@ import { ESTADOS_VIVOS, type ResultadoTick, type TipoTarea } from "./tipos";
 
 /** El número del toque tal y como se lee en el timeline y en los avisos. */
 const NUMERO: Record<TipoTarea, number> = {
-  seguimiento_1: 1,
-  seguimiento_2: 2,
-  cierre: 3,
+  seguimient_1: 1,
+  seguimient_2: 2,
+  tancament: 3,
 };
 
 const VIVOS: readonly string[] = ESTADOS_VIVOS;
 
 /** «hoy mismo», «1 día», «9 días». Los días que de verdad quedan. */
 function diasEnPalabras(dias: number): string {
-  if (dias <= 0) return "hoy mismo";
-  return dias === 1 ? "1 día" : `${dias} días`;
+  if (dias <= 0) return "avui mateix";
+  return dias === 1 ? "1 dia" : `${dias} dies`;
 }
 
 /** Como lo escribió quien redactó el texto en el momento de enviar. */
 function diasComoSeEscribieron(dias: number): string {
-  if (dias <= 0) return "menos de un día";
-  return dias === 1 ? "1 día" : `${dias} días`;
+  if (dias <= 0) return "menys d'un dia";
+  return dias === 1 ? "1 dia" : `${dias} dies`;
 }
 
 function escaparRegExp(valor: string): string {
@@ -127,13 +127,13 @@ export async function tick(): Promise<ResultadoTick> {
     .all();
 
   for (const { id } of caducados) {
-    if (!(await cambiarEstado(id, "expirado", "ha pasado la fecha de validez"))) continue;
+    if (!(await cambiarEstado(id, "expirat", "ha passat la data de validesa"))) continue;
     expirados++;
     const p = await presupuestoPorId(id);
     if (!p) continue;
     await notificar(
       id,
-      `⌛ Ha caducado el presupuesto de ${p.clienteNombre} · ${formatoEurosCorto(p.total)} · ${p.titulo} · se han parado los seguimientos`,
+      `⌛ Ha caducat el pressupost de ${p.clienteNombre} · ${formatoEurosCorto(p.total)} · ${p.titulo} · s'han aturat els seguiments`,
     );
   }
 
@@ -141,7 +141,7 @@ export async function tick(): Promise<ResultadoTick> {
   const vencidas = await db
     .select()
     .from(tareaProgramada)
-    .where(and(eq(tareaProgramada.estado, "pendiente"), lte(tareaProgramada.ejecutarEn, hoy)))
+    .where(and(eq(tareaProgramada.estado, "pendent"), lte(tareaProgramada.ejecutarEn, hoy)))
     .orderBy(asc(tareaProgramada.ejecutarEn))
     .all();
 
@@ -151,17 +151,17 @@ export async function tick(): Promise<ResultadoTick> {
 
     // Se paran solos: máximo tres toques, y ni uno si ya no hay a quién perseguir.
     if (!VIVOS.includes(p.estado)) {
-      await cancelarTareas(p.id, "el presupuesto ya estaba cerrado");
+      await cancelarTareas(p.id, "el pressupost  estava tancat");
       continue;
     }
     if (p.respondioEn) {
-      await cancelarTareas(p.id, "el cliente ha respondido");
+      await cancelarTareas(p.id, "el client ha respost");
       continue;
     }
 
     // El tercer toque dice los días que quedan DE VERDAD hoy.
     let texto = tarea.texto;
-    if (tarea.tipo === "cierre" && p.validoHasta) {
+    if (tarea.tipo === "tancament" && p.validoHasta) {
       texto = ajustarDiasDeCaducidad(
         texto,
         p.caducidadDias - 14,
@@ -174,7 +174,7 @@ export async function tick(): Promise<ResultadoTick> {
     const reclamada = await db
       .update(tareaProgramada)
       .set({ estado: "enviada", ejecutadaEn: hoy, texto })
-      .where(and(eq(tareaProgramada.id, tarea.id), eq(tareaProgramada.estado, "pendiente")))
+      .where(and(eq(tareaProgramada.id, tarea.id), eq(tareaProgramada.estado, "pendent")))
       .run();
     if (reclamada.rowsAffected !== 1) continue;
     tareas++;
@@ -182,7 +182,7 @@ export async function tick(): Promise<ResultadoTick> {
     const numero = NUMERO[tarea.tipo as TipoTarea] ?? 1;
     await registrarEvento(
       p.id,
-      "seguimiento_enviado",
+      "seguimient_enviat",
       { numero, tipo: tarea.tipo, asunto: tarea.asunto, texto },
       hoy,
     );
@@ -190,13 +190,13 @@ export async function tick(): Promise<ResultadoTick> {
     const nombre = p.clienteNombre.split(" ")[0];
     await notificar(
       p.id,
-      `📨 Seguimiento ${numero} enviado a ${nombre} · ${formatoEurosCorto(p.total)}`,
+      `📨 Seguiment ${numero} enviat a ${nombre} · ${formatoEurosCorto(p.total)}`,
     );
 
     if (hayEmail()) {
       await enviarEmail(
         `${tarea.asunto} · ${p.clienteNombre} · ${formatoEurosCorto(p.total)}`,
-        `${texto}\n\n— Presupuesto ${p.numero} · ${p.titulo} · ${p.direccionObra}\n${urlDeLaApp()}/p/${p.token}`,
+        `${texto}\n\n— Pressupost ${p.numero} · ${p.titulo} · ${p.direccionObra}\n${urlDeLaApp()}/p/${p.token}`,
       );
     }
   }

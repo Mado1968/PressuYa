@@ -60,7 +60,7 @@ export const cliente = sqliteTable("cliente", {
 
 /**
  * Una solicitud que todavía no es presupuesto. Nace de dos sitios: la visita que
- * dicta o pega Francesc (origen «francesc», con conceptos y mediciones) o el
+ * dicta o pega Francesc (origen «Francesc», con conceptos y mediciones) o el
  * formulario público de /solicitar (origen «cliente», sin visita ni mediciones).
  */
 export const solicitud = sqliteTable(
@@ -76,9 +76,9 @@ export const solicitud = sqliteTable(
     textoOriginal: text("texto_original").notNull(),
     /** ConceptoCrudo[] serializado: lo que la IA entendió de la visita. */
     conceptos: text("conceptos").notNull(),
-    /** «francesc» o «cliente». La del cliente sale sin precios: nadie ha visto la obra. */
-    origen: text("origen").notNull().default("francesc"),
-    estado: text("estado").notNull().default("pendiente"),
+    /** «Francesc» o «cliente». La del cliente sale sin precios: nadie ha visto la obra. */
+    origen: text("origen").notNull().default("Francesc"),
+    estado: text("estado").notNull().default("pendent"),
     presupuestoId: integer("presupuesto_id"),
     creadoEn: ts("creado_en").notNull(),
   },
@@ -210,7 +210,7 @@ export const tareaProgramada = sqliteTable(
       .references(() => presupuesto.id),
     tipo: text("tipo").notNull(),
     ejecutarEn: ts("ejecutar_en").notNull(),
-    estado: text("estado").notNull().default("pendiente"),
+    estado: text("estado").notNull().default("pendent"),
     asunto: text("asunto").notNull(),
     texto: text("texto").notNull(),
     ejecutadaEn: ts("ejecutada_en"),

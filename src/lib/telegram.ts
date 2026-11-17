@@ -33,12 +33,12 @@ export async function enviarTelegram(texto: string, enlace?: string): Promise<bo
       },
     );
     if (!res.ok) {
-      console.error(`Telegram devolvió ${res.status}: ${await res.text()}`);
+      console.error(`Telegram retorna ${res.status}: ${await res.text()}`);
       return false;
     }
     return true;
   } catch (e) {
-    console.error("Telegram no respondió:", (e as Error).message);
+    console.error("Telegram no respon:", (e as Error).message);
     return false;
   }
 }

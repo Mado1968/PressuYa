@@ -21,7 +21,7 @@ export async function GET() {
   } catch (e) {
     // Un latido que falla no puede dejar el panel congelado: se registra, se
     // devuelve la versión que haya y el siguiente latido lo vuelve a intentar.
-    console.error("El latido ha fallado:", (e as Error).message);
+    console.error("El batec ha fallat:", (e as Error).message);
   }
 
   return Response.json(

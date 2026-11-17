@@ -5,17 +5,17 @@ import type { Estado } from "@/lib/tipos";
 
 const ESTILO: Record<Estado, { etiqueta: string; punto: string; fondo: string; texto: string }> = {
   borrador: { etiqueta: "Borrador", punto: "bg-borrador", fondo: "bg-borrador-fondo", texto: "text-borrador" },
-  enviado: { etiqueta: "Enviado", punto: "bg-enviado", fondo: "bg-enviado-fondo", texto: "text-enviado" },
-  visto: { etiqueta: "Visto", punto: "bg-visto", fondo: "bg-visto-fondo", texto: "text-visto" },
-  en_conversacion: {
-    etiqueta: "En Conversación",
+  enviat: { etiqueta: "Enviat", punto: "bg-enviado", fondo: "bg-enviado-fondo", texto: "text-enviado" },
+  vist: { etiqueta: "Vist", punto: "bg-visto", fondo: "bg-visto-fondo", texto: "text-visto" },
+  en_conversa: {
+    etiqueta: "En Conversa",
     punto: "bg-conversacion",
     fondo: "bg-conversacion-fondo",
     texto: "text-conversacion",
   },
-  ganado: { etiqueta: "Ganado", punto: "bg-ganado", fondo: "bg-ganado-fondo", texto: "text-ganado" },
-  perdido: { etiqueta: "Perdido", punto: "bg-perdido", fondo: "bg-perdido-fondo", texto: "text-perdido" },
-  expirado: { etiqueta: "Expirado", punto: "bg-expirado", fondo: "bg-expirado-fondo", texto: "text-expirado" },
+  guanyat: { etiqueta: "Guanyat", punto: "bg-ganado", fondo: "bg-ganado-fondo", texto: "text-ganado" },
+  perdut: { etiqueta: "Perdut", punto: "bg-perdido", fondo: "bg-perdido-fondo", texto: "text-perdido" },
+  expirat: { etiqueta: "Expirat", punto: "bg-expirado", fondo: "bg-expirado-fondo", texto: "text-expirado" },
 };
 
 export function etiquetaDeEstado(estado: Estado): string {

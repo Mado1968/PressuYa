@@ -1,5 +1,6 @@
 // Herramientas de los scripts de la base (reset y turso). No las usa la app.
 import { execFileSync } from "node:child_process";
+import { join } from "node:path";
 import { createClient, type Client } from "@libsql/client";
 
 export function cargarEnv() {
@@ -26,7 +27,8 @@ export async function vaciar(url: string, authToken?: string): Promise<number> {
 
 /** Aplica el esquema de src/db/schema.ts a la base indicada. */
 export function aplicarEsquema(url: string, authToken?: string) {
-  execFileSync("npx", ["drizzle-kit", "push", "--force"], {
+  const drizzleKit = join(process.cwd(), "node_modules", "drizzle-kit", "bin.cjs");
+  execFileSync(process.execPath, [drizzleKit, "push", "--force"], {
     stdio: "pipe",
     env: { ...process.env, DATABASE_URL: url, DATABASE_AUTH_TOKEN: authToken ?? "" },
   });

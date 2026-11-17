@@ -16,7 +16,7 @@ export default async function FichaDelCliente({ params }: PageProps<"/panel/clie
   if (!cliente) notFound();
 
   const presupuestos = await presupuestosDeCliente(cliente.id);
-  const ganados = presupuestos.filter((p) => p.estado === "ganado");
+  const ganados = presupuestos.filter((p) => p.estado === "guanyat");
   const contratado = ganados.reduce((s, p) => s + p.total, 0);
 
   return (
@@ -27,23 +27,23 @@ export default async function FichaDelCliente({ params }: PageProps<"/panel/clie
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
         >
           <ArrowLeftIcon className="size-3" />
-          Clientes
+          Clients
         </Link>
         <h1 className="mt-1 text-[22px] leading-7 font-semibold tracking-tight">{cliente.nombre}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {[cliente.telefono, cliente.email].filter(Boolean).join(" · ") || "sin datos de contacto"}
+          {[cliente.telefono, cliente.email].filter(Boolean).join(" · ") || "sense dades de contacte"}
         </p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Dato etiqueta="Presupuestos" valor={String(presupuestos.length)} />
-        <Dato etiqueta="Obras Ganadas" valor={String(ganados.length)} />
-        <Dato etiqueta="Contratado" valor={formatoEurosCorto(contratado)} />
+        <Dato etiqueta="Pressupostos" valor={String(presupuestos.length)} />
+        <Dato etiqueta="Projectes Guanyats" valor={String(ganados.length)} />
+        <Dato etiqueta="Contractat" valor={formatoEurosCorto(contratado)} />
       </div>
 
       {cliente.notas && (
         <div className="rounded-xl border bg-card px-4 py-3">
-          <p className="text-xs font-medium text-muted-foreground">Notas</p>
+          <p className="text-xs font-medium text-muted-foreground">Notes</p>
           <p className="mt-1 text-sm">{cliente.notas}</p>
         </div>
       )}
@@ -55,11 +55,11 @@ export default async function FichaDelCliente({ params }: PageProps<"/panel/clie
         <table className="w-full text-sm">
           <thead className="border-b text-xs text-muted-foreground">
             <tr>
-              <th className="px-4 py-2.5 text-left font-medium">Número</th>
-              <th className="px-4 py-2.5 text-left font-medium">Obra</th>
-              <th className="px-4 py-2.5 text-left font-medium">Estado</th>
-              <th className="px-4 py-2.5 text-left font-medium">Enviado</th>
-              <th className="px-4 py-2.5 text-right font-medium">Importe</th>
+              <th className="px-4 py-2.5 text-left font-medium">Nom</th>
+              <th className="px-4 py-2.5 text-left font-medium">Projecte</th>
+              <th className="px-4 py-2.5 text-left font-medium">Estat</th>
+              <th className="px-4 py-2.5 text-left font-medium">Enviat</th>
+              <th className="px-4 py-2.5 text-right font-medium">Import</th>
             </tr>
           </thead>
           <tbody className="divide-y">

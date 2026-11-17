@@ -54,7 +54,7 @@ export default async function FichaDelPresupuesto({ params }: PageProps<"/panel/
             className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
           >
             <ArrowLeftIcon className="size-3" />
-            Presupuestos
+            Pressupostos
           </Link>
           <h1 className="mt-1 flex flex-wrap items-center gap-2 text-[22px] leading-7 font-semibold tracking-tight">
             {presupuesto.clienteNombre}
@@ -68,9 +68,9 @@ export default async function FichaDelPresupuesto({ params }: PageProps<"/panel/
         <div className="text-right">
           <Importe centimos={presupuesto.total} className="text-[26px] leading-8 font-semibold" />
           <p className="text-xs text-muted-foreground">
-            margen {formatoPorcentaje(presupuesto.margenPct, 0)}
+            marge {formatoPorcentaje(presupuesto.margenPct, 0)}
             {presupuesto.validoHasta && (
-              <> · válido hasta el {formatoFecha(presupuesto.validoHasta)}</>
+              <> · vàlid fins el {formatoFecha(presupuesto.validoHasta)}</>
             )}
           </p>
         </div>
@@ -89,43 +89,43 @@ export default async function FichaDelPresupuesto({ params }: PageProps<"/panel/
                     <Par etiqueta="Total" valor={<Importe centimos={presupuesto.total} />} />
                     <Par etiqueta="Base Imponible" valor={<Importe centimos={presupuesto.base} />} />
                     <Par
-                      etiqueta="Coste Estimado"
+                      etiqueta="Cost Estimat"
                       valor={<Importe centimos={presupuesto.coste} tono="apagado" />}
                     />
-                    <Par etiqueta="Margen" valor={formatoPorcentaje(presupuesto.margenPct, 1)} />
+                    <Par etiqueta="Marge" valor={formatoPorcentaje(presupuesto.margenPct, 1)} />
                     <Par etiqueta="Número" valor={presupuesto.numero} />
                     <Par etiqueta="Visita" valor={formatoFecha(presupuesto.visitaEn)} />
                     <Par
-                      etiqueta="Enviado"
+                      etiqueta="Enviat"
                       valor={
                         presupuesto.enviadoEn
                           ? `${formatoFecha(presupuesto.enviadoEn)} · ${formatoRelativo(presupuesto.enviadoEn, hoy)}`
-                          : "todavía no"
+                          : "encara no"
                       }
                     />
                     <Par
-                      etiqueta="Válido hasta"
+                      etiqueta="Vàlid fins a"
                       valor={
                         presupuesto.validoHasta
                           ? `${formatoFecha(presupuesto.validoHasta)} · ${formatoDiasRestantes(presupuesto.validoHasta, hoy)}`
-                          : `${presupuesto.caducidadDias} días desde el envío`
+                          : `${presupuesto.caducidadDias} dies desde enviament`
                       }
                     />
                     {presupuesto.motivoPerdido && (
-                      <Par etiqueta="Motivo" valor={presupuesto.motivoPerdido} />
+                      <Par etiqueta="Motiu" valor={presupuesto.motivoPerdido} />
                     )}
                     {presupuesto.firmadoEn && (
                       <Par
-                        etiqueta="Firmado"
+                        etiqueta="Firmat"
                         valor={`${formatoFecha(presupuesto.firmadoEn)} · ${presupuesto.firmaIp ?? ""}`}
                       />
                     )}
                     {amarillas > 0 && (
                       <Par
-                        etiqueta="Fuera del Banco"
+                        etiqueta="Fora del Banc"
                         valor={
                           <span className="rounded-sm bg-amarilla-fondo px-1.5 py-0.5 text-xs font-medium text-conversacion">
-                            {amarillas} {amarillas === 1 ? "línea" : "líneas"} sin precio
+                            {amarillas} {amarillas === 1 ? "línea" : "líneas"} sense preu
                           </span>
                         }
                       />
@@ -135,7 +135,7 @@ export default async function FichaDelPresupuesto({ params }: PageProps<"/panel/
                   {presupuesto.enviadoEn && (
                     <div className="space-y-1.5">
                       <p className="text-xs font-medium text-muted-foreground">
-                        Enlace del Cliente
+                        Enllaç del Client
                       </p>
                       <EnlacePublico url={url} />
                     </div>
@@ -144,7 +144,7 @@ export default async function FichaDelPresupuesto({ params }: PageProps<"/panel/
                   {presupuesto.respuestaTexto && (
                     <div className="rounded-lg border border-conversacion/30 bg-conversacion-fondo/60 px-3 py-2.5">
                       <p className="text-xs font-medium tracking-wide text-conversacion uppercase">
-                        El cliente ha escrito
+                        El client ha escrit
                       </p>
                       <p className="mt-1 text-sm leading-relaxed">{presupuesto.respuestaTexto}</p>
                     </div>

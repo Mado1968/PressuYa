@@ -19,7 +19,7 @@ function autorizado(req: Request): boolean {
 }
 
 async function latir(req: Request) {
-  if (!autorizado(req)) return Response.json({ error: "no autorizado" }, { status: 401 });
+  if (!autorizado(req)) return Response.json({ error: "no autoritzat" }, { status: 401 });
   const resultado = await tick();
   return Response.json(resultado, {
     headers: { "cache-control": "no-store" },

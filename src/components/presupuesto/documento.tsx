@@ -46,13 +46,13 @@ export function Documento({
           </p>
         </div>
         <div className="text-right">
-          <p className="text-[22px] leading-7 font-semibold tracking-tight">Presupuesto</p>
+          <p className="text-[22px] leading-7 font-semibold tracking-tight">Pressupost</p>
           <dl className="mt-2 space-y-0.5 text-xs">
             <Par etiqueta="NÚMERO" valor={presupuesto.numero} />
-            <Par etiqueta="FECHA" valor={formatoFecha(presupuesto.enviadoEn ?? presupuesto.creadoEn)} />
+            <Par etiqueta="DATA" valor={formatoFecha(presupuesto.enviadoEn ?? presupuesto.creadoEn)} />
             <Par
-              etiqueta="VÁLIDO HASTA"
-              valor={presupuesto.validoHasta ? formatoFecha(presupuesto.validoHasta) : "al enviarlo"}
+              etiqueta="VÁLID FINS"
+              valor={presupuesto.validoHasta ? formatoFecha(presupuesto.validoHasta) : "al enviar-lo"}
             />
           </dl>
         </div>
@@ -61,7 +61,7 @@ export function Documento({
       {/* Cliente y total */}
       <section className="flex flex-wrap items-end justify-between gap-6 border-b py-6">
         <div className="min-w-0">
-          <p className="text-[11px] font-medium tracking-wide text-muted-foreground">CLIENTE</p>
+          <p className="text-[11px] font-medium tracking-wide text-muted-foreground">CLIENT</p>
           <p className="mt-1 font-medium">{presupuesto.clienteNombre}</p>
           <p className="text-sm text-muted-foreground">{presupuesto.direccionObra}</p>
           {(presupuesto.clienteTelefono || presupuesto.clienteEmail) && (
@@ -82,9 +82,9 @@ export function Documento({
       <table className="w-full text-sm">
         <thead>
           <tr className="text-[11px] tracking-wide text-muted-foreground">
-            <th className="w-1/2 py-2 text-left font-medium">DESCRIPCIÓN</th>
-            <th className="py-2 text-right font-medium">MEDICIÓN</th>
-            <th className="py-2 text-right font-medium">PRECIO</th>
+            <th className="w-1/2 py-2 text-left font-medium">DESCRIPCIÓ</th>
+            <th className="py-2 text-right font-medium">TASCA</th>
+            <th className="py-2 text-right font-medium">PREU</th>
             <th className="py-2 text-right font-medium">TOTAL</th>
           </tr>
         </thead>
@@ -115,9 +115,9 @@ export function Documento({
 
       {opcionales.length > 0 && (
         <section className="evitar-corte mt-6">
-          <p className="text-xs font-semibold tracking-wide uppercase">Opcionales</p>
+          <p className="text-xs font-semibold tracking-wide uppercase">Opcionals</p>
           <p className="mb-1 text-xs text-muted-foreground">
-            No están incluidos en el total. El cliente los marca en su página si los quiere.
+            No están inclosos al total. El client els marca en la seva pàgina si els vol.
           </p>
           <table className="w-full text-sm">
             <tbody>
@@ -134,7 +134,7 @@ export function Documento({
         <div className="min-w-0 max-w-sm text-xs text-muted-foreground">
           {conCondiciones && (
             <>
-              <p className="font-medium text-foreground">Condiciones</p>
+              <p className="font-medium text-foreground">Condicions</p>
               <div className="mt-1 space-y-1 leading-relaxed">
                 {negocio.condiciones.split("\n").map((linea, i) => (
                   <p key={i}>{linea}</p>
@@ -186,7 +186,7 @@ function FilaLinea({ linea, opcional = false }: { linea: Linea; opcional?: boole
         <span className={cn("leading-snug", linea.amarilla && "font-medium")}>{formatoTitulo(linea.descripcion)}</span>
         {linea.amarilla && (
           <span className="mt-0.5 block text-xs text-conversacion">
-            Fuera del banco de precios: falta ponerle precio
+            Fora del banc de preus; falta posar-li preu.
           </span>
         )}
       </td>

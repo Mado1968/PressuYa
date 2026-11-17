@@ -34,7 +34,7 @@ export function hayIa(): boolean {
 export class SinClaveDeIa extends Error {
   constructor() {
     super(
-      "Falta OPENROUTER_API_KEY en .env.local: sin ella la máquina no puede leer la visita. Añádela y vuelve a intentarlo.",
+      "Falta API_KEY : sense no es pot llegir la visita. Afageix i torna a intentar-ho.",
     );
     this.name = "SinClaveDeIa";
   }
@@ -51,7 +51,7 @@ export function cliente(): OpenAI {
 /** Cuando el modelo responde pero sin salida estructurada: no se adivina nada. */
 class SinRespuestaDeIa extends Error {
   constructor(trabajo: string) {
-    super(`La IA ha respondido sin la estructura esperada al ${trabajo}. Vuelve a intentarlo.`);
+    super(`La IA ha respost sense l'estructura esperada al ${trabajo}. Torna a intentar-ho.`);
     this.name = "SinRespuestaDeIa";
   }
 }
@@ -59,7 +59,7 @@ class SinRespuestaDeIa extends Error {
 function instruccionesConEsquema(instrucciones: string, esquema: z.ZodType): string {
   return `${instrucciones}
 
-Devuelve únicamente un objeto JSON válido, sin bloques Markdown ni texto adicional, que cumpla este esquema:
+Retorna únicament un objecte JSON vàlid, sense blocs Markdown ni text adicional, que compleixi aquest esquema:
 ${JSON.stringify(z.toJSONSchema(esquema))}`;
 }
 
@@ -133,7 +133,7 @@ const VisitaIa = z.object({
     .describe("Todos los trabajos mencionados, en el orden en que se cuentan."),
 });
 
-const INSTRUCCIONES_VISITA = `Eres el ayudante de Francesc, jefe de TTiA (Barcelona). Francesc acaba de salir de una visita a un piso y te dicta o te pega sus notas.
+const INSTRUCCIONES_VISITA = `Eres el ayudante de Francesc, jefe de TTiA (Barcelona). Francesc acaba de salir de una visita  y te dicta o te pega sus notas.
 
 Tu único trabajo es ENTENDER lo que ha dicho y ordenarlo. No valoras, no pones precios, no estimas importes y no añades trabajos que Francesc no haya mencionado.
 
@@ -155,18 +155,18 @@ export async function extraerVisita(texto: string): Promise<VisitaExtraida> {
     model: MODELO,
     messages: [
       { role: "system", content: instruccionesConEsquema(INSTRUCCIONES_VISITA, VisitaIa) },
-      { role: "user", content: `Notas de la visita:\n\n«${limpio}»` },
+      { role: "user", content: `Notes de la visita:\n\n«${limpio}»` },
     ],
   });
 
-  const salida = salidaValidada(respuesta.choices[0]?.message.content, VisitaIa, "leer la visita");
+  const salida = salidaValidada(respuesta.choices[0]?.message.content, VisitaIa, "llegir la visita");
 
   return {
     clienteNombre: vacioANull(salida.clienteNombre),
     telefono: vacioANull(salida.telefono),
     email: vacioANull(salida.email),
     direccion: vacioANull(salida.direccion),
-    titulo: salida.titulo.trim() || "Visita sin título",
+    titulo: salida.titulo.trim() || "Visita sense títol",
     urgencia: (URGENCIAS as readonly string[]).includes(salida.urgencia)
       ? (salida.urgencia as Urgencia)
       : "mitjana",
@@ -228,7 +228,7 @@ export async function casarConceptos(conceptos: ConceptoCrudo[]): Promise<Casaci
 
   const banco = await bancoDePrecios(true);
   if (banco.length === 0) {
-    throw new Error("El banco de precios está vacío: impórtalo desde Precios antes de convertir.");
+    throw new Error("El banc de preus està buit: importa'l desde Preus abans de convertir.");
   }
 
   const catalogo = banco
@@ -298,15 +298,15 @@ export async function casarConceptos(conceptos: ConceptoCrudo[]): Promise<Casaci
 
 const SeguimientoIa = z.object({
   tipo: z.enum(["seguimiento_1", "seguimiento_2", "cierre"]),
-  asunto: z.string().describe("Asunto corto, como el de un email o un WhatsApp."),
-  texto: z.string().describe("El mensaje entero, de 60 a 90 palabras, firmado por Francesc."),
+  asunto: z.string().describe("Asumpte curt, com el d'un email o un WhatsApp."),
+  texto: z.string().describe("El missatge sencer, de 60 a 90 palabras, firmat per Francesc."),
 });
 
 const SeguimientosIa = z.object({ seguimientos: z.array(SeguimientoIa) });
 
-const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Francesc, jefe de TTiA (Barcelona), una empresa de reformas de ocho personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
+const INSTRUCCIONES_SEGUIMIENTOS = `Escribes como Francesc, jefe de TTiA (Barcelona), una empresa de soluciones con IA de dos personas. Acabas de mandarle un presupuesto a un cliente y preparas los tres mensajes de seguimiento que saldrán solos a los 3, 7 y 14 días.
 
-Cómo escribe Francesc: cercano y profesional, de tú, castellano de oficio, sin marketing, sin emojis, sin exclamaciones de vendedor. Habla como quien lleva veinte años entrando en pisos.
+Cómo escribe Francesc: cercano y profesional, de tú, castellano de oficio, sin marketing, sin emojis, sin exclamaciones de vendedor. Habla como quien lleva veinte años desarrollando soluciones con IA.
 
 Los tres mensajes, cada uno con SU ángulo y sin repetirse:
 1. seguimiento_1 (3 días) · recordatorio amable: ¿ha podido verlo con calma?, ofrecerse a repasar las partidas o los plazos sin compromiso.
@@ -327,7 +327,7 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
     elNegocio(),
     lineasDe(presupuestoId),
   ]);
-  if (!presupuesto) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!presupuesto) throw new Error(`No existeix el pressupost ${presupuestoId}`);
 
   // Las líneas que cuentan, de mayor a menor importe: las que definen la obra.
   const principales = lineas
@@ -343,7 +343,7 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
   // El tercer toque sale a los 14 días: lo que queda de validez en ese momento.
   const diasAlCaducar = Math.max(0, presupuesto.caducidadDias - 14);
   const diasEnPalabras =
-    diasAlCaducar <= 0 ? "menos de un día" : diasAlCaducar === 1 ? "1 día" : `${diasAlCaducar} días`;
+    diasAlCaducar <= 0 ? "menys d'un día" : diasAlCaducar === 1 ? "1 dia" : `${diasAlCaducar} dies`;
 
   const respuesta = await cliente().chat.completions.create({
     model: MODELO,
@@ -352,17 +352,17 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
       {
         role: "user",
         content: [
-          `EL PRESUPUESTO`,
-          `Cliente: ${presupuesto.clienteNombre}`,
-          `Obra: ${presupuesto.titulo}`,
-          `Dirección: ${presupuesto.direccionObra}`,
-          `Total con IVA: ${formatoEurosCorto(presupuesto.total)}`,
-          `Validez: ${presupuesto.caducidadDias} días desde el envío, así que cuando salga el tercer mensaje quedarán ${diasEnPalabras}.`,
+          `EL PRESSUPOST`,
+          `Client: ${presupuesto.clienteNombre}`,
+          `Tasca: ${presupuesto.titulo}`,
+          `Direcció: ${presupuesto.direccionObra}`,
+          `Total amb IVA: ${formatoEurosCorto(presupuesto.total)}`,
+          `Validesa: ${presupuesto.caducidadDias} dies des del enviament, així que quan surti el tercer missatge quedarán ${diasEnPalabras}.`,
           ``,
-          `LÍNEAS PRINCIPALES`,
-          principales || "· (sin líneas)",
+          `LINIES PRINCIPALES`,
+          principales || "· (sense linies)",
           ``,
-          `TEXTOS BASE DE LA CASA (el tono, no el texto final)`,
+          `TEXTES BASE DE LA CASA (el to, no el text final)`,
           `1 · ${negocio.seguimiento1}`,
           `2 · ${negocio.seguimiento2}`,
           `3 · ${negocio.seguimiento3}`,
@@ -374,14 +374,14 @@ export async function redactarSeguimientos(presupuestoId: number): Promise<Texto
   const salida = salidaValidada(
     respuesta.choices[0]?.message.content,
     SeguimientosIa,
-    "redactar los seguimientos",
+    "redactar els seguiments",
   );
 
   return salida.seguimientos
     .filter((s) => s.texto?.trim())
     .map<TextoSeguimiento>((s) => ({
-      tipo: s.tipo,
-      asunto: s.asunto?.trim() || "Sobre tu presupuesto",
+      tipo: s.tipo as TextoSeguimiento["tipo"],
+      asunto: s.asunto?.trim() || "Sobre el teu pressupost",
       texto: s.texto.trim(),
     }));
 }

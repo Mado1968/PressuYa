@@ -159,7 +159,7 @@ const ETIQUETA_DISPOSITIVO: Record<string, string> = {
 };
 
 export function formatoDispositivo(dispositivo: string | null | undefined): string {
-  if (!dispositivo) return "dispositivo desconocido";
+  if (!dispositivo) return "dispositiu desconegut";
   return ETIQUETA_DISPOSITIVO[dispositivo] ?? dispositivo;
 }
 
@@ -172,7 +172,7 @@ export function formatoVisita(n: number): string {
 export function formatoUbicacion(ciudad?: string | null, pais?: string | null): string {
   if (ciudad && pais && pais !== "ES") return `${ciudad} (${pais})`;
   if (ciudad) return ciudad;
-  return "ubicación desconocida";
+  return "ubicació desconeguda";
 }
 
 /**

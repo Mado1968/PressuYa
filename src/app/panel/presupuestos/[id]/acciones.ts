@@ -30,14 +30,14 @@ export async function enviarAlCliente(presupuestoId: number): Promise<ResultadoA
   await exigirSesion();
   try {
     const p = await presupuestoPorId(presupuestoId);
-    if (!p) return { ok: false, mensaje: "Este presupuesto ya no existe." };
+    if (!p) return { ok: false, mensaje: "Aquest pressupost ja no existeix." };
     if (p.estado !== "borrador") {
-      return { ok: false, mensaje: "Este presupuesto ya está enviado." };
+      return { ok: false, mensaje: "Aquest pressupost ja està enviat." };
     }
 
     const lineas = await lineasDe(presupuestoId);
     if (lineas.length === 0) {
-      return { ok: false, mensaje: "El presupuesto no tiene ni una línea: no se puede enviar vacío." };
+      return { ok: false, mensaje: "Aquest pressupost no té ni una línia: no es pot enviar buit." };
     }
     const amarillas = lineas.filter((l) => l.amarilla).length;
     if (amarillas > 0) {
@@ -45,14 +45,14 @@ export async function enviarAlCliente(presupuestoId: number): Promise<ResultadoA
         ok: false,
         mensaje:
           amarillas === 1
-            ? "Queda 1 línea sin precio. Ponle precio, descártala o añádela al banco antes de enviar."
-            : `Quedan ${amarillas} líneas sin precio. Resuélvelas antes de enviar.`,
+            ? "Queda 1 linia sense preu. Posa preu, descarta'l o afegeix al banc abans de enviar."
+            : `Quedan ${amarillas} linies sense preu. Resol abans d'enviar.`,
       };
     }
 
     const { url } = await enviarPresupuesto(presupuestoId);
     refrescarElPanel();
-    return { ok: true, mensaje: "Presupuesto enviado. El enlace ya está vivo.", url };
+    return { ok: true, mensaje: "Pressupost enviat. L'enllaç ja està viu.", url };
   } catch (e) {
     return { ok: false, mensaje: (e as Error).message };
   }
@@ -63,10 +63,10 @@ export async function reenviarAlCliente(presupuestoId: number): Promise<Resultad
   await exigirSesion();
   try {
     const p = await presupuestoPorId(presupuestoId);
-    if (!p) return { ok: false, mensaje: "Este presupuesto ya no existe." };
+    if (!p) return { ok: false, mensaje: "Aquest pressupost ja no existeix." };
     const { url } = await reenviar(presupuestoId);
     refrescarElPanel();
-    return { ok: true, mensaje: `Reenviado a ${p.clienteNombre}.`, url };
+    return { ok: true, mensaje: `Reenviat a ${p.clienteNombre}.`, url };
   } catch (e) {
     return { ok: false, mensaje: (e as Error).message };
   }
@@ -77,15 +77,15 @@ export async function marcarGanado(presupuestoId: number): Promise<ResultadoAcci
   await exigirSesion();
   try {
     const p = await presupuestoPorId(presupuestoId);
-    if (!p) return { ok: false, mensaje: "Este presupuesto ya no existe." };
-    if (p.estado === "ganado") return { ok: false, mensaje: "Ya estaba en Ganado." };
+    if (!p) return { ok: false, mensaje: "Aquest pressupost ja no existeix." };
+    if (p.estado === "guanyat") return { ok: false, mensaje: "ja estava en Guanyat." };
     if (p.estado === "borrador") {
-      return { ok: false, mensaje: "Todavía es un borrador: envíaselo al cliente primero." };
+      return { ok: false, mensaje: "Encara es un borrador: envia'l al client primer." };
     }
 
-    await cambiarEstado(presupuestoId, "ganado", "Francesc lo ha cerrado a mano");
+    await cambiarEstado(presupuestoId, "guanyat", "Francesc l'ha tancat a mà");
     refrescarElPanel();
-    return { ok: true, mensaje: "Obra ganada. Los seguimientos pendientes se han cancelado." };
+    return { ok: true, mensaje: "Tasca guanyada. Els seguiments pendents s'han cancel·lat." };
   } catch (e) {
     return { ok: false, mensaje: (e as Error).message };
   }
@@ -99,18 +99,18 @@ export async function marcarPerdido(
   await exigirSesion();
   try {
     const texto = motivo.trim();
-    if (!texto) return { ok: false, mensaje: "Dime por qué se ha perdido: sin motivo no se guarda." };
+    if (!texto) return { ok: false, mensaje: "Diga'm per què s'ha perdut: sense motiu no s'ha de guardar." };
 
     const p = await presupuestoPorId(presupuestoId);
-    if (!p) return { ok: false, mensaje: "Este presupuesto ya no existe." };
-    if (p.estado === "perdido") return { ok: false, mensaje: "Ya estaba en Perdido." };
+    if (!p) return { ok: false, mensaje: "Aquest pressupost ja no existeix." };
+    if (p.estado === "perdut") return { ok: false, mensaje: "Ja estava en Perdut." };
     if (p.estado === "borrador") {
-      return { ok: false, mensaje: "Todavía es un borrador: bórralo o envíaselo al cliente." };
+      return { ok: false, mensaje: "Encara es un borrador: esborra'l o envia'l al client." };
     }
 
-    await cambiarEstado(presupuestoId, "perdido", texto, { motivoPerdido: texto });
+    await cambiarEstado(presupuestoId, "perdut", texto, { motivoPerdido: texto });
     refrescarElPanel();
-    return { ok: true, mensaje: "Marcado como perdido. Los seguimientos pendientes se han cancelado." };
+    return { ok: true, mensaje: "Marcat com a perdut. Els seguiments pendents s'han cancel·lat." };
   } catch (e) {
     return { ok: false, mensaje: (e as Error).message };
   }

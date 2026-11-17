@@ -16,23 +16,23 @@ import { formatoFechaHora } from "@/lib/formato";
 import { fraseDeEvento, type IconoFrase } from "@/lib/frases";
 
 const ICONOS: Record<IconoFrase, typeof EyeIcon> = {
-  creado: SquarePenIcon,
-  enviado: SendIcon,
-  abierto: EyeIcon,
-  respuesta: MessageSquareTextIcon,
-  seguimiento: BanknoteIcon,
-  cancelado: XCircleIcon,
-  estado: CircleDotIcon,
-  firmado: PenLineIcon,
-  aviso: BellIcon,
+  creat: SquarePenIcon,
+  enviat: SendIcon,
+  obert: EyeIcon,
+  resposta: MessageSquareTextIcon,
+  seguiment: BanknoteIcon,
+  cancelat: XCircleIcon,
+  estat: CircleDotIcon,
+  firmat: PenLineIcon,
+  avis: BellIcon,
   pdf: FileTextIcon,
 };
 
 const TONO = {
   normal: "bg-secondary text-muted-foreground",
-  bueno: "bg-ganado-fondo text-ganado",
-  malo: "bg-perdido-fondo text-perdido",
-  aviso: "bg-conversacion-fondo text-conversacion",
+  bo: "bg-ganado-fondo text-ganado",
+  dolent: "bg-perdido-fondo text-perdido",
+  avis: "bg-conversacion-fondo text-conversacion",
 };
 
 export type EntradaTimeline = {

@@ -20,16 +20,16 @@ export default async function NuevaPlantilla({ searchParams }: PageProps<"/panel
     return (
       <div className="mx-auto flex max-w-3xl flex-col gap-5">
         <PageHeader
-          titulo="Guardar como Plantilla"
-          subtitulo="Una plantilla nace de un presupuesto que ya has hecho."
+          titulo="Desar com a Plantilla"
+          subtitulo="Una plantilla neix d'un pressupost que ja has fet."
         />
         <EmptyState
           icono={LayoutTemplateIcon}
-          titulo="Elige Primero el Presupuesto"
-          texto="Abre el presupuesto que quieras convertir en plantilla y dale a «Guardar como plantilla»: se copian sus líneas, sus unidades y sus mediciones."
+          titulo="Escull Primer el Pressupost"
+          texto="Obre el pressupost que vols convertir en plantilla i a «Desar com a plantilla»: es copien les línies, unitats i notes."
           accion={
             <Link href="/panel/presupuestos" className="text-sm text-black hover:underline">
-              Ir a Presupuestos
+              Anar a Pressupostos
             </Link>
           }
         />
@@ -52,12 +52,11 @@ export default async function NuevaPlantilla({ searchParams }: PageProps<"/panel
           {presupuesto.numero} · {presupuesto.clienteNombre}
         </Link>
         <h1 className="mt-1 text-[22px] leading-7 font-semibold tracking-tight">
-          Guardar como Plantilla
+          Desar com a Plantilla
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Se guardan las {lineas.length} líneas de «{presupuesto.titulo}» con sus unidades y sus
-          mediciones. Los precios no: cada presupuesto nuevo cogerá los que haya en el banco ese
-          día.
+          Es desen les {lineas.length} linies de «{presupuesto.titulo}» amb unitats i notes. Els preus no: cada pressupost nou prendrá els que estiguine en el banc el mateix
+          dia.
         </p>
       </div>
 
@@ -69,11 +68,11 @@ export default async function NuevaPlantilla({ searchParams }: PageProps<"/panel
 
       <div className="rounded-xl border bg-card">
         <p className="border-b px-4 py-2.5 text-xs font-medium tracking-wide text-muted-foreground uppercase">
-          Lo que se guarda · <span className="cifra">{lineas.length}</span> líneas
+          El que es desa · <span className="cifra">{lineas.length}</span> linies
           {opcionales > 0 && (
             <>
               {" · "}
-              <span className="cifra">{opcionales}</span> opcionales
+              <span className="cifra">{opcionales}</span> opcionals
             </>
           )}
         </p>

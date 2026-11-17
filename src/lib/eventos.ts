@@ -55,14 +55,14 @@ export async function cancelarTareas(presupuestoId: number, porque: string): Pro
     .where(
       and(
         eq(tareaProgramada.presupuestoId, presupuestoId),
-        eq(tareaProgramada.estado, "pendiente"),
+        eq(tareaProgramada.estado, "pendent"),
       ),
     )
     .returning({ id: tareaProgramada.id })
     .all();
   if (canceladas.length === 0) return 0;
 
-  await registrarEvento(presupuestoId, "seguimiento_cancelado", { porque, cuantas: canceladas.length });
+  await registrarEvento(presupuestoId, "seguimient_cancelat", { porque, cuantas: canceladas.length });
   return canceladas.length;
 }
 
@@ -89,7 +89,7 @@ export async function cambiarEstado(
     .from(presupuesto)
     .where(eq(presupuesto.id, presupuestoId))
     .get();
-  if (!actual) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!actual) throw new Error(`No existeix el pressupost ${presupuestoId}`);
   if (actual.estado === nuevo) return false;
 
   const ts = ahora();
@@ -115,11 +115,11 @@ export async function cambiarEstado(
   if (cierra) {
     await cancelarTareas(
       presupuestoId,
-      nuevo === "ganado"
-        ? "el cliente ha aceptado"
-        : nuevo === "perdido"
-          ? "el presupuesto se ha marcado como perdido"
-          : "el presupuesto ha caducado",
+      nuevo === "guanyat"
+        ? "el client ha acceptat"
+        : nuevo === "perdut"
+          ? "el pressupost s'ha marcat com a perdut"
+          : "el pressupost ha caducat",
     );
   }
   return true;
@@ -138,11 +138,11 @@ export async function marcarRespuesta(presupuestoId: number, texto: string): Pro
     .set({ respondioEn: ts, respuestaTexto: texto })
     .where(eq(presupuesto.id, presupuestoId))
     .run();
-  await registrarEvento(presupuestoId, "respuesta_cliente", { texto }, ts);
+  await registrarEvento(presupuestoId, "resposta_cliente", { texto }, ts);
   // Una respuesta para la persecución aunque el presupuesto ya estuviera En
   // conversación: el máximo de tres toques es por construcción.
-  await cancelarTareas(presupuestoId, "el cliente ha respondido");
-  await cambiarEstado(presupuestoId, "en_conversacion", "el cliente ha escrito");
+  await cancelarTareas(presupuestoId, "el client ha respost");
+  await cambiarEstado(presupuestoId, "en_conversa", "el client ha escrit");
 }
 
 /** El estado de un presupuesto, sin traerse la fila entera. */

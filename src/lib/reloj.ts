@@ -51,7 +51,7 @@ export function desplazamiento(): number {
   // Nadie ha llamado a cargarReloj() en este proceso. En desarrollo es un error
   // que hay que ver; en producción se degrada a la hora real antes que romper.
   if (process.env.NODE_ENV !== "production") {
-    throw new Error("ahora() antes de cargarReloj(): añade `await cargarReloj()` al empezar la petición.");
+    throw new Error("ahora() abans de cargarReloj(): afegeix `await cargarReloj()` al començar la petició.");
   }
   return 0;
 }

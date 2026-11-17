@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     return Response.json(OK);
   } catch (e) {
     // El tracking no puede tumbar la página del cliente: se registra y se calla.
-    console.error("No se ha podido registrar la lectura:", (e as Error).message);
+    console.error("No s'ha pogut enregistrar la lectura:", (e as Error).message);
     return Response.json({ ok: false });
   }
 }

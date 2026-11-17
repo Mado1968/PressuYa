@@ -4,8 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TTiA · Transformación Tecnológica con IA",
-  description: "Presupuestos y seguimiento de obras con TTiA",
+  title: "TTiA · Transformació Tecnològica amb IA",
+  description: "Pressupostos i seguiment de tasques amb TTiA",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

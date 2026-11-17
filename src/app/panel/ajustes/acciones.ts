@@ -21,17 +21,17 @@ export async function guardarAjustes(
   datos: FormData,
 ): Promise<ResultadoAjustes> {
   await exigirSesion();
-  const nombre = texto(datos, "nombre");
-  if (!nombre) return { ok: false, mensaje: "El nombre de la empresa no puede quedar vacío." };
+  const nombre = texto(datos, "nom");
+  if (!nombre) return { ok: false, mensaje: "El nom de l'empresa no puede quedar buit." };
 
   const iva = numero(datos, "ivaPct");
   if (!Number.isFinite(iva) || iva < 0 || iva > 100) {
-    return { ok: false, mensaje: "El IVA tiene que ser un número entre 0 y 100." };
+    return { ok: false, mensaje: "L'IVA ha de ser un número entre 0 y 100." };
   }
 
-  const caducidad = numero(datos, "caducidadDias");
+  const caducidad = numero(datos, "caducitat5Dias");
   if (!Number.isInteger(caducidad) || caducidad < 1 || caducidad > 365) {
-    return { ok: false, mensaje: "La caducidad tiene que ser un número de días entre 1 y 365." };
+    return { ok: false, mensaje: "La caducitat ha de ser un nombre entre 1 i 365 dies." };
   }
 
   await db
@@ -39,20 +39,20 @@ export async function guardarAjustes(
     .set({
       nombre,
       cif: texto(datos, "cif"),
-      direccion: texto(datos, "direccion"),
-      telefono: texto(datos, "telefono"),
+      direccion: texto(datos, "direcció"),
+      telefono: texto(datos, "telefon"),
       email: texto(datos, "email"),
       colorMarca: texto(datos, "colorMarca") || "#1B2537",
       ivaPct: iva,
       caducidadDias: caducidad,
-      condiciones: texto(datos, "condiciones"),
-      seguimiento1: texto(datos, "seguimiento1"),
-      seguimiento2: texto(datos, "seguimiento2"),
-      seguimiento3: texto(datos, "seguimiento3"),
+      condiciones: texto(datos, "condicions"),
+      seguimiento1: texto(datos, "seguimient1"),
+      seguimiento2: texto(datos, "seguimient2"),
+      seguimiento3: texto(datos, "seguimient3"),
     })
     .where(eq(negocio.id, 1))
     .run();
 
   revalidatePath("/", "layout");
-  return { ok: true, mensaje: "Ajustes guardados." };
+  return { ok: true, mensaje: "Ajustaments guardats." };
 }

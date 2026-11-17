@@ -42,7 +42,7 @@ import {
   UN_MINUTO,
 } from "@/lib/reloj";
 import { formatoEurosCorto } from "@/lib/formato";
-import type { Estado, LineaCalculo, TipoTarea, Unidad } from "@/lib/tipos";
+import type { Estado, LineaCalculo, TipoEvento, TipoTarea, Unidad } from "@/lib/tipos";
 
 /* ------------------------------------------------------------- utilidades */
 
@@ -156,14 +156,14 @@ function textoSeguimiento(
 /** «3 días» contados entre dos instantes, sin mirar el reloj de la aplicación. */
 function diasQueQuedaban(desde: Date, hasta: Date): string {
   const dias = Math.floor((hasta.getTime() - desde.getTime()) / UN_DIA);
-  if (dias <= 0) return "menos de un día";
-  return dias === 1 ? "1 día" : `${dias} días`;
+  if (dias <= 0) return "menys d'un dia";
+  return dias === 1 ? "1 dia" : `${dias} dies`;
 }
 
 const ASUNTOS: Record<TipoTarea, string> = {
-  seguimiento_1: "¿Has podido ver el presupuesto?",
-  seguimiento_2: "¿Lo ajustamos por fases?",
-  cierre: "Tu presupuesto caduca pronto",
+  seguimient_1: "Has pogut veure el pressupost?",
+  seguimient_2: "L'ajustem por fases?",
+  tancament: "El pressupost caduca aviat",
 };
 
 /* ------------------------------------------------------------------ seed */
@@ -201,9 +201,9 @@ export async function sembrar() {
       colorMarca: EMPRESA.colorMarca,
       ivaPct: EMPRESA.ivaPct,
       condiciones: EMPRESA.condiciones,
-      seguimiento1: EMPRESA.seguimiento1,
-      seguimiento2: EMPRESA.seguimiento2,
-      seguimiento3: EMPRESA.seguimiento3,
+      seguimiento1: EMPRESA.seguiment1,
+      seguimiento2: EMPRESA.seguiment2,
+      seguimiento3: EMPRESA.seguiment3,
       caducidadDias: EMPRESA.caducidadDias,
       fechaAlta: new Date(0),
       relojOffsetMs: 0,
@@ -273,7 +273,7 @@ export async function sembrar() {
     const filas: Fila[] = [];
     const meter = ([codigo, medicion, marca]: LineaSeed) => {
       const p = partidas.get(codigo);
-      if (!p) throw new Error(`${def.ref}: el código ${codigo} no está en el banco de precios`);
+      if (!p) throw new Error(`${def.ref}: el codi ${codigo} no està al banc de preus`);
       filas.push({
         codigo,
         capitulo: p.capitulo,
@@ -294,12 +294,12 @@ export async function sembrar() {
     // 5.2 · El ajuste que clava el importe objetivo.
     let notaAjuste: string | undefined;
     if (def.total !== undefined) {
-      if (!def.ajuste) throw new Error(`${def.ref}: hay total objetivo pero no hay líneas de ajuste`);
+      if (!def.ajuste) throw new Error(`${def.ref}: Hi ha total objectiu pero no hi ha linies de ajust`);
       const baseObjetivo = Math.round(def.total / (1 + EMPRESA.ivaPct / 100));
       const totalDelObjetivo = Math.round(baseObjetivo * (1 + EMPRESA.ivaPct / 100));
       if (totalDelObjetivo !== def.total) {
         throw new Error(
-          `${def.ref}: con IVA del ${EMPRESA.ivaPct} % no existe base que dé ${def.total} céntimos`,
+          `${def.ref}: amb IVA del ${EMPRESA.ivaPct} % no existeix base que doni ${def.total} cèntims`,
         );
       }
       const fijas = filas
@@ -307,7 +307,7 @@ export async function sembrar() {
         .reduce((suma, f) => suma + Math.round(f.precio * f.medicion), 0);
       const pa = partidas.get(def.ajuste.a);
       const pb = partidas.get(def.ajuste.b);
-      if (!pa || !pb) throw new Error(`${def.ref}: partidas de ajuste desconocidas`);
+      if (!pa || !pb) throw new Error(`${def.ref}: partides d'ajust desconegudes`);
       const precioA = pa.precio / 100;
       const precioB = pb.precio / 100;
       const hueco = baseObjetivo - fijas;
@@ -352,14 +352,14 @@ export async function sembrar() {
     const importes = calcularImportes(paraCalculo, EMPRESA.ivaPct, def.descuento ?? 0);
     if (def.total !== undefined && importes.total !== def.total) {
       throw new Error(
-        `${def.ref}: el total salió ${importes.total} y se esperaba ${def.total} céntimos`,
+        `${def.ref}: el total ha sortit ${importes.total} i s'esperava ${def.total} cèntims`,
       );
     }
 
     const respondioEn = def.respuesta ? enDia(REF, def.respuesta.dias, 10, 20) : null;
     const firmadoEn = def.firma ? enDia(REF, def.firma.dias, def.firma.hora, 24) : null;
     const cerradoEn =
-      def.estado === "expirado"
+      def.estado === "expirat"
         ? validoHasta
         : firmadoEn ?? (def.cerrado !== undefined ? enDia(REF, def.cerrado, 12, 10) : null);
 
@@ -424,13 +424,13 @@ export async function sembrar() {
 
     // 5.4 · El timeline, las lecturas, las tareas y los avisos.
     const nombreCliente = CLIENTES[def.cliente].nombre;
-    const eventos: { tipo: string; meta: Record<string, unknown>; ts: Date }[] = [
-      { tipo: "creado", meta: { titulo: def.titulo }, ts: creadoEn },
+    const eventos: { tipo: TipoEvento; meta: Record<string, unknown>; ts: Date }[] = [
+      { tipo: "creat", meta: { titulo: def.titulo }, ts: creadoEn },
     ];
     const avisos: { texto: string; ts: Date }[] = [];
 
     if (enviadoEn) {
-      eventos.push({ tipo: "enviado", meta: { total: importes.total, validoHasta }, ts: enviadoEn });
+      eventos.push({ tipo: "enviat", meta: { total: importes.total, validoHasta }, ts: enviadoEn });
     }
 
     const aperturas = [...(def.aperturas ?? [])].sort((a, b) => b.dias - a.dias);
@@ -472,7 +472,7 @@ export async function sembrar() {
         desplazamiento += duracion;
       }
       eventos.push({
-        tipo: "abierto",
+        tipo: "obert",
         meta: {
           visitaN: ap.visitaN,
           ciudad: ap.ciudad,
@@ -480,40 +480,40 @@ export async function sembrar() {
           dispositivo: ap.dispositivo,
           secciones: ap.secciones,
           segundos: ap.secciones.reduce((s, [, d]) => s + d, 0),
-          expirado: def.estado === "expirado",
+          expirado: def.estado === "expirat",
         },
         ts,
       });
       if (ap.dias <= 3) {
         avisos.push({
           texto:
-            def.estado === "expirado"
-              ? `🔁 ${nombreCliente} ha vuelto a abrir un presupuesto caducado de ${formatoEurosCorto(importes.total)} · ${def.titulo} · ${ap.visitaN}.ª visita`
-              : `👀 ${nombreCliente} acaba de abrir tu presupuesto de ${formatoEurosCorto(importes.total)} · ${def.titulo} · ${ap.visitaN}.ª visita`,
+            def.estado === "expirat"
+              ? `🔁 ${nombreCliente} ha tornat a obrir un pressupost caducat de ${formatoEurosCorto(importes.total)} · ${def.titulo} · ${ap.visitaN}.ª visita`
+              : `👀 ${nombreCliente} acaba d'obrir el teu pressupost de ${formatoEurosCorto(importes.total)} · ${def.titulo} · ${ap.visitaN}.ª visita`,
           ts,
         });
       }
     }
 
     if (primeraApertura && enviadoEn) {
-      eventos.push({ tipo: "cambio_estado", meta: { a: "visto", porque: "el cliente lo ha abierto" }, ts: primeraApertura });
+      eventos.push({ tipo: "cambio_estado", meta: { a: "vist", porque: "el client l'ha obert" }, ts: primeraApertura });
     }
 
     if (respondioEn) {
-      eventos.push({ tipo: "respuesta_cliente", meta: { texto: def.respuesta!.texto }, ts: respondioEn });
+      eventos.push({ tipo: "resposta_cliente", meta: { texto: def.respuesta!.texto }, ts: respondioEn });
       eventos.push({
         tipo: "cambio_estado",
-        meta: { a: "en_conversacion", porque: "el cliente ha escrito" },
+        meta: { a: "en_conversa", porque: "el client ha escrit" },
         ts: respondioEn,
       });
       eventos.push({
-        tipo: "seguimiento_cancelado",
-        meta: { porque: "el cliente ha respondido" },
+        tipo: "seguimient_cancelat",
+        meta: { porque: "el client ha respost" },
         ts: new Date(respondioEn.getTime() + 1000),
       });
       if (def.respuesta!.dias <= 3) {
         avisos.push({
-          texto: `💬 ${nombreCliente} tiene dudas sobre el presupuesto de ${formatoEurosCorto(importes.total)} · los seguimientos se han pausado · llámale`,
+          texto: `💬 ${nombreCliente} te dubtes sobre el pressupost de ${formatoEurosCorto(importes.total)} · els seguiments s'han pausat · truca'l`,
           ts: respondioEn,
         });
       }
@@ -521,14 +521,14 @@ export async function sembrar() {
 
     // Las tres tareas de persecución.
     if (enviadoEn) {
-      const dias: Record<TipoTarea, number> = { seguimiento_1: 3, seguimiento_2: 7, cierre: 14 };
+      const dias: Record<TipoTarea, number> = { seguimient_1: 3, seguimient_2: 7, tancament: 14 };
       const textosBase: Record<TipoTarea, string> = {
-        seguimiento_1: EMPRESA.seguimiento1,
-        seguimiento_2: EMPRESA.seguimiento2,
-        cierre: EMPRESA.seguimiento3,
+        seguimient_1: EMPRESA.seguiment1,
+        seguimient_2: EMPRESA.seguiment2,
+        tancament: EMPRESA.seguiment3,
       };
       let alarmaPuesta = false;
-      for (const tipo of ["seguimiento_1", "seguimiento_2", "cierre"] as TipoTarea[]) {
+      for (const tipo of ["seguimient_1", "seguimient_2", "tancament"] as TipoTarea[]) {
         let ejecutarEn = masDias(enviadoEn, dias[tipo]);
         // Los días que quedaban de validez EN EL MOMENTO de salir el seguimiento,
         // no los que quedan ahora.
@@ -538,13 +538,13 @@ export async function sembrar() {
           total: formatoEurosCorto(importes.total),
           dias: validoHasta ? diasQueQuedaban(ejecutarEn, validoHasta) : "unos días",
         });
-        let estado: "pendiente" | "enviada" | "cancelada";
+        let estado: "pendent" | "enviada" | "cancelada";
         if (cerradoEn && ejecutarEn >= cerradoEn) estado = "cancelada";
         else if (respondioEn && ejecutarEn >= respondioEn) estado = "cancelada";
         else if (ejecutarEn <= REF) estado = "enviada";
-        else estado = "pendiente";
+        else estado = "pendent";
 
-        if (def.alarma && estado === "pendiente" && !alarmaPuesta) {
+        if (def.alarma && estado === "pendent" && !alarmaPuesta) {
           ejecutarEn = horaDeLaAlarma(REF);
           alarmaPuesta = true;
         }
@@ -563,14 +563,14 @@ export async function sembrar() {
 
         if (estado === "enviada") {
           eventos.push({
-            tipo: "seguimiento_enviado",
-            meta: { numero: tipo === "seguimiento_1" ? 1 : tipo === "seguimiento_2" ? 2 : 3, tipo, texto },
+            tipo: "seguimient_enviat",
+            meta: { numero: tipo === "seguimient_1" ? 1 : tipo === "seguimient_2" ? 2 : 3, tipo, texto },
             ts: ejecutarEn,
           });
           const cuantosDias = Math.floor((REF.getTime() - ejecutarEn.getTime()) / UN_DIA);
           if (cuantosDias <= 3) {
             avisos.push({
-              texto: `📨 seguimiento ${tipo === "seguimiento_1" ? 1 : tipo === "seguimiento_2" ? 2 : 3} enviado a ${nombreCliente.split(" ")[0]} · ${formatoEurosCorto(importes.total)}`,
+              texto: `📨 seguiment ${tipo === "seguimient_1" ? 1 : tipo === "seguimient_2" ? 2 : 3} enviat a ${nombreCliente.split(" ")[0]} · ${formatoEurosCorto(importes.total)}`,
               ts: ejecutarEn,
             });
           }
@@ -580,31 +580,31 @@ export async function sembrar() {
 
     if (firmadoEn) {
       eventos.push({
-        tipo: "firmado",
+        tipo: "signat",
         meta: { ip: def.firma!.ip, dispositivo: def.firma!.dispositivo, total: importes.total },
         ts: firmadoEn,
       });
       eventos.push({
         tipo: "cambio_estado",
-        meta: { a: "ganado", porque: "el cliente ha firmado el presupuesto" },
+        meta: { a: "guanyat", porque: "el client ha firmat el pressupost" },
         ts: new Date(firmadoEn.getTime() + 1000),
       });
       if (def.firma!.dias <= 3) {
         avisos.push({
-          texto: `✅ ${nombreCliente.split(" ")[0]} ha aceptado y firmado el presupuesto de ${formatoEurosCorto(importes.total)} · obra ganada`,
+          texto: `✅ ${nombreCliente.split(" ")[0]} ha acceptat y firmat el pressupost de ${formatoEurosCorto(importes.total)} · tasca guanyada`,
           ts: firmadoEn,
         });
       }
-    } else if (def.estado === "perdido" && cerradoEn) {
+    } else if (def.estado === "perdut" && cerradoEn) {
       eventos.push({
         tipo: "cambio_estado",
-        meta: { a: "perdido", porque: def.motivo ?? "sin motivo" },
+        meta: { a: "perdut", porque: def.motivo ?? "sense motiu" },
         ts: cerradoEn,
       });
-    } else if (def.estado === "expirado" && cerradoEn) {
+    } else if (def.estado === "expirat" && cerradoEn) {
       eventos.push({
         tipo: "cambio_estado",
-        meta: { a: "expirado", porque: "ha pasado la fecha de validez sin cerrarse" },
+        meta: { a: "expirat", porque: "ha pasado la data de validesa sense tancar" },
         ts: cerradoEn,
       });
     }
@@ -656,8 +656,8 @@ export async function sembrar() {
         urgencia: s.urgencia,
         textoOriginal: s.textoOriginal,
         conceptos: JSON.stringify(s.conceptos),
-        origen: s.origen ?? "francesc",
-        estado: "pendiente",
+        origen: s.origen ?? "Francesc",
+        estado: "pendent",
         presupuestoId: null,
         creadoEn: new Date(REF.getTime() - s.horas * UNA_HORA),
       })
@@ -668,7 +668,7 @@ export async function sembrar() {
   for (const p of PLANTILLAS) {
     const lineas = p.lineas.map(([codigo, medicion, marca]) => {
       const banco = partidas.get(codigo);
-      if (!banco) throw new Error(`Plantilla ${p.nombre}: el código ${codigo} no está en el banco`);
+      if (!banco) throw new Error(`Plantilla ${p.nombre}: el codi ${codigo} no està al banc`);
       return {
         codigo,
         capitulo: banco.capitulo,
@@ -729,14 +729,14 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
   };
 
   const porEstado = (estado: Estado) => resumen.filter((r) => r.estado === estado);
-  const vivos = resumen.filter((r) => ["enviado", "visto", "en_conversacion"].includes(r.estado));
+  const vivos = resumen.filter((r) => ["enviat", "vist", "en_conversa"].includes(r.estado));
   const suma = (filas: Resumen[]) => filas.reduce((s, r) => s + r.total, 0);
 
   exige("presupuestos", resumen.length, 37);
   exige("borradores", porEstado("borrador").length, 2);
-  exige("ganados", porEstado("ganado").length, 5);
-  exige("perdidos", porEstado("perdido").length, 14);
-  exige("expirados", porEstado("expirado").length, 4);
+  exige("ganados", porEstado("guanyat").length, 5);
+  exige("perdidos", porEstado("perdut").length, 14);
+  exige("expirados", porEstado("expirat").length, 4);
   exige("vivos", vivos.length, 12);
   exige("€ vivos", suma(vivos), 8_740_000);
 
@@ -769,22 +769,22 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
       return true;
     })
     .map(({ r }) => r);
-  exige("sin respuesta > 7 días", sinRespuesta.length, 4);
-  exige("€ sin respuesta", suma(sinRespuesta), 3_120_000);
+  exige("sense resposta > 7 dies", sinRespuesta.length, 4);
+  exige("€ sense resposta", suma(sinRespuesta), 3_120_000);
 
   const hace30 = REF.getTime() - 30 * UN_DIA;
-  const ganados30 = porEstado("ganado").filter((r) => r.cerradoEn && r.cerradoEn.getTime() >= hace30);
-  exige("ganados en 30 días", ganados30.length, 3);
-  exige("€ ganados en 30 días", suma(ganados30), 2_890_000);
+  const ganados30 = porEstado("guanyat").filter((r) => r.cerradoEn && r.cerradoEn.getTime() >= hace30);
+  exige("guanyats en 30 dies", ganados30.length, 3);
+  exige("€ guanyats en 30 dies", suma(ganados30), 2_890_000);
 
   // Tasa de firma antes y después del alta.
-  const cerrados = resumen.filter((r) => ["ganado", "perdido", "expirado"].includes(r.estado));
+  const cerrados = resumen.filter((r) => ["guanyat", "perdut", "expirat"].includes(r.estado));
   const antes = cerrados.filter((r) => r.cerradoEn! < fechaAlta);
   const despues = cerrados.filter((r) => r.cerradoEn! >= fechaAlta);
-  exige("cerrados antes del alta", antes.length, 6);
-  exige("ganados antes del alta", antes.filter((r) => r.estado === "ganado").length, 1);
-  exige("cerrados tras el alta", despues.length, 17);
-  exige("ganados tras el alta", despues.filter((r) => r.estado === "ganado").length, 4);
+  exige("tancats antes del alta", antes.length, 6);
+  exige("guanyats antes del alta", antes.filter((r) => r.estado === "guanyat").length, 1);
+  exige("tancats tras el alta", despues.length, 17);
+  exige("guanyats tras el alta", despues.filter((r) => r.estado === "guanyat").length, 4);
 
   // Tiempo medio de la visita al envío, antes y después del alta.
   const enviados = resumen.filter((r) => r.enviadoEn);
@@ -792,10 +792,10 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
   const antesEnv = enviados.filter((r) => r.enviadoEn! < fechaAlta);
   const despuesEnv = enviados.filter((r) => r.enviadoEn! >= fechaAlta);
   const media = (filas: Resumen[]) => filas.reduce((s, r) => s + dias(r), 0) / filas.length;
-  exige("enviados antes del alta", antesEnv.length, 6);
-  exige("días visita→envío antes", Math.round(media(antesEnv)), 14);
-  exige("enviados tras el alta", despuesEnv.length, 29);
-  exige("días visita→envío después", Math.round(media(despuesEnv)), 1);
+  exige("enviats abans del alta", antesEnv.length, 6);
+  exige("dies visita→enviament abans", Math.round(media(antesEnv)), 14);
+  exige("enviats després del alta", despuesEnv.length, 29);
+  exige("dies visita→enviament després", Math.round(media(despuesEnv)), 1);
 
   // Lo que HOY tiene que enseñar.
   const inicioHoy = inicioDelDia(REF).getTime();
@@ -806,18 +806,18 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
       .where(sql`${eventoLectura.seccion} is null and ${eventoLectura.ts} >= ${inicioHoy}`)
       .get()
   )?.n;
-  exige("aperturas de hoy", Number(aperturasHoy ?? 0), 2);
+  exige("obertures d'avui", Number(aperturasHoy ?? 0), 2);
 
   const salenHoy = (
     await db
       .select({ n: sql<number>`count(*)` })
       .from(tareaProgramada)
       .where(
-        sql`${tareaProgramada.estado} = 'pendiente' and ${tareaProgramada.ejecutarEn} >= ${inicioHoy} and ${tareaProgramada.ejecutarEn} < ${inicioHoy + UN_DIA}`,
+        sql`${tareaProgramada.estado} = 'pendent' and ${tareaProgramada.ejecutarEn} >= ${inicioHoy} and ${tareaProgramada.ejecutarEn} < ${inicioHoy + UN_DIA}`,
       )
       .get()
   )?.n;
-  exige("seguimientos que salen hoy", Number(salenHoy ?? 0), 1);
+  exige("seguiments que surten avui", Number(salenHoy ?? 0), 1);
 
   const validez = await Promise.all(
     vivos.map(async (r) => ({
@@ -830,10 +830,10 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
     const d = Math.floor((v.getTime() - REF.getTime()) / UN_DIA);
     return d >= 0 && d <= 3;
   });
-  exige("caducan en 3 días o menos", caducanPronto.length, 2);
+  exige("caduquen en 3 dies o menys", caducanPronto.length, 2);
 
   const ultimasLecturas = await Promise.all(
-    porEstado("expirado").map(async (r) => {
+    porEstado("expirat").map(async (r) => {
       const fila = await db
         .select({ ts: sql<number>`max(${eventoLectura.ts})` })
         .from(eventoLectura)
@@ -843,7 +843,7 @@ async function comprobar(REF: Date, fechaAlta: Date, resumen: Resumen[]) {
     }),
   );
   const reabiertos = ultimasLecturas.filter((ts) => !!ts && ts > REF.getTime() - 7 * UN_DIA);
-  exige("expirados reabiertos", reabiertos.length, 1);
+  exige("expirats reoberts", reabiertos.length, 1);
 
   return { fallos, resumen };
 }

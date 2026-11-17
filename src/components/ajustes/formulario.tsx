@@ -19,9 +19,9 @@ export type ValoresAjustes = {
   ivaPct: number;
   caducidadDias: number;
   condiciones: string;
-  seguimiento1: string;
-  seguimiento2: string;
-  seguimiento3: string;
+  seguiment1: string;
+  seguiment2: string;
+  seguiment3: string;
 };
 
 export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
@@ -44,19 +44,19 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
   return (
     <form action={accion} className="flex flex-col gap-5">
       <Bloque
-        titulo="Mi Empresa"
-        texto="Estos datos salen en la cabecera de cada presupuesto y en la página que ve el cliente."
+        titulo="Empresa"
+        texto="Aquestes dades surten en la capçalera de cada pressupost i a la pàgina que veu el client."
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <Campo id="nombre" etiqueta="Nombre" defaultValue={iniciales.nombre} required />
+          <Campo id="nombre" etiqueta="Nom" defaultValue={iniciales.nombre} required />
           <Campo id="cif" etiqueta="CIF" defaultValue={iniciales.cif} />
           <Campo
             id="direccion"
-            etiqueta="Dirección"
+            etiqueta="Adreça"
             defaultValue={iniciales.direccion}
             className="sm:col-span-2"
           />
-          <Campo id="telefono" etiqueta="Teléfono" defaultValue={iniciales.telefono} />
+          <Campo id="telefono" etiqueta="Telefon" defaultValue={iniciales.telefono} />
           <Campo id="email" etiqueta="Email" type="email" defaultValue={iniciales.email} />
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="colorMarca">Color de Marca</Label>
@@ -69,7 +69,7 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
                 className="h-9 w-14 p-1"
               />
               <span className="text-xs text-muted-foreground">
-                El color de marca que se muestra en la barra y en el documento.
+                El color de marca que es mostra a la barra i en el document.
               </span>
             </div>
           </div>
@@ -77,8 +77,8 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
       </Bloque>
 
       <Bloque
-        titulo="El Presupuesto"
-        texto="El IVA y la caducidad que se aplican por defecto a cada presupuesto nuevo."
+        titulo="El Pressupost"
+        texto="L'IVA i la caducitat que s'apliquen per defecte a cada pressupost nou."
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <Campo
@@ -91,8 +91,8 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
             defaultValue={String(iniciales.ivaPct)}
           />
           <Campo
-            id="caducidadDias"
-            etiqueta="Caducidad por Defecto (días)"
+            id="caducitatDias"
+            etiqueta="Caducitat per Defecte (días)"
             type="number"
             step="1"
             min="1"
@@ -100,8 +100,8 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
             defaultValue={String(iniciales.caducidadDias)}
           />
           <CampoLargo
-            id="condiciones"
-            etiqueta="Condiciones"
+            id="condicions"
+            etiqueta="Condicions"
             filas={9}
             defaultValue={iniciales.condiciones}
             ayuda="Una condición por línea. Salen al pie del presupuesto y en la página del cliente."
@@ -111,39 +111,39 @@ export function FormularioAjustes({ valores }: { valores: ValoresAjustes }) {
       </Bloque>
 
       <Bloque
-        titulo="Los Seguimientos"
-        texto="El texto base de los tres toques. La máquina los personaliza con el cliente, la obra, el importe y los días que quedan de validez."
+        titulo="Seguiments"
+        texto="El text base dels tres tocs. PressuYa els personalitza amb el client, la tasca, l'import i els díes que queden de validesa."
       >
         <div className="grid gap-4">
           <CampoLargo
-            id="seguimiento1"
-            etiqueta="Seguimiento 1 · a los 3 Días"
+            id="seguiment1"
+            etiqueta="Seguiment 1 · al cap de 3 Dies"
             filas={4}
-            defaultValue={iniciales.seguimiento1}
-            ayuda="Puedes usar {cliente}, {obra}, {total} y {dias}."
+            defaultValue={iniciales.seguiment1}
+            ayuda="Pots utilitzar {cliente}, {obra}, {total} y {dias}."
           />
           <CampoLargo
-            id="seguimiento2"
-            etiqueta="Seguimiento 2 · a los 7 Días"
+            id="seguiment2"
+            etiqueta="Seguiment 2 · al cap de 7 Dies"
             filas={4}
-            defaultValue={iniciales.seguimiento2}
+            defaultValue={iniciales.seguiment2}
           />
           <CampoLargo
-            id="seguimiento3"
-            etiqueta="Seguimiento 3 · a los 14 Días, con la Caducidad"
+            id="seguiment3"
+            etiqueta="Seguiment 3 · al cap de 14 Dies, amb la Caducitat"
             filas={4}
-            defaultValue={iniciales.seguimiento3}
+            defaultValue={iniciales.seguiment3}
           />
         </div>
       </Bloque>
 
       <div className="flex items-center gap-3">
         <Button type="submit" disabled={pendiente}>
-          {pendiente ? "Guardando…" : "Guardar Ajustes"}
+          {pendiente ? "Guardant…" : "Guardar Ajustos"}
         </Button>
         <span className="text-xs text-muted-foreground">
-          Los cambios se aplican a los presupuestos nuevos; los ya enviados conservan lo que vio el
-          cliente.
+          Els canvis s'apliquen als pressupostos nous; els ja enviats conserven el que va indicar el
+          client.
         </span>
       </div>
     </form>

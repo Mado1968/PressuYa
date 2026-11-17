@@ -13,15 +13,15 @@ import {
 } from "./formato";
 
 export type IconoFrase =
-  | "creado"
-  | "enviado"
-  | "abierto"
-  | "respuesta"
-  | "seguimiento"
-  | "cancelado"
-  | "estado"
-  | "firmado"
-  | "aviso"
+  | "creat"
+  | "enviat"
+  | "obert"
+  | "resposta"
+  | "seguiment"
+  | "cancelat"
+  | "estat"
+  | "firmat"
+  | "avis"
   | "pdf";
 
 export type Frase = {
@@ -31,26 +31,26 @@ export type Frase = {
   /** El detalle en gris debajo, si lo hay. */
   detalle?: string;
   /** Tono del icono, para que Ganado y Perdido salten a la vista. */
-  tono?: "normal" | "bueno" | "malo" | "aviso";
+  tono?: "normal" | "bo" | "dolent" | "avis";
 };
 
 const ETIQUETA_ESTADO: Record<Estado, string> = {
   borrador: "Borrador",
-  enviado: "Enviado",
-  visto: "Visto",
-  en_conversacion: "En conversación",
-  ganado: "Ganado",
-  perdido: "Perdido",
-  expirado: "Expirado",
+  enviat: "enviat",
+  vist: "Vist",
+  en_conversa: "En conversa",
+  guanyat: "Guanyat",
+  perdut: "Perdut",
+  expirat: "Expirat",
 };
 
 const ETIQUETA_SECCION: Record<Seccion, string> = {
-  cabecera: "la cabecera",
-  capitulos: "las partidas",
-  opcionales: "los opcionales",
+  capçalera: " capçalera",
+  capítols: "les partidas",
+  opcionals: "les opcions",
   total: "el total",
-  condiciones: "las condiciones",
-  firma: "la firma",
+  condicions: "les condicions",
+  signatura: "la firma",
 };
 
 type Meta = Record<string, unknown>;
@@ -67,39 +67,39 @@ export function fraseDeEvento(tipo: string, metaJson: string): Frase {
     meta = {};
   }
 
-  switch (tipo as TipoEvento) {
-    case "creado":
-      return { icono: "creado", texto: "Presupuesto creado a partir de la visita" };
+  switch (tipo as TipoEvento | "obert") {
+    case "creat":
+      return { icono: "creat", texto: "Pressupost creat a partir de la visita" };
 
-    case "enviado": {
+    case "enviat": {
       const total = numero(meta, "total");
       const valido = meta.validoHasta ? formatoFecha(new Date(meta.validoHasta as string | number)) : null;
       return {
-        icono: "enviado",
-        texto: `Enviado al cliente${total ? ` · ${formatoEurosCorto(total)}` : ""}`,
-        detalle: valido ? `válido hasta el ${valido}` : undefined,
+        icono: "enviat",
+        texto: `Enviat al client${total ? ` · ${formatoEurosCorto(total)}` : ""}`,
+        detalle: valido ? `vàlid fins al ${valido}` : undefined,
       };
     }
 
-    case "abierto": {
+    case "obert": {
       const visitaN = numero(meta, "visitaN") ?? 1;
-      const ciudad = formatoUbicacion(texto(meta, "ciudad"), texto(meta, "pais"));
-      const dispositivo = formatoDispositivo(texto(meta, "dispositivo"));
-      const segundos = numero(meta, "segundos");
+      const ciudad = formatoUbicacion(texto(meta, "ciutat"), texto(meta, "pais"));
+      const dispositivo = formatoDispositivo(texto(meta, "dispositiu"));
+      const segundos = numero(meta, "segons");
       const secciones = Array.isArray(meta.secciones) ? (meta.secciones as [Seccion, number][]) : [];
       const detalle = secciones.length
         ? secciones
             .map(([s, d]) => `${ETIQUETA_SECCION[s] ?? s}: ${formatoDuracion(d)}`)
             .join(" · ")
         : segundos
-          ? `${formatoDuracion(segundos)} en la página`
+          ? `${formatoDuracion(segundos)} a la pàgina`
           : undefined;
       return {
-        icono: "abierto",
-        tono: meta.expirado ? "aviso" : "normal",
+        icono: "obert",
+        tono: meta.expirado ? "avis" : "normal",
         texto: meta.expirado
-          ? `El cliente ha vuelto a abrir el presupuesto caducado · ${formatoVisita(visitaN)} · ${dispositivo} · ${ciudad}`
-          : `El cliente ha abierto el presupuesto · ${formatoVisita(visitaN)} · ${dispositivo} · ${ciudad}`,
+          ? `El client ha tornata obrir el pressupost caducat · ${formatoVisita(visitaN)} · ${dispositivo} · ${ciudad}`
+          : `El client ha obert el pressupost · ${formatoVisita(visitaN)} · ${dispositivo} · ${ciudad}`,
         detalle,
       };
     }
@@ -108,73 +108,73 @@ export function fraseDeEvento(tipo: string, metaJson: string): Frase {
       const seccion = texto(meta, "seccion") as Seccion | null;
       const duracion = numero(meta, "duracionS");
       return {
-        icono: "abierto",
-        texto: `Ha leído ${seccion ? ETIQUETA_SECCION[seccion] ?? seccion : "una sección"}`,
+        icono: "obert",
+        texto: `Ha llegit ${seccion ? ETIQUETA_SECCION[seccion] ?? seccion : "una secció."}`,
         detalle: duracion ? formatoDuracion(duracion) : undefined,
       };
     }
 
-    case "respuesta_cliente":
+    case "resposta_cliente":
       return {
-        icono: "respuesta",
-        tono: "aviso",
-        texto: "El cliente ha escrito",
-        detalle: texto(meta, "texto") ?? undefined,
+        icono: "resposta",
+        tono: "avis",
+        texto: "El client ha escrit",
+        detalle: texto(meta, "text") ?? undefined,
       };
 
-    case "seguimiento_enviado": {
+    case "seguimient_enviat": {
       const n = numero(meta, "numero") ?? 1;
       return {
-        icono: "seguimiento",
-        texto: n === 3 ? "Seguimiento 3 enviado (aviso de caducidad)" : `Seguimiento ${n} enviado`,
-        detalle: texto(meta, "texto") ?? undefined,
+        icono: "seguiment",
+        texto: n === 3 ? "Seguiment 3 enviado (avis de caducitat)" : `Seguiment ${n} enviat`,
+        detalle: texto(meta, "text") ?? undefined,
       };
     }
 
-    case "seguimiento_cancelado":
+    case "seguimient_cancelat":
       return {
-        icono: "cancelado",
-        texto: "Seguimientos pausados",
-        detalle: texto(meta, "porque") ?? undefined,
+        icono: "cancelat",
+        texto: "Seguiments pausats",
+        detalle: texto(meta, "perque") ?? undefined,
       };
 
     case "cambio_estado": {
       const a = texto(meta, "a") as Estado | null;
       const etiqueta = a ? (ETIQUETA_ESTADO[a] ?? a) : "otro estado";
       return {
-        icono: "estado",
-        tono: a === "ganado" ? "bueno" : a === "perdido" || a === "expirado" ? "malo" : "normal",
+        icono: "estat",
+        tono: a === "guanyat" ? "bo" : a === "perdut" || a === "expirat" ? "dolent" : "normal",
         texto: `Pasa a ${etiqueta}`,
-        detalle: texto(meta, "porque") ?? undefined,
+        detalle: texto(meta, "perque") ?? undefined,
       };
     }
 
-    case "firmado": {
+    case "signat": {
       const total = numero(meta, "total");
       return {
-        icono: "firmado",
-        tono: "bueno",
-        texto: `El cliente ha firmado${total ? ` · ${formatoEurosCorto(total)}` : ""}`,
-        detalle: [texto(meta, "dispositivo") ? formatoDispositivo(texto(meta, "dispositivo")) : null, texto(meta, "ip")]
+        icono: "firmat",
+        tono: "bo",
+        texto: `El client ha signat${total ? ` · ${formatoEurosCorto(total)}` : ""}`,
+        detalle: [texto(meta, "dispositiu") ? formatoDispositivo(texto(meta, "dispositiu")) : null, texto(meta, "ip")]
           .filter(Boolean)
           .join(" · "),
       };
     }
 
-    case "aviso_enviado":
-      return { icono: "aviso", texto: texto(meta, "texto") ?? "Aviso enviado" };
+    case "avis_enviat":
+      return { icono: "avis", texto: texto(meta, "text") ?? "Avis enviat" };
 
-    case "opcional_marcado":
+    case "opcional_mercat":
       return {
-        icono: "abierto",
-        texto: `El cliente ha ${meta.elegida ? "marcado" : "quitado"} un opcional`,
-        detalle: texto(meta, "descripcion") ?? undefined,
+        icono: "obert",
+        texto: `El client ha ${meta.elegida ? "marcat" : "tret"} un opcional`,
+        detalle: texto(meta, "descripcio") ?? undefined,
       };
 
-    case "pdf_descargado":
-      return { icono: "pdf", texto: "El cliente se ha descargado el PDF" };
+    case "pdf_descarregat":
+      return { icono: "pdf", texto: "El client s'ha descaregat el PDF" };
 
     default:
-      return { icono: "creado", texto: tipo.replaceAll("_", " ") };
+      return { icono: "creat", texto: tipo.replaceAll("_", " ") };
   }
 }

@@ -21,7 +21,7 @@ import { URGENCIAS, type ConceptoCrudo, type Origen, type Unidad, type Urgencia 
 /** Por debajo de esta confianza, la línea sale amarilla para que Francesc la mire. */
 const CONFIANZA_MINIMA = 0.6;
 
-const CAPITULO_SIN_BANCO = "Sin clasificar";
+const CAPITULO_SIN_BANCO = "Sense classificar";
 
 /* --------------------------------------------------------------- guardar */
 
@@ -50,12 +50,12 @@ export async function guardarSolicitud(nueva: NuevaSolicitud): Promise<number> {
       telefono: nueva.telefono?.trim() || null,
       email: nueva.email?.trim() || null,
       direccion: nueva.direccion.trim(),
-      titulo: nueva.titulo.trim() || "Visita sin título",
+      titulo: nueva.titulo.trim() || "Visita sense titol",
       urgencia,
       textoOriginal: nueva.textoOriginal.trim(),
       conceptos: JSON.stringify(nueva.conceptos),
       origen: nueva.origen,
-      estado: "pendiente",
+      estado: "pendent",
       creadoEn: ahora(),
     })
     .returning({ id: solicitud.id })
@@ -136,7 +136,7 @@ async function lineasDeUnaVisita(conceptos: ConceptoCrudo[]): Promise<EntradaLin
           lineaAmarilla(
             concepto,
             casacion.codigo
-              ? `La máquina propuso ${casacion.codigo}, que no está en el banco: ponle precio o cámbiala.`
+              ? `PressuYa proposa ${casacion.codigo}, que no està al banc: posa-li preu o camviala.`
               : casacion.motivo,
             casacion.confianza,
           ),
@@ -148,7 +148,7 @@ async function lineasDeUnaVisita(conceptos: ConceptoCrudo[]): Promise<EntradaLin
         entradas.push(
           lineaAmarilla(
             concepto,
-            `Podría ser «${delBanco.nombre}» (${delBanco.codigo}), pero no está claro: ${casacion.motivo}`,
+            `Pot ser «${delBanco.nombre}» (${delBanco.codigo}), pero no està clar: ${casacion.motivo}`,
             casacion.confianza,
           ),
         );
@@ -171,12 +171,12 @@ async function lineasDeUnaVisita(conceptos: ConceptoCrudo[]): Promise<EntradaLin
   } catch (e) {
     // Sin IA (o con la IA caída) el presupuesto se crea igual: todo en amarillo
     // y sin precio, que es exactamente lo que manda la regla de la casa.
-    console.error("No se han podido casar las partidas:", e);
+    console.error("No s'han pogut casar les partides:", e);
     for (const concepto of conceptos) {
       entradas.push(
         lineaAmarilla(
           concepto,
-          "La máquina no ha podido casar esta línea con el banco: ponle el precio a mano.",
+          "PressuYa no ha pogut casar aquesta línia amb el banc: posa-li el preu a mà.",
           null,
         ),
       );
@@ -196,7 +196,7 @@ async function lineasSinVisita(textoOriginal: string, conceptos: ConceptoCrudo[]
     try {
       deLaWeb = (await extraerVisita(textoOriginal)).conceptos;
     } catch (e) {
-      console.error("No se ha podido entender la solicitud de la web:", e);
+      console.error("No s'ha pogut entendre la solicitud de la web:", e);
     }
   }
   if (deLaWeb.length === 0) return [];
@@ -208,7 +208,7 @@ async function lineasSinVisita(textoOriginal: string, conceptos: ConceptoCrudo[]
       if (delBanco) sugerencias.set(c.indice, delBanco);
     }
   } catch (e) {
-    console.error("No se han podido sugerir partidas para la solicitud de la web:", e);
+    console.error("No s'han pogut suggerir partides per a la solicitud de la web:", e);
   }
 
   return deLaWeb.map((concepto, i) => {
@@ -216,8 +216,8 @@ async function lineasSinVisita(textoOriginal: string, conceptos: ConceptoCrudo[]
     return lineaAmarilla(
       concepto,
       sugerida
-        ? `Sin visita no hay medición ni precio. Podría ser «${sugerida.nombre}» (${sugerida.codigo}): confírmalo al ver la obra.`
-        : "Sin visita no hay medición ni precio: mídelo en la obra y ponle precio.",
+        ? `Sense visita no hi ha valoració ni preu. Podría ser «${sugerida.nombre}» (${sugerida.codigo}): confirma a la visita.`
+        : "Sense visita no hi ha valoració ni preu: valora-ho a la visita i posa-li preu.",
       null,
       sugerida?.capitulo ?? CAPITULO_SIN_BANCO,
     );
@@ -237,26 +237,26 @@ export type ResultadoConversion =
  */
 export async function convertirEnPresupuesto(solicitudId: number): Promise<ResultadoConversion> {
   const fila = await db.select().from(solicitud).where(eq(solicitud.id, solicitudId)).get();
-  if (!fila) return { ok: false, mensaje: "Esa solicitud ya no existe." };
+  if (!fila) return { ok: false, mensaje: "Aquesta solicitud ja no existeix." };
 
   let conceptos: ConceptoCrudo[] = [];
   try {
     conceptos = JSON.parse(fila.conceptos) as ConceptoCrudo[];
   } catch {
-    return { ok: false, mensaje: "Los conceptos de esta solicitud están corruptos." };
+    return { ok: false, mensaje: "Els conceptes d'aquesta solicitud estan corruptes." };
   }
   const sinVisita = fila.origen === "cliente";
   if (conceptos.length === 0 && !sinVisita) {
-    return { ok: false, mensaje: "Esta solicitud no tiene conceptos que convertir." };
+    return { ok: false, mensaje: "Aquesta solicitud no té conceptes que convertir." };
   }
 
   const reclamada = await db
     .update(solicitud)
     .set({ estado: "convertida" })
-    .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "pendiente")))
+    .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "pendent")))
     .run();
   if (reclamada.rowsAffected !== 1) {
-    return { ok: false, mensaje: "Esa solicitud ya estaba convertida o descartada." };
+    return { ok: false, mensaje: "Aquesta solicitud ja estava convertida o descartada." };
   }
 
   try {
@@ -295,7 +295,7 @@ export async function convertirEnPresupuesto(solicitudId: number): Promise<Resul
     // Si algo falla a medias, la solicitud vuelve a la bandeja para reintentar.
     await db
       .update(solicitud)
-      .set({ estado: "pendiente" })
+      .set({ estado: "pendent" })
       .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "convertida")))
       .run();
     throw e;
@@ -308,7 +308,7 @@ export async function descartar(solicitudId: number): Promise<void> {
   await db
     .update(solicitud)
     .set({ estado: "descartada" })
-    .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "pendiente")))
+    .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "pendent")))
     .run();
 }
 
@@ -316,7 +316,7 @@ export async function descartar(solicitudId: number): Promise<void> {
 export async function recuperar(solicitudId: number): Promise<void> {
   await db
     .update(solicitud)
-    .set({ estado: "pendiente" })
+    .set({ estado: "pendent" })
     .where(and(eq(solicitud.id, solicitudId), eq(solicitud.estado, "descartada")))
     .run();
 }

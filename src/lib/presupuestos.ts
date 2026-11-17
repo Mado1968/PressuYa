@@ -66,7 +66,7 @@ export async function recalcular(presupuestoId: number): Promise<Importes> {
       .where(eq(linea.presupuestoId, presupuestoId))
       .all(),
   ]);
-  if (!cabecera) throw new Error(`No existe el presupuesto ${presupuestoId}`);
+  if (!cabecera) throw new Error(`No existeix el pressupost ${presupuestoId}`);
 
   // El total de cada línea también es derivado: se refresca aquí.
   await Promise.all(
@@ -201,7 +201,7 @@ export async function crearPresupuesto(entrada: NuevoPresupuesto): Promise<numbe
         })
         .returning({ id: presupuesto.id })
         .get();
-      await registrarEvento(fila.id, "creado", { titulo: entrada.titulo }, ts);
+      await registrarEvento(fila.id, "creat", { titulo: entrada.titulo }, ts);
       return fila.id;
     } catch (e) {
       if (intento < 4 && chocaElNumero(e)) continue;
@@ -313,7 +313,7 @@ export async function partidaPorCodigo(codigo: string): Promise<Partida | null> 
  */
 export async function lineasDePlantilla(plantillaId: number): Promise<EntradaLinea[]> {
   const fila = await db.select().from(plantilla).where(eq(plantilla.id, plantillaId)).get();
-  if (!fila) throw new Error(`No existe la plantilla ${plantillaId}`);
+  if (!fila) throw new Error(`No existeix la plantilla ${plantillaId}`);
   const lineas = JSON.parse(fila.lineas) as LineaPlantilla[];
 
   return Promise.all(
@@ -329,7 +329,7 @@ export async function lineasDePlantilla(plantillaId: number): Promise<EntradaLin
         amarilla: true,
         orden: i,
         motivoIa: l.codigo
-          ? `La partida ${l.codigo} ya no está activa en el banco: ponle precio o cámbiala`
+          ? `La partida ${l.codigo} ja no està activa al banc: posa-li preu o cambiala`
           : null,
       };
     }),

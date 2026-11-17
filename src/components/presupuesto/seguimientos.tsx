@@ -12,15 +12,15 @@ import { ahora, cargarReloj } from "@/lib/reloj";
 import type { Estado, TipoTarea } from "@/lib/tipos";
 
 const NOMBRE: Record<TipoTarea, string> = {
-  seguimiento_1: "Seguimiento 1 · a los 3 Días",
-  seguimiento_2: "Seguimiento 2 · a los 7 Días",
-  cierre: "Seguimiento 3 · a los 14 Días, con la Caducidad",
+  seguimient_1: "Seguimiento 1 · a los 3 Días",
+  seguimient_2: "Seguimiento 2 · a los 7 Días",
+  tancament: "Seguimiento 3 · a los 14 Días, con la Caducidad",
 };
 
 const ESTADO = {
-  pendiente: { icono: ClockIcon, clase: "bg-enviado-fondo text-enviado", etiqueta: "Programado" },
-  enviada: { icono: CircleCheckIcon, clase: "bg-ganado-fondo text-ganado", etiqueta: "Enviado" },
-  cancelada: { icono: CircleSlashIcon, clase: "bg-secondary text-muted-foreground", etiqueta: "Cancelado" },
+  pendent: { icono: ClockIcon, clase: "bg-enviado-fondo text-enviado", etiqueta: "Programat" },
+  enviada: { icono: CircleCheckIcon, clase: "bg-ganado-fondo text-ganado", etiqueta: "Enviat" },
+  cancelada: { icono: CircleSlashIcon, clase: "bg-secondary text-muted-foreground", etiqueta: "Anul.lat" },
 };
 
 /**
@@ -30,7 +30,7 @@ const ESTADO = {
  */
 async function porQueSeCancelaron(presupuesto: PresupuestoConCliente): Promise<string> {
   for (const e of await eventosDe(presupuesto.id)) {
-    if (e.tipo !== "seguimiento_cancelado") continue;
+    if (e.tipo !== "seguimient_cancelat") continue;
     try {
       const meta = JSON.parse(e.meta) as { porque?: unknown };
       if (typeof meta.porque === "string" && meta.porque) return meta.porque;
@@ -40,18 +40,18 @@ async function porQueSeCancelaron(presupuesto: PresupuestoConCliente): Promise<s
   }
 
   switch (presupuesto.estado as Estado) {
-    case "ganado":
-      return "el cliente aceptó y firmó";
-    case "perdido":
+    case "guanyat":
+      return "el client ha acceptat i signat.";
+    case "perdut":
       return presupuesto.motivoPerdido
-        ? `el presupuesto se marcó como perdido · ${presupuesto.motivoPerdido.toLowerCase()}`
-        : "el presupuesto se marcó como perdido";
-    case "expirado":
-      return "el presupuesto caducó";
-    case "en_conversacion":
-      return "el cliente respondió";
+        ? `el pressupost es va marcar com a perdut · ${presupuesto.motivoPerdido.toLowerCase()}`
+        : "el pressupost es va marcar com a perdut";
+    case "expirat":
+      return "el pressupst ha caducat.";
+    case "en_conversa":
+      return "el client va respondre";
     default:
-      return "la persecución está parada";
+      return "la persecució està parada";
   }
 }
 
@@ -63,13 +63,13 @@ export async function Seguimientos({ presupuestoId }: { presupuestoId: number })
   if (tareas.length === 0) {
     return (
       <p className="px-1 py-6 text-sm text-muted-foreground">
-        Los tres seguimientos se programan al enviar el presupuesto: a los 3, 7 y 14 días. Aquí
-        podrás ver y editar el texto de cada uno antes de que salga.
+        Els tres seguiments es programan al enviar el pressupost: als 3, 7 y 14 dies. Aquí
+        podràs veure i editar el text de cada un abans que surti.
       </p>
     );
   }
 
-  const proxima = tareas.find((t) => t.estado === "pendiente");
+  const proxima = tareas.find((t) => t.estado === "pendent");
   const enviadas = tareas.filter((t) => t.estado === "enviada").length;
   const presupuesto = await presupuestoPorId(presupuestoId);
   const motivo =
@@ -82,7 +82,7 @@ export async function Seguimientos({ presupuestoId }: { presupuestoId: number })
       {proxima ? (
         <div className="rounded-lg border border-enviado/30 bg-enviado-fondo/60 px-3 py-2.5">
           <p className="text-xs font-medium tracking-wide text-enviado uppercase">
-            Próxima Acción Programada
+            Propera Acció Programada
           </p>
           <p className="mt-1 text-sm font-medium">{NOMBRE[proxima.tipo as TipoTarea]}</p>
           <p className="text-xs text-muted-foreground">
@@ -92,23 +92,23 @@ export async function Seguimientos({ presupuestoId }: { presupuestoId: number })
       ) : (
         <div className="rounded-lg border bg-secondary/60 px-3 py-2.5">
           <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-            No Queda Ninguna Acción Programada
+            No Queda cap Acció Programada
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
             {enviadas >= 3
-              ? "Los tres toques ya han salido: la persecución ha terminado."
+              ? "Els tres tocs ja han sortit: la persecució ha finalitzat."
               : motivo
-                ? `Persecución parada: ${motivo}.`
-                : "La persecución está parada."}
+                ? `Persecució parada: ${motivo}.`
+                : "La persecució està parada."}
           </p>
         </div>
       )}
 
       <ol className="space-y-3">
         {tareas.map((tarea) => {
-          const estado = ESTADO[tarea.estado as keyof typeof ESTADO] ?? ESTADO.pendiente;
+          const estado = ESTADO[tarea.estado as keyof typeof ESTADO] ?? ESTADO.pendent;
           const Icono = estado.icono;
-          const pendiente = tarea.estado === "pendiente";
+          const pendiente = tarea.estado === "pendent";
           return (
             <li key={tarea.id} className="rounded-lg border bg-card px-3 py-2.5">
               <div className="flex items-start gap-2">
@@ -127,7 +127,7 @@ export async function Seguimientos({ presupuestoId }: { presupuestoId: number })
                     {pendiente && <> · {formatoRelativo(tarea.ejecutarEn, hoy)}</>}
                   </p>
                   {tarea.estado === "cancelada" && motivo && (
-                    <p className="text-xs text-muted-foreground">No saldrá: {motivo}.</p>
+                    <p className="text-xs text-muted-foreground">No sortirà: {motivo}.</p>
                   )}
                 </div>
               </div>
